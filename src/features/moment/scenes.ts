@@ -84,7 +84,7 @@ export const SCENES: Partial<Record<MomentId, SceneConfig>> = {
         name: { ar: 'البيرو', fr: 'le bureau' },
         backdrop: asset('renders/choufli-office.webp'),
         aspect: 849 / 545,
-        focusU: 0.38,
+        focusU: 0.45,
         characters: [SLIMAN],
         doors: [{ to: 'corridor', u: 0.56, v: 0.5 }],
       },
@@ -93,7 +93,7 @@ export const SCENES: Partial<Record<MomentId, SceneConfig>> = {
         name: { ar: 'الكولوار', fr: 'le couloir' },
         backdrop: asset('renders/choufli-corridor.webp'),
         aspect: 865 / 544,
-        focusU: 0.48,
+        focusU: 0.42,
         characters: [],
         doors: [
           { to: 'kitchen', u: 0.52, v: 0.48 },
@@ -105,7 +105,7 @@ export const SCENES: Partial<Record<MomentId, SceneConfig>> = {
         name: { ar: 'الكوجينة', fr: 'la cuisine' },
         backdrop: asset('renders/choufli-kitchen.webp'),
         aspect: 851 / 531,
-        focusU: 0.55,
+        focusU: 0.45,
         characters: [
           SBOU3I,
           {

@@ -6,6 +6,8 @@ import { useCamera } from './cameraStore';
 import { useSettings } from '../app/settingsStore';
 
 const MAX_YAW = 0.14;
+/** Portrait screens see a thin slice of each render, so they may look further around. */
+const MAX_YAW_NARROW = 0.3;
 const MAX_PITCH = 0.06;
 const ZOOM_RANGE = 10;
 
@@ -45,7 +47,8 @@ export function CameraRig() {
     const move = (e: PointerEvent) => {
       if (!dragging) return;
       const l = look.current;
-      l.yaw = clamp(l.yaw + ((e.clientX - dragging.x) / el.clientWidth) * 0.6, -MAX_YAW, MAX_YAW);
+      const maxYaw = el.clientWidth < el.clientHeight ? MAX_YAW_NARROW : MAX_YAW;
+      l.yaw = clamp(l.yaw + ((e.clientX - dragging.x) / el.clientWidth) * 0.6, -maxYaw, maxYaw);
       l.pitch = clamp(l.pitch - ((e.clientY - dragging.y) / el.clientHeight) * 0.3, -MAX_PITCH, MAX_PITCH);
       dragging = { x: e.clientX, y: e.clientY };
     };

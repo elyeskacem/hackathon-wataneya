@@ -49,7 +49,7 @@ export function ControlsHint() {
             {t('hint.skip')}
           </button>
         )}
-        <button type="button" className={styles.next} onClick={() => (last ? markHintSeen() : setIndex(index + 1))} data-testid="hint-next">
+        <button type="button" className={styles.next} onClick={() => (last ? markHintSeen() : setIndex((i) => Math.min(i + 1, CARDS.length - 1)))} data-testid="hint-next">
           {last ? t('hint.done') : t('hint.next')}
         </button>
       </div>

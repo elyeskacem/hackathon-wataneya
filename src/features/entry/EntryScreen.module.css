@@ -103,6 +103,7 @@
 
 /* The TV turns on: the screen grows into the room, then the overlay fades (600 ms). */
 .leaving {
+  pointer-events: none;
   animation: tvOn var(--dur-fade-in) var(--ease-glide) forwards;
 }
 
