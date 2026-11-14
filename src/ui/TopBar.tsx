@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useApp } from '../app/appStore';
 import { useSettings } from '../app/settingsStore';
+import { changeScene } from '../app/transitions';
 import { audio } from '../audio/AudioManager';
 import { useT } from '../i18n/useT';
 import { IconButton } from './IconButton';
@@ -28,7 +29,7 @@ export function TopBar() {
         {route === 'lobby' ? (
           <Logo />
         ) : (
-          <button type="button" className={`${styles.back} glass`} onClick={() => go({ name: 'lobby' })} data-testid="back-to-lobby">
+          <button type="button" className={`${styles.back} glass`} onClick={() => (route === 'moment' ? void changeScene({ name: 'lobby' }) : go({ name: 'lobby' }))} data-testid="back-to-lobby">
             <HomeIcon />
             {t('top.back')}
           </button>

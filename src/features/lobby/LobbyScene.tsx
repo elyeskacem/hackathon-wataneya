@@ -3,6 +3,7 @@ import { useTexture } from '@react-three/drei';
 import { SRGBColorSpace, type Texture } from 'three';
 import { useApp } from '../../app/appStore';
 import { useSettings } from '../../app/settingsStore';
+import { useLiftCurtain } from '../../app/transitions';
 import { asset } from '../../data/moments';
 import { useT } from '../../i18n/useT';
 import { Backdrop } from '../../stage/Backdrop';
@@ -27,6 +28,7 @@ export function LobbyScene() {
   const route = useApp((s) => s.route.name);
   const channel = useApp((s) => s.channel);
   const staticBurst = useApp((s) => s.staticBurst);
+  const inserting = useApp((s) => s.inserting);
   const go = useApp((s) => s.go);
   const setDrawerOpen = useApp((s) => s.setDrawerOpen);
   const setLobbyReady = useApp((s) => s.setLobbyReady);
@@ -59,15 +61,21 @@ export function LobbyScene() {
       setPose(REST_POSE, 1.6);
       setInteractive(true);
     } else if (route === 'custom') {
-      // Glide to the TV so its body fills about 55 % of the view height (1.4 s, motion spec).
+      // Glide to the TV so its body fills about 55 % of the view height (1.4 s, motion spec);
+      // when the tape goes in, push through the screen.
       const distance = bodyHeight / (0.55 * 2 * Math.tan((25 * Math.PI) / 180));
-      setPose({ position: [tx, ty + bodyHeight * 0.06, tz + distance], target: [tx, ty + bodyHeight * 0.06, tz - 10], fov: 50 }, 1.4);
+      const [sx, sy] = screenCenterOffset(bodyHeight);
+      const pose: CameraPose = inserting
+        ? { position: [tx + sx, ty + sy, tz + distance * 0.18], target: [tx + sx, ty + sy, tz - 10], fov: 50 }
+        : { position: [tx, ty + bodyHeight * 0.06, tz + distance], target: [tx, ty + bodyHeight * 0.06, tz - 10], fov: 50 };
+      setPose(pose, inserting ? 0.9 : 1.4);
       setInteractive(false);
     }
-  }, [route, tx, ty, tz, bodyHeight, setPose, setInteractive]);
+  }, [route, inserting, tx, ty, tz, bodyHeight, setPose, setInteractive]);
 
   // Runs once textures resolved (this component suspends until then).
   useEffect(setLobbyReady, [setLobbyReady]);
+  useLiftCurtain();
 
   const [sx, sy] = screenCenterOffset(bodyHeight);
   const screenPos: Vec3 = [tx + sx, ty + sy, tz + 0.01];

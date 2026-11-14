@@ -1,0 +1,173 @@
+/* Lower-third, anchored near the bottom corner of the TV screen (camera frames the TV at the centre). */
+.lowerThird {
+  position: fixed;
+  top: 58%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 22;
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-md);
+  max-width: calc(100vw - 2 * var(--space-16));
+}
+
+.ch {
+  display: grid;
+  justify-items: center;
+  font: var(--type-caption);
+  line-height: 1.1;
+}
+
+.ch strong {
+  font: 600 16px/1 var(--font-mono);
+}
+
+.titles {
+  display: grid;
+}
+
+.title {
+  font: var(--type-h3);
+}
+
+.meta {
+  font: var(--type-caption);
+  color: var(--icon-inactive);
+}
+
+.soon {
+  color: var(--memory-gold);
+}
+
+.onAir {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  background: var(--memory-gold);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--memory-gold) 30%, transparent);
+}
+
+.remote {
+  position: fixed;
+  bottom: var(--space-24);
+  inset-inline-start: var(--space-32);
+  z-index: 24;
+  display: grid;
+  gap: var(--space-12);
+  width: 188px;
+  padding: var(--space-16);
+  border-radius: var(--radius-lg);
+}
+
+.screen {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-8);
+  border-radius: var(--radius-sm);
+  background: var(--art-ink-900);
+  font: 400 14px/1.4 var(--font-mono);
+}
+
+.chRow {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-12);
+}
+
+.pad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-8);
+}
+
+.key {
+  display: grid;
+  place-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  background: var(--glass-control);
+  font: var(--type-body-strong);
+}
+
+.key:hover {
+  border-color: var(--memory-gold);
+}
+
+.active {
+  background: var(--accent-default);
+  border-color: transparent;
+}
+
+.tapes {
+  min-height: 44px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  background: var(--art-ink-900);
+  font: var(--type-body-small-strong);
+}
+
+.bar {
+  display: none;
+}
+
+.enter {
+  position: fixed;
+  bottom: var(--space-24);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 24;
+  min-width: 240px;
+  min-height: var(--size-touch-min);
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--accent-default);
+  font: var(--type-body-strong);
+  box-shadow: var(--shadow-float-box);
+}
+
+.enter:disabled {
+  background: var(--art-ink-700);
+  color: var(--icon-inactive);
+  cursor: default;
+}
+
+@media (max-width: 640px) {
+  .remote {
+    display: none;
+  }
+
+  .bar {
+    position: fixed;
+    inset-inline: var(--space-16);
+    bottom: calc(var(--space-16) + var(--size-touch-min) + var(--space-12));
+    z-index: 24;
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    padding: var(--space-8);
+    border-radius: var(--radius-full);
+  }
+
+  .barLabel {
+    flex: 1;
+    display: grid;
+    text-align: center;
+    font: var(--type-caption);
+  }
+
+  .enter {
+    inset-inline: var(--space-16);
+    left: var(--space-16);
+    transform: none;
+    bottom: var(--space-16);
+    min-width: 0;
+  }
+
+  .lowerThird {
+    top: 46%;
+  }
+}

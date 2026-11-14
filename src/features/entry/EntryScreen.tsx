@@ -35,7 +35,6 @@ export function EntryScreen({ onDone }: { onDone: () => void }) {
     await audio.unlock();
     setMuted(false);
     audio.setMuted(false);
-    audio.setAmbience('room');
     go({ name: 'lobby' });
     if (reducedMotion) onDone();
   };

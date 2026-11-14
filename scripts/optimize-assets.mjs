@@ -36,16 +36,17 @@ async function cropped(file, crop = {}) {
 // The studio background is too close in tone to the TV body for a colour key, so the silhouette
 // is traced by hand (source pixels, 1280x960) and applied as a feathered mask.
 const TV_SILHOUETTE = [
-  [[355, 218], [845, 244], [845, 615], [835, 680], [815, 692], [732, 720], [732, 765], [695, 772],
-    [600, 740], [395, 688], [392, 665], [410, 638], [362, 625], [348, 610], [348, 228]],
-  [[708, 795], [800, 768], [900, 815], [902, 842], [822, 885], [708, 842]],
+  [[357, 220], [845, 244], [845, 615], [835, 680], [815, 692], [732, 720], [732, 765], [695, 772],
+    [600, 740], [397, 688], [394, 665], [402, 638], [356, 630], [353, 612], [353, 230]],
+  [[714, 805], [800, 780], [896, 818], [898, 842], [822, 880], [714, 842]],
 ];
 
 async function cutout(file) {
   const { width, height } = await sharp(file).metadata();
   const paths = TV_SILHOUETTE.map((poly) => `<polygon points="${poly.map((p) => p.join(',')).join(' ')}"/>`).join('');
   const mask = await sharp(Buffer.from(`<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg"><g fill="#fff">${paths}</g></svg>`))
-    .blur(1.2).extractChannel(0).toBuffer();
+    // Erode ~3 px (blur + high threshold) so no studio floor survives at the edges, then feather.
+    .blur(3).threshold(235).blur(1.2).extractChannel(0).toBuffer();
   const rgb = await sharp(file).removeAlpha().toBuffer();
   return sharp(rgb).joinChannel(mask);
 }

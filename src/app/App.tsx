@@ -6,12 +6,16 @@ import { useDocumentLocale } from '../i18n/useT';
 import { EntryScreen } from '../features/entry/EntryScreen';
 import { Guide } from '../features/guide/Guide';
 import { LobbyUI } from '../features/lobby/LobbyUI';
+import { CustomUI } from '../features/custom/CustomUI';
+import { Curtain } from '../ui/Curtain';
+import { useAmbience } from '../audio/useAmbience';
 import { Stage } from '../stage/Stage';
 import { TopBar } from '../ui/TopBar';
 import styles from './App.module.css';
 
 export function App() {
   useDocumentLocale();
+  useAmbience();
   const route = useApp((s) => s.route.name);
   const effects = useSettings((s) => s.effects);
   const reducedMotion = useSettings((s) => s.reducedMotion);
@@ -25,9 +29,11 @@ export function App() {
         <main className={styles.ui}>
           <TopBar />
           {route === 'lobby' && <LobbyUI />}
+          {route === 'custom' && <CustomUI />}
           <Guide />
         </main>
       )}
+      <Curtain />
       {!entryDone && <EntryScreen onDone={() => setEntryDone(true)} />}
     </div>
   );

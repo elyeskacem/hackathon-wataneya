@@ -19,6 +19,10 @@ interface AppState {
   drawerOpen: boolean;
   /** The lobby scene finished loading its textures (entry can show the enter button). */
   lobbyReady: boolean;
+  /** Full-screen static (or a fade when effects are off) that hides scene changes. */
+  curtain: boolean;
+  /** The tape is going in: the camera pushes into the TV screen. */
+  inserting: boolean;
   go: (route: Route) => void;
   setChannel: (channel: number) => void;
   setStaticBurst: (on: boolean) => void;
@@ -26,6 +30,8 @@ interface AppState {
   setGuideOpen: (open: boolean) => void;
   setDrawerOpen: (open: boolean) => void;
   setLobbyReady: () => void;
+  setCurtain: (on: boolean) => void;
+  setInserting: (on: boolean) => void;
 }
 
 export const useApp = create<AppState>()((set) => ({
@@ -36,11 +42,15 @@ export const useApp = create<AppState>()((set) => ({
   guideOpen: false,
   drawerOpen: false,
   lobbyReady: false,
-  go: (route) => set({ route, archiveOpen: false, drawerOpen: false }),
+  curtain: false,
+  inserting: false,
+  go: (route) => set({ route, archiveOpen: false, drawerOpen: false, inserting: false }),
   setChannel: (channel) => set({ channel: ((channel - 1 + 9) % 9) + 1 }),
   setStaticBurst: (staticBurst) => set({ staticBurst }),
   setArchiveOpen: (archiveOpen) => set({ archiveOpen }),
   setGuideOpen: (guideOpen) => set({ guideOpen }),
   setDrawerOpen: (drawerOpen) => set({ drawerOpen }),
   setLobbyReady: () => set({ lobbyReady: true }),
+  setCurtain: (curtain) => set({ curtain }),
+  setInserting: (inserting) => set({ inserting }),
 }));

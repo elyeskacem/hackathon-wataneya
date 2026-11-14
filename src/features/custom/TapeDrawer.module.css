@@ -1,0 +1,184 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 35;
+  background: var(--scrim-room);
+}
+
+.drawer {
+  position: absolute;
+  top: var(--space-16);
+  bottom: var(--space-16);
+  inset-inline-end: var(--space-16);
+  width: min(520px, calc(100vw - 2 * var(--space-16)));
+  display: grid;
+  grid-template-rows: auto 1fr;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  animation: slide var(--dur-ui) var(--ease-glide) both;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-12);
+  padding: var(--space-16) var(--space-24);
+}
+
+.title {
+  margin: 0;
+  font: var(--type-h2);
+}
+
+.sub {
+  margin: 0;
+  color: var(--icon-inactive);
+}
+
+.close {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--size-touch-min);
+  height: var(--size-touch-min);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  background: var(--glass-control);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-12);
+  margin: 0;
+  padding: 0 var(--space-24) var(--space-24);
+  list-style: none;
+  overflow-y: auto;
+}
+
+/* A VHS cassette: paper label, two reels, foot with "VHS". */
+.tape {
+  display: grid;
+  gap: var(--space-8);
+  width: 100%;
+  padding: var(--space-8);
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  background: var(--art-ink-900);
+  text-align: start;
+}
+
+.tape:hover {
+  border-color: var(--glass-border);
+}
+
+.current {
+  border-color: var(--memory-gold);
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-8);
+  border-radius: 4px;
+  background: var(--memory-paper);
+  color: var(--art-ink-900);
+}
+
+.num {
+  display: grid;
+  place-items: center;
+  min-width: 32px;
+  height: 28px;
+  border: 1px solid var(--art-ink-700);
+  border-radius: 4px;
+  font: 600 13px/1 var(--font-mono);
+}
+
+.names {
+  display: grid;
+  min-width: 0;
+}
+
+.names strong {
+  font: var(--type-body-small-strong);
+}
+
+.names span {
+  font: var(--type-caption);
+  color: var(--ink-500);
+}
+
+.reels {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  height: 28px;
+}
+
+.reels > span:not(.window) {
+  width: 22px;
+  height: 22px;
+  border: 3px solid var(--icon-inactive);
+  border-radius: var(--radius-full);
+}
+
+.window {
+  width: 48px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--ink-500);
+}
+
+.foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font: var(--type-caption);
+  border-top: 2px solid var(--memory-gold);
+  padding-top: var(--space-4);
+}
+
+.onTv {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.onTv::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--accent-default);
+}
+
+.vhs {
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 640px) {
+  .drawer {
+    top: auto;
+    bottom: 0;
+    inset-inline: 0;
+    width: 100%;
+    max-height: 80vh;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@keyframes slide {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}

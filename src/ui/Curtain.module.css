@@ -1,0 +1,21 @@
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  background: var(--tv-screen);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-ui) ease;
+}
+
+.on {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.static {
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  opacity: 0.55;
+}
