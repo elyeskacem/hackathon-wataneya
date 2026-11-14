@@ -1,17 +1,19 @@
 import { config } from '../../config';
 import { pickLocalized } from '../../i18n/useT';
-import { chipsFor, entries, entryById, normalize } from './knowledge';
-import type { GuideAdapter, GuideAnswer, GuideQuestion, KnowledgeEntry } from './types';
+import { chipsFor, entryById } from './knowledge';
+import { matchIntent } from './match';
+import type { GuideAdapter, GuideAnswer, GuideQuestion } from './types';
 
 /** Answers only from data/guide-knowledge.json; unverified entries are never shown. */
 export const localAdapter: GuideAdapter = {
   async ask(question) {
-    const entry = question.entryId ? entryById(question.entryId) : match(question.text);
+    const entry = question.entryId ? entryById(question.entryId) : matchIntent(question.text, question.context)?.entry;
     if (!entry || entry.status !== 'verified') return dontKnow(question);
     const { locale } = question;
     return {
       kind: 'answer',
       text: pickLocalized(entry.a, locale),
+      speaker: entry.speaker ? pickLocalized(entry.speaker, locale) : null,
       more: entry.more && pickLocalized(entry.more, locale),
       source: entry.source ? pickLocalized(entry.source, locale) : null,
       year: entry.year,
@@ -20,17 +22,6 @@ export const localAdapter: GuideAdapter = {
     };
   },
 };
-
-function match(text: string): KnowledgeEntry | undefined {
-  const q = normalize(text);
-  if (!q) return undefined;
-  let best: { entry: KnowledgeEntry; score: number } | undefined;
-  for (const entry of entries) {
-    const score = entry.keywords.reduce((s, k) => (q.includes(normalize(k)) ? s + normalize(k).length : s), 0);
-    if (score > 0 && (!best || score > best.score)) best = { entry, score };
-  }
-  return best?.entry;
-}
 
 function dontKnow(question: GuideQuestion): GuideAnswer {
   return { kind: 'dont-know', suggestions: chipsFor(question.context).filter((e) => e.status === 'verified').slice(0, 2).map((e) => e.id) };

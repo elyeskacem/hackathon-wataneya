@@ -1,0 +1,293 @@
+/* Talk controls: one card above the chips that follows the state, then the chip row, then the mic. */
+.talk {
+  display: grid;
+  gap: var(--space-12);
+  padding: var(--space-12) var(--space-16) var(--space-16);
+  border-top: 1px solid var(--glass-border);
+}
+
+.stage {
+  display: grid;
+  gap: var(--space-8);
+  justify-items: stretch;
+  /* Keeps the panel from jumping when the card changes between its states. */
+  min-height: 24px;
+}
+
+/* ---- Listening: red-tinted glass pill + live transcript ---- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-self: center;
+  gap: var(--space-8);
+  margin: 0;
+  padding: var(--space-4) var(--space-16);
+  border: 1px solid color-mix(in srgb, var(--red-500) 55%, transparent);
+  border-radius: var(--radius-full);
+  font: var(--type-body-small-strong);
+}
+
+.listeningPill {
+  background: color-mix(in srgb, var(--red-500) 22%, var(--glass-control));
+  box-shadow: var(--glass-effect);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--red-500);
+}
+
+.transcript {
+  margin: 0;
+  min-height: 1.5em;
+  text-align: center;
+  font: var(--type-body-small);
+  color: color-mix(in srgb, var(--text-primary) 70%, transparent);
+  overflow-wrap: anywhere;
+}
+
+/* ---- Not heard: glass card with a red corner accent at the top-start corner ---- */
+.card {
+  position: relative;
+  padding: var(--space-16) var(--space-24);
+  border-radius: var(--radius-md);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset-block-start: -1px;
+  inset-inline-start: -1px;
+  width: 28px;
+  height: 28px;
+  border-block-start: 3px solid var(--red-500);
+  border-inline-start: 3px solid var(--red-500);
+  border-start-start-radius: var(--radius-md);
+  pointer-events: none;
+}
+
+.cardTitle {
+  margin: 0;
+  font: var(--type-body-strong);
+}
+
+.cardBody {
+  margin: var(--space-4) 0 0;
+  font: var(--type-body-small);
+  color: var(--icon-inactive);
+}
+
+/* ---- Answering: speaker in red-400, the answer in white ---- */
+.bubble {
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-md);
+}
+
+.speaker {
+  margin: 0;
+  font: var(--type-body-small-strong);
+  color: var(--red-400);
+}
+
+.answer {
+  margin: var(--space-4) 0 0;
+  font: var(--type-body-small);
+  color: var(--text-primary);
+}
+
+.source {
+  display: inline-block;
+  margin-top: var(--space-8);
+  padding: 2px var(--space-8);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  font: var(--type-caption);
+  color: var(--icon-inactive);
+}
+
+.thinking {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-12);
+  font: var(--type-body-small);
+  color: var(--icon-inactive);
+}
+
+.thinkingStatic {
+  width: 48px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  image-rendering: pixelated;
+}
+
+.note {
+  margin: 0;
+  text-align: center;
+  font: var(--type-body-small);
+  color: var(--icon-inactive);
+}
+
+/* ---- Chips: one row that scrolls, never clips; soft fades at both edges ---- */
+.chips {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--space-8);
+  /* The side padding keeps the first and last chip clear of the fade when the row is at rest. */
+  padding: 2px var(--space-16);
+  margin-inline: calc(-1 * var(--space-16));
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: var(--space-16);
+  scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--space-16), #000 calc(100% - var(--space-16)), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 var(--space-16), #000 calc(100% - var(--space-16)), transparent 100%);
+}
+
+.chips::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  flex: none;
+  scroll-snap-align: start;
+  min-height: 40px;
+  padding: var(--space-4) var(--space-16);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  background: var(--glass-control);
+  box-shadow: var(--glass-effect);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  font: var(--type-body-small);
+  white-space: nowrap;
+}
+
+.chip:hover {
+  border-color: var(--memory-gold);
+}
+
+/* ---- Input row and the mic ---- */
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  min-height: var(--size-touch-min);
+  padding: 0 var(--space-16);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  background: var(--art-ink-900);
+}
+
+.input::placeholder {
+  color: var(--icon-inactive);
+}
+
+.mic,
+.send {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  color: var(--icon-default);
+}
+
+.mic {
+  width: 60px;
+  height: 60px;
+  background: var(--glass-control);
+  box-shadow: inset 0 1px 0 var(--glass-highlight);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+
+.mic:disabled,
+.send:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.recording {
+  background: color-mix(in srgb, var(--red-500) 38%, var(--art-ink-900));
+  border-color: color-mix(in srgb, var(--red-500) 60%, transparent);
+}
+
+.rec {
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-full);
+  background: var(--red-500);
+}
+
+/* Two soft rings pulse out of the recording button. */
+.recording::before,
+.recording::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border: 2px solid color-mix(in srgb, var(--red-500) 70%, transparent);
+  border-radius: var(--radius-full);
+  pointer-events: none;
+  animation: ring 1.8s ease-out infinite;
+}
+
+.recording::after {
+  animation-delay: 0.9s;
+}
+
+@keyframes ring {
+  from {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.7);
+  }
+}
+
+/* Reduced motion: one static ring, no pulsing. */
+:global([data-reduced-motion='true']) .recording::before {
+  animation: none;
+  opacity: 0.5;
+  transform: scale(1.3);
+}
+
+:global([data-reduced-motion='true']) .recording::after {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .recording::before {
+    animation: none;
+    opacity: 0.5;
+    transform: scale(1.3);
+  }
+
+  .recording::after {
+    display: none;
+  }
+}
+
+.send {
+  width: var(--size-touch-min);
+  height: var(--size-touch-min);
+  background: var(--glass-control);
+}
+
+.send:not(:disabled) {
+  background: var(--accent-default);
+  border-color: transparent;
+}

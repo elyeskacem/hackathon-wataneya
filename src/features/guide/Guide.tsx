@@ -1,22 +1,12 @@
-import { useEffect, useRef, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useApp } from '../../app/appStore';
-import { useSettings } from '../../app/settingsStore';
 import { useT } from '../../i18n/useT';
-import { TvStatic } from '../../ui/TvStatic';
-import { switchChannel } from '../custom/channelSwitch';
-import { chipsFor, entryById } from './knowledge';
+import { chipsFor } from './knowledge';
 import { useGuide, type GuideMessage } from './guideStore';
 import { HostAvatar } from './HostAvatar';
-import type { GuideAction, GuideContext } from './types';
-import { useTypewriter } from './useTypewriter';
+import { TalkControls } from './TalkControls';
+import { useTalk } from './talkStore';
 import styles from './Guide.module.css';
-
-export function useGuideContext(): GuideContext {
-  const route = useApp((s) => s.route);
-  if (route.name === 'custom') return 'custom';
-  if (route.name === 'moment' && (route.momentId === 'choufli-hal' || route.momentId === 'om-kalthoum')) return route.momentId;
-  return 'home';
-}
 
 /**
  * The AI guide, one component everywhere: a bubble at the bottom-end that opens a side panel
@@ -45,7 +35,7 @@ export function Guide() {
 export function GuideHomeCard() {
   const { t, pick, locale } = useT();
   const setOpen = useApp((s) => s.setGuideOpen);
-  const ask = useGuide((s) => s.ask);
+  const submit = useTalk((s) => s.submit);
   const chips = chipsFor('home');
 
   return (
@@ -61,7 +51,7 @@ export function GuideHomeCard() {
             className={styles.chip}
             onClick={() => {
               setOpen(true);
-              void ask({ text: pick(c.q), entryId: c.id }, 'home', locale).then((a) => a?.kind === 'answer' && runAction(a.action));
+              void submit(pick(c.q), { entryId: c.id }, 'home', locale);
             }}
           >
             {pick(c.q)}
@@ -72,19 +62,10 @@ export function GuideHomeCard() {
   );
 }
 
-function runAction(action: GuideAction | undefined) {
-  if (!action) return;
-  const app = useApp.getState();
-  if (app.route.name !== 'custom') app.go({ name: 'custom' });
-  // Let the camera start its glide to the TV before the channel flips.
-  window.setTimeout(() => switchChannel(action.channel), 600);
-}
-
 function GuidePanel({ onClose }: { onClose: () => void }) {
-  const { t, pick, locale } = useT();
-  const context = useGuideContext();
-  const { status, messages, ask } = useGuide();
-  const [text, setText] = useState('');
+  const { t } = useT();
+  const { status, messages } = useGuide();
+  const talkPhase = useTalk((s) => s.phase);
   const input = useRef<HTMLInputElement>(null);
   const log = useRef<HTMLDivElement>(null);
 
@@ -95,22 +76,12 @@ function GuidePanel({ onClose }: { onClose: () => void }) {
     return () => window.removeEventListener('keydown', onKey);
   }, [onClose]);
 
+  // The answer being shown in the talk bubble is not repeated in the history until the bubble is done.
+  const shown = talkPhase === 'answering' && messages[messages.length - 1]?.role === 'guide' ? messages.slice(0, -1) : messages;
+
   useEffect(() => {
     log.current?.scrollTo({ top: log.current.scrollHeight, behavior: 'smooth' });
-  }, [messages.length, status]);
-
-  const askEntry = (id: string) => {
-    const entry = entryById(id);
-    if (entry) void ask({ text: pick(entry.q), entryId: id }, context, locale).then((a) => a?.kind === 'answer' && runAction(a.action));
-  };
-
-  const submit = (e: FormEvent) => {
-    e.preventDefault();
-    const q = text.trim();
-    if (!q || status === 'thinking') return;
-    setText('');
-    void ask({ text: q }, context, locale).then((a) => a?.kind === 'answer' && runAction(a.action));
-  };
+  }, [shown.length, status]);
 
   return (
     <aside className={`${styles.panel} glass`} aria-label={t('guide.name')} data-testid="guide-panel">
@@ -129,22 +100,15 @@ function GuidePanel({ onClose }: { onClose: () => void }) {
         </button>
       </header>
 
-      <div ref={log} className={styles.log} aria-live="polite">
+      <div ref={log} className={styles.log}>
         <div className={styles.guideMsg}>
           <p>
             <strong>{t('guide.greeting')}</strong> {t('guide.greetingQuestion')}
           </p>
-          {messages.length === 0 && <Chips ids={chipsFor(context).map((c) => c.id)} onPick={askEntry} />}
         </div>
-        {messages.map((m, i) => (
-          <Message key={m.id} message={m} latest={i === messages.length - 1} onPick={askEntry} />
+        {shown.map((m) => (
+          <Message key={m.id} message={m} />
         ))}
-        {status === 'thinking' && (
-          <div className={styles.thinking} role="status">
-            <TvStatic className={styles.thinkingStatic} />
-            {t('guide.thinking')}
-          </div>
-        )}
         {status === 'unavailable' && (
           <p className={styles.guideMsg} role="alert">
             {t('guide.unavailable')}
@@ -152,39 +116,13 @@ function GuidePanel({ onClose }: { onClose: () => void }) {
         )}
       </div>
 
-      <form className={styles.form} onSubmit={submit}>
-        <label className="visually-hidden" htmlFor="guide-input">
-          {t('guide.input')}
-        </label>
-        <input
-          id="guide-input"
-          ref={input}
-          className={styles.input}
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder={t('guide.input')}
-          autoComplete="off"
-          data-testid="guide-input"
-        />
-        <button type="button" className={styles.round} disabled aria-label={t('guide.mic')} title={t('guide.mic')}>
-          <svg width="16" height="18" viewBox="0 0 16 22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-            <rect x="4" y="1" width="8" height="13" rx="4" />
-            <path d="M1 10a7 7 0 0 0 14 0M8 17v4" />
-          </svg>
-        </button>
-        <button type="submit" className={`${styles.round} ${styles.send}`} aria-label={t('guide.send')} disabled={!text.trim() || status === 'thinking'}>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
-            <path d="M21 3 3 10l7 3 3 7z" />
-          </svg>
-        </button>
-      </form>
+      <TalkControls inputRef={input} />
     </aside>
   );
 }
 
-function Message({ message, latest, onPick }: { message: GuideMessage; latest: boolean; onPick: (id: string) => void }) {
+function Message({ message }: { message: GuideMessage }) {
   const { t } = useT();
-  const reducedMotion = useSettings((s) => s.reducedMotion);
   const [showMore, setShowMore] = useState(false);
 
   if (message.role === 'visitor') return <p className={styles.visitorMsg}>{message.text}</p>;
@@ -194,14 +132,13 @@ function Message({ message, latest, onPick }: { message: GuideMessage; latest: b
     return (
       <div className={styles.guideMsg}>
         <p>{t('guide.dontKnow')}</p>
-        <p className={styles.muted}>{t('guide.dontKnowFollow')}</p>
-        {latest && <Chips ids={answer.suggestions} onPick={onPick} />}
       </div>
     );
   }
   return (
     <div className={styles.guideMsg}>
-      <Typed text={answer.text} animate={latest && !reducedMotion} />
+      {answer.speaker && <p className={styles.speaker}>{answer.speaker}</p>}
+      <p>{answer.text}</p>
       {answer.more &&
         (showMore ? (
           <p>{answer.more}</p>
@@ -215,33 +152,6 @@ function Message({ message, latest, onPick }: { message: GuideMessage; latest: b
           {t('guide.source')}: {answer.source}
           {answer.year !== null && <bdi> · {answer.year}</bdi>}
         </span>
-      )}
-      {latest && <Chips ids={answer.followUps} onPick={onPick} />}
-    </div>
-  );
-}
-
-function Typed({ text, animate }: { text: string; animate: boolean }) {
-  const shown = useTypewriter(text, animate);
-  return (
-    <p>
-      <span aria-hidden="true">{shown}</span>
-      <span className="visually-hidden">{text}</span>
-    </p>
-  );
-}
-
-function Chips({ ids, onPick }: { ids: string[]; onPick: (id: string) => void }) {
-  const { pick } = useT();
-  return (
-    <div className={styles.chips}>
-      {ids.map(entryById).map(
-        (entry) =>
-          entry && (
-            <button key={entry.id} type="button" className={styles.chip} onClick={() => onPick(entry.id)}>
-              {pick(entry.q)}
-            </button>
-          ),
       )}
     </div>
   );

@@ -1,5 +1,5 @@
 {
-  "_readme": "Curated answers for the AI guide. The guide answers ONLY from this file (or a server that follows the same rules). status 'verified' = may be shown; 'to-verify' = never shown, the guide says it does not know. Archive facts need a source and, when relevant, a year. Keep answers to 3 sentences max; put extra detail in 'more'.",
+  "_readme": "Curated answers for the AI guide. The guide answers ONLY from this file (or a server that follows the same rules). status 'verified' = may be shown; 'to-verify' = never shown, the guide says it does not know (TO VERIFY against the archive). Archive facts (dates, names of actors, places) need a source and, when relevant, a year, so they stay 'to-verify' until checked. Keep answers to 3 sentences max; put extra detail in 'more'. 'examples' are phrases a visitor might say, per language, used by the local matcher and by the jury demo mode; 'speaker' is who talks in the bubble (default: the guide). Characters are fictional TV characters voiced by text written by the team, never a real person. 'demo' lists the entries the scripted demo mode asks, in order.",
   "contexts": {
     "home": {
       "chips": [
@@ -17,16 +17,16 @@
     },
     "choufli-hal": {
       "chips": [
-        "choufli-what",
-        "choufli-characters",
-        "how-tv-works"
+        "choufli-scene",
+        "character-sliman",
+        "choufli-doors"
       ]
     },
     "om-kalthoum": {
       "chips": [
-        "kalthoum-concert",
-        "kalthoum-where",
-        "how-tv-works"
+        "kalthoum-scene",
+        "kalthoum-front-row",
+        "kalthoum-figure"
       ]
     }
   },
@@ -36,7 +36,8 @@
       "status": "verified",
       "q": {
         "ar": "شنوّة زوايا؟",
-        "fr": "C'est quoi Zawaya ?"
+        "fr": "C'est quoi Zawaya ?",
+        "en": "What is Zawaya?"
       },
       "keywords": [
         "زوايا",
@@ -48,7 +49,8 @@
       ],
       "a": {
         "ar": "زوايا هي رحلة في الزمن عبر تسع لحظات من تاريخ الوطنية. تنجم تختار لحظة من التلفزة، ولا تبدا الرحلة من الأول.",
-        "fr": "Zawaya est un voyage dans le temps à travers neuf moments de l'histoire de la Wataniya. Tu peux choisir un moment à la télé, ou commencer le voyage depuis le début."
+        "fr": "Zawaya est un voyage dans le temps à travers neuf moments de l'histoire de la Wataniya. Tu peux choisir un moment à la télé, ou commencer le voyage depuis le début.",
+        "en": "Zawaya is a journey through time across nine moments of Wataniya history. You can pick a moment on the TV, or start the journey from the beginning."
       },
       "more": {
         "ar": "أنا دليل بالذكاء الاصطناعي، موش إنسان، ونجاوب كان من أرشيف الوطنية.",
@@ -59,14 +61,29 @@
       "followUps": [
         "how-tv-works",
         "show-choufli-hal"
-      ]
+      ],
+      "examples": {
+        "en": [
+          "what is zawaya",
+          "tell me about this experience"
+        ],
+        "ar": [
+          "شنوة هي زوايا",
+          "احكيلي على زوايا"
+        ],
+        "fr": [
+          "c'est quoi zawaya",
+          "parle moi de zawaya"
+        ]
+      }
     },
     {
       "id": "show-choufli-hal",
       "status": "verified",
       "q": {
         "ar": "ورّيني شوفلي حل",
-        "fr": "Montre-moi Choufli Hal"
+        "fr": "Montre-moi Choufli Hal",
+        "en": "Show me Choufli Hal"
       },
       "keywords": [
         "شوفلي",
@@ -78,7 +95,8 @@
       ],
       "a": {
         "ar": "هاو شوفلي حل على القناة 01.",
-        "fr": "Voici Choufli Hal, sur la chaîne 01."
+        "fr": "Voici Choufli Hal, sur la chaîne 01.",
+        "en": "Here is Choufli Hal, on channel 01."
       },
       "action": {
         "type": "channel",
@@ -89,14 +107,29 @@
       "followUps": [
         "choufli-characters",
         "show-om-kalthoum"
-      ]
+      ],
+      "examples": {
+        "en": [
+          "show me choufli hal",
+          "take me to choufli hal"
+        ],
+        "ar": [
+          "ورّيني شوفلي حل",
+          "نحب نشوف شوفلي حل"
+        ],
+        "fr": [
+          "montre moi choufli hal",
+          "je veux voir choufli hal"
+        ]
+      }
     },
     {
       "id": "show-om-kalthoum",
       "status": "verified",
       "q": {
         "ar": "ورّيني حفلة أم كلثوم",
-        "fr": "Montre-moi le concert d'Oum Kalthoum"
+        "fr": "Montre-moi le concert d'Oum Kalthoum",
+        "en": "Show me the Oum Kalthoum concert"
       },
       "keywords": [
         "كلثوم",
@@ -109,7 +142,8 @@
       ],
       "a": {
         "ar": "هاي حفلة أم كلثوم على القناة 02.",
-        "fr": "Voici le concert d'Oum Kalthoum, sur la chaîne 02."
+        "fr": "Voici le concert d'Oum Kalthoum, sur la chaîne 02.",
+        "en": "Here is the Oum Kalthoum concert, on channel 02."
       },
       "action": {
         "type": "channel",
@@ -120,14 +154,29 @@
       "followUps": [
         "kalthoum-concert",
         "how-tv-works"
-      ]
+      ],
+      "examples": {
+        "en": [
+          "show me the concert",
+          "take me to the oum kalthoum concert"
+        ],
+        "ar": [
+          "ورّيني حفلة أم كلثوم",
+          "نحب نشوف الحفلة"
+        ],
+        "fr": [
+          "montre moi le concert",
+          "montre moi le concert d'oum kalthoum"
+        ]
+      }
     },
     {
       "id": "book-vr",
       "status": "verified",
       "q": {
         "ar": "نحجز تجربة الـVR",
-        "fr": "Réserver l'expérience VR"
+        "fr": "Réserver l'expérience VR",
+        "en": "Book the VR experience"
       },
       "keywords": [
         "vr",
@@ -140,21 +189,37 @@
       ],
       "a": {
         "ar": "زيارة الـVR الكاملة تدوم 20 دقيقة على الأكثر. الحجز يجي قريب في الموقع: تختار النهار، الوقت، وتعطي اسمك ونمرتك.",
-        "fr": "Une visite VR complète dure 20 minutes au maximum. La réservation arrive bientôt sur le site : tu choisis le jour, l'heure, puis ton nom et ton numéro."
+        "fr": "Une visite VR complète dure 20 minutes au maximum. La réservation arrive bientôt sur le site : tu choisis le jour, l'heure, puis ton nom et ton numéro.",
+        "en": "A full VR visit lasts 20 minutes at most. Booking is coming soon on the site: you pick the day and time, then give your name and number."
       },
       "source": null,
       "year": null,
       "followUps": [
         "what-is-zawaya",
         "show-choufli-hal"
-      ]
+      ],
+      "examples": {
+        "en": [
+          "book the vr experience",
+          "reserve a headset"
+        ],
+        "ar": [
+          "نحجز تجربة الـVR",
+          "نحب نحجز"
+        ],
+        "fr": [
+          "réserver l'expérience vr",
+          "je veux réserver"
+        ]
+      }
     },
     {
       "id": "how-tv-works",
       "status": "verified",
       "q": {
         "ar": "كيفاش نبدّل القناة؟",
-        "fr": "Comment changer de chaîne ?"
+        "fr": "Comment changer de chaîne ?",
+        "en": "How do I change channel?"
       },
       "keywords": [
         "قناة",
@@ -168,14 +233,29 @@
       ],
       "a": {
         "ar": "استعمل الريموت: CH ▲▼ ولا الأرقام من 1 لـ9. بالكلافيي زادة: الأسهم والأرقام، وEsc باش ترجع للصالون.",
-        "fr": "Utilise la télécommande : CH ▲▼ ou les touches 1 à 9. Au clavier aussi : les flèches et les chiffres, et Échap pour revenir au salon."
+        "fr": "Utilise la télécommande : CH ▲▼ ou les touches 1 à 9. Au clavier aussi : les flèches et les chiffres, et Échap pour revenir au salon.",
+        "en": "Use the remote: CH ▲▼ or the numbers 1 to 9. With the keyboard, use the arrow keys and the number keys."
       },
       "source": null,
       "year": null,
       "followUps": [
         "show-om-kalthoum",
         "what-is-zawaya"
-      ]
+      ],
+      "examples": {
+        "en": [
+          "how do i change channel",
+          "how does the tv work"
+        ],
+        "ar": [
+          "كيفاش نبدّل القناة",
+          "كيفاش تخدم التلفزة"
+        ],
+        "fr": [
+          "comment changer de chaîne",
+          "comment marche la télé"
+        ]
+      }
     },
     {
       "id": "choufli-what",
@@ -204,87 +284,161 @@
       "followUps": [
         "choufli-characters",
         "how-tv-works"
-      ]
+      ],
+      "examples": {
+        "ar": [
+          "وقتاش صارت"
+        ],
+        "fr": [
+          "quand"
+        ]
+      }
     },
     {
       "id": "choufli-characters",
-      "status": "to-verify",
+      "status": "verified",
       "q": {
         "ar": "شكون الشخصيات؟",
-        "fr": "Qui sont les personnages ?"
+        "fr": "Qui sont les personnages ?",
+        "en": "Who are the characters?"
       },
       "keywords": [
         "شخصيات",
         "شكون",
         "personnages",
-        "qui"
+        "qui",
+        "characters",
+        "who"
       ],
       "a": {
-        "ar": "TO VERIFY: أسماء الشخصيات والممثلين كيما مكتوبين في الأرشيف.",
-        "fr": "TO VERIFY : noms des personnages et des acteurs tels qu'écrits dans l'archive."
+        "ar": "في المشهد هذا تنجم تلقى سليمان والسبوعي. اضغط على الحلقة الذهبية جنبهم باش تعرف عليهم.",
+        "fr": "Dans cette scène, vous pouvez rencontrer Sliman et Sbou3i. Touchez l'anneau doré à côté d'eux pour faire connaissance.",
+        "en": "In this scene you can meet Sliman and Sbou3i. Tap the gold ring beside them to say hello."
       },
-      "source": {
-        "ar": "أرشيف الوطنية",
-        "fr": "Archives Wataniya"
-      },
+      "source": null,
       "year": null,
       "followUps": [
-        "choufli-what",
-        "how-tv-works"
-      ]
+        "character-sliman",
+        "character-sbou3i"
+      ],
+      "examples": {
+        "ar": [
+          "شكون الشخصيات",
+          "شكون ف المسلسل"
+        ],
+        "fr": [
+          "qui sont les personnages",
+          "quels sont les personnages"
+        ],
+        "en": [
+          "who are the characters",
+          "who is in this scene"
+        ]
+      }
     },
     {
       "id": "character-sliman",
-      "status": "to-verify",
+      "status": "verified",
       "q": {
         "ar": "احكيلي على سليمان",
-        "fr": "Parle-moi de Sliman"
+        "fr": "Parle-moi de Sliman",
+        "en": "Tell me about Sliman"
       },
       "keywords": [
         "سليمان",
         "sliman",
-        "slimane"
+        "slimane",
+        "شكون سليمان",
+        "qui est sliman"
       ],
       "a": {
-        "ar": "TO VERIFY: معلومة قصيرة على شخصية سليمان من الأرشيف.",
-        "fr": "TO VERIFY : une courte information d'archive sur le personnage de Sliman."
+        "ar": "أنا سليمان، شخصية خيالية من مسلسل شوفلي حل. في المشهد هذا تلقاني في البيرو.",
+        "fr": "Je suis Sliman, un personnage fictif de la sitcom Choufli Hal. Dans cette scène, vous me trouvez au bureau.",
+        "en": "I am Sliman, a fictional character from the sitcom Choufli Hal. In this scene you will find me in the office."
       },
-      "source": {
-        "ar": "أرشيف الوطنية",
-        "fr": "Archives Wataniya"
-      },
+      "source": null,
       "year": null,
       "followUps": [
         "character-sbou3i",
-        "choufli-what"
-      ]
+        "choufli-doors"
+      ],
+      "speaker": {
+        "ar": "سليمان",
+        "fr": "Sliman",
+        "en": "Sliman"
+      },
+      "more": {
+        "ar": "الكلام هذا كتبو فريق زوايا، موش مقطع من المسلسل.",
+        "fr": "Ces mots sont écrits par l'équipe Zawaya, ce n'est pas un extrait de la série.",
+        "en": "These words are written by the Zawaya team; they are not a clip from the series."
+      },
+      "examples": {
+        "ar": [
+          "شكون سليمان",
+          "احكيلي على سليمان",
+          "نحب نعرف سليمان"
+        ],
+        "fr": [
+          "qui est sliman",
+          "parle moi de sliman"
+        ],
+        "en": [
+          "who is sliman",
+          "tell me about sliman"
+        ]
+      }
     },
     {
       "id": "character-sbou3i",
-      "status": "to-verify",
+      "status": "verified",
       "q": {
         "ar": "احكيلي على السبوعي",
-        "fr": "Parle-moi de Sbou3i"
+        "fr": "Parle-moi de Sbou3i",
+        "en": "Tell me about Sbou3i"
       },
       "keywords": [
         "سبوعي",
         "السبوعي",
         "sbou3i",
-        "sboui"
+        "sboui",
+        "شكون السبوعي",
+        "qui est sbou3i"
       ],
       "a": {
-        "ar": "TO VERIFY: معلومة قصيرة على شخصية السبوعي من الأرشيف.",
-        "fr": "TO VERIFY : une courte information d'archive sur le personnage de Sbou3i."
+        "ar": "أنا السبوعي، شخصية خيالية من مسلسل شوفلي حل. تلقاني في الكوجينة.",
+        "fr": "Je suis Sbou3i, un personnage fictif de la sitcom Choufli Hal. Vous me trouvez dans la cuisine.",
+        "en": "I am Sbou3i, a fictional character from the sitcom Choufli Hal. You will find me in the kitchen."
       },
-      "source": {
-        "ar": "أرشيف الوطنية",
-        "fr": "Archives Wataniya"
-      },
+      "source": null,
       "year": null,
       "followUps": [
         "character-sliman",
-        "choufli-what"
-      ]
+        "choufli-doors"
+      ],
+      "speaker": {
+        "ar": "السبوعي",
+        "fr": "Sbou3i",
+        "en": "Sbou3i"
+      },
+      "more": {
+        "ar": "الكلام هذا كتبو فريق زوايا، موش مقطع من المسلسل.",
+        "fr": "Ces mots sont écrits par l'équipe Zawaya, ce n'est pas un extrait de la série.",
+        "en": "These words are written by the Zawaya team; they are not a clip from the series."
+      },
+      "examples": {
+        "ar": [
+          "شكون السبوعي",
+          "احكيلي على السبوعي"
+        ],
+        "fr": [
+          "qui est sbou3i",
+          "parle moi de sbou3i"
+        ],
+        "en": [
+          "who is sbou3i",
+          "tell me about sbou3i"
+        ]
+      }
     },
     {
       "id": "kalthoum-concert",
@@ -313,7 +467,15 @@
       "followUps": [
         "kalthoum-where",
         "how-tv-works"
-      ]
+      ],
+      "examples": {
+        "ar": [
+          "وقتاش صارت"
+        ],
+        "fr": [
+          "quand"
+        ]
+      }
     },
     {
       "id": "kalthoum-where",
@@ -341,7 +503,355 @@
       "followUps": [
         "kalthoum-concert",
         "how-tv-works"
-      ]
+      ],
+      "examples": {
+        "ar": [
+          "وين صارت الحفلة"
+        ],
+        "fr": [
+          "où a eu lieu le concert"
+        ]
+      }
+    },
+    {
+      "id": "who-are-you",
+      "status": "verified",
+      "q": {
+        "ar": "شكون إنت؟",
+        "fr": "Qui es-tu ?",
+        "en": "Who are you?"
+      },
+      "keywords": [
+        "شكون انت",
+        "إنت",
+        "روبو",
+        "qui es tu",
+        "tu es qui",
+        "robot",
+        "who are you",
+        "are you human",
+        "are you real",
+        "ia"
+      ],
+      "a": {
+        "ar": "أنا دليل زوايا، ذكاء اصطناعي ومذيع خيالي من الوطنية. موش إنسان حقيقي.",
+        "fr": "Je suis le guide Zawaya, une IA et un animateur fictif de la Wataniya. Pas une vraie personne.",
+        "en": "I am the Zawaya guide, an AI and a fictional Wataniya host. Not a real person."
+      },
+      "source": null,
+      "year": null,
+      "followUps": [
+        "what-is-zawaya",
+        "how-tv-works"
+      ],
+      "examples": {
+        "ar": [
+          "شكون إنت",
+          "إنت إنسان"
+        ],
+        "fr": [
+          "qui es tu",
+          "tu es une vraie personne"
+        ],
+        "en": [
+          "who are you",
+          "are you a real person"
+        ]
+      }
+    },
+    {
+      "id": "choufli-scene",
+      "status": "verified",
+      "q": {
+        "ar": "شنوة نشوف هنا؟",
+        "fr": "Que vois-je ici ?",
+        "en": "What am I looking at?"
+      },
+      "keywords": [
+        "شنوة نشوف",
+        "هنا",
+        "مكتب",
+        "البيرو",
+        "مشهد",
+        "que vois",
+        "bureau",
+        "scène",
+        "scene",
+        "looking",
+        "office",
+        "see here"
+      ],
+      "a": {
+        "ar": "هذا مكتب من عالم شوفلي حل، مشهد صنعو فريق زوايا للتجربة. من الأبواب تنجم تمشي للكولوار وللكوجينة.",
+        "fr": "C'est un bureau de l'univers de Choufli Hal, une scène créée par l'équipe Zawaya. Par les portes, vous passez au couloir puis à la cuisine.",
+        "en": "This is an office from the world of Choufli Hal, a scene built by the Zawaya team. Through the doors you can reach the corridor and the kitchen."
+      },
+      "source": null,
+      "year": null,
+      "followUps": [
+        "choufli-doors",
+        "character-sliman"
+      ],
+      "examples": {
+        "ar": [
+          "شنوة نشوف هنا",
+          "شنوة هذا المكان"
+        ],
+        "fr": [
+          "que vois je ici",
+          "c'est quoi cette scène"
+        ],
+        "en": [
+          "what am i looking at",
+          "what is this place"
+        ]
+      }
+    },
+    {
+      "id": "choufli-doors",
+      "status": "verified",
+      "q": {
+        "ar": "كيفاش نمشي للكوجينة؟",
+        "fr": "Comment aller à la cuisine ?",
+        "en": "How do I get to the kitchen?"
+      },
+      "keywords": [
+        "كوجينة",
+        "الكوجينة",
+        "كولوار",
+        "الكولوار",
+        "باب",
+        "نمشي",
+        "cuisine",
+        "couloir",
+        "porte",
+        "aller",
+        "kitchen",
+        "corridor",
+        "door",
+        "get to"
+      ],
+      "a": {
+        "ar": "اضغط على الباب الذهبي. من البيرو تمشي للكولوار، وبعدها للكوجينة.",
+        "fr": "Touchez la porte dorée. Du bureau, vous allez au couloir, puis à la cuisine.",
+        "en": "Tap the gold door. From the office you go to the corridor, then to the kitchen."
+      },
+      "source": null,
+      "year": null,
+      "followUps": [
+        "character-sbou3i",
+        "choufli-scene"
+      ],
+      "examples": {
+        "ar": [
+          "كيفاش نمشي للكوجينة",
+          "وين الباب"
+        ],
+        "fr": [
+          "comment aller à la cuisine",
+          "où est la porte"
+        ],
+        "en": [
+          "how do i get to the kitchen",
+          "where is the door"
+        ]
+      }
+    },
+    {
+      "id": "kalthoum-scene",
+      "status": "verified",
+      "q": {
+        "ar": "شنوة نشوف هنا؟",
+        "fr": "Que vois-je ici ?",
+        "en": "What am I looking at?"
+      },
+      "keywords": [
+        "قاعة",
+        "القاعة",
+        "الحفلة",
+        "حفلة",
+        "مسرح",
+        "salle",
+        "concert",
+        "scène",
+        "hall",
+        "stage",
+        "concert hall"
+      ],
+      "a": {
+        "ar": "هذي قاعة حفلة صنعها فريق زوايا للتجربة. الصف الأول تنجم تقرّب منو.",
+        "fr": "C'est une salle de concert créée par l'équipe Zawaya pour l'expérience. Vous pouvez vous rapprocher du premier rang.",
+        "en": "This is a concert hall built by the Zawaya team for the experience. You can move closer to the front row."
+      },
+      "source": null,
+      "year": null,
+      "followUps": [
+        "kalthoum-front-row",
+        "kalthoum-figure"
+      ],
+      "examples": {
+        "ar": [
+          "شنوة هذي القاعة",
+          "شنوة نشوف في الحفلة"
+        ],
+        "fr": [
+          "que vois je dans la salle",
+          "c'est quoi cette salle"
+        ],
+        "en": [
+          "what is this hall",
+          "what am i looking at in the concert"
+        ]
+      }
+    },
+    {
+      "id": "kalthoum-front-row",
+      "status": "verified",
+      "q": {
+        "ar": "كيفاش نقرّب للصف الأول؟",
+        "fr": "Comment aller au premier rang ?",
+        "en": "How do I reach the front row?"
+      },
+      "keywords": [
+        "الصف الاول",
+        "الصف",
+        "نقرب",
+        "قرّب",
+        "premier rang",
+        "rang",
+        "rapprocher",
+        "front row",
+        "closer",
+        "front"
+      ],
+      "a": {
+        "ar": "اضغط على «الصف الأول» باش تقرّب. كي تحب ترجع للقاعة كاملة، اضغط عليها مرة أخرى ولا Esc.",
+        "fr": "Touchez « Premier rang » pour vous rapprocher. Pour revoir toute la salle, touchez-le encore ou appuyez sur Échap.",
+        "en": "Tap \"Front row\" to move closer. To see the whole hall again, tap it once more or press Esc."
+      },
+      "source": null,
+      "year": null,
+      "followUps": [
+        "kalthoum-scene",
+        "go-back"
+      ],
+      "examples": {
+        "ar": [
+          "كيفاش نقرّب للصف الأول",
+          "نحب نقعد في الصف الأول"
+        ],
+        "fr": [
+          "comment aller au premier rang",
+          "je veux me rapprocher"
+        ],
+        "en": [
+          "how do i reach the front row",
+          "i want to sit closer"
+        ]
+      }
+    },
+    {
+      "id": "kalthoum-figure",
+      "status": "verified",
+      "q": {
+        "ar": "علاش ما كاينش مجسّم؟",
+        "fr": "Pourquoi pas de personnage ?",
+        "en": "Why is there no figure?"
+      },
+      "keywords": [
+        "مجسم",
+        "علاش",
+        "ما كاينش",
+        "شخصية",
+        "figure",
+        "pourquoi",
+        "personnage",
+        "avatar",
+        "why",
+        "model",
+        "singer"
+      ],
+      "a": {
+        "ar": "في التجربة هذي ما نعرضوش مجسّم ثلاثي الأبعاد لأم كلثوم، لأنها شخصية حقيقية. القاعة والأجواء بركة.",
+        "fr": "Dans cette expérience, nous n'affichons pas de figure 3D d'Oum Kalthoum, car c'est une personne réelle. Seuls la salle et l'ambiance sont montrées.",
+        "en": "In this experience we do not show a 3D figure of Oum Kalthoum, because she is a real person. Only the hall and its atmosphere are shown."
+      },
+      "source": null,
+      "year": null,
+      "followUps": [
+        "kalthoum-scene",
+        "kalthoum-front-row"
+      ],
+      "examples": {
+        "ar": [
+          "علاش ما كاينش مجسّم",
+          "وين أم كلثوم"
+        ],
+        "fr": [
+          "pourquoi pas de personnage",
+          "où est oum kalthoum"
+        ],
+        "en": [
+          "why is there no figure",
+          "where is oum kalthoum"
+        ]
+      }
+    },
+    {
+      "id": "go-back",
+      "status": "verified",
+      "q": {
+        "ar": "كيفاش نرجع للصالون؟",
+        "fr": "Comment revenir au salon ?",
+        "en": "How do I go back to the living room?"
+      },
+      "keywords": [
+        "نرجع",
+        "رجوع",
+        "الصالون",
+        "revenir",
+        "retour",
+        "salon",
+        "sortir",
+        "back",
+        "leave",
+        "exit",
+        "living room"
+      ],
+      "a": {
+        "ar": "اضغط على «رجوع للصالون» فوق، ولا Esc.",
+        "fr": "Touchez « Retour au salon » en haut, ou appuyez sur Échap.",
+        "en": "Tap \"Back to the living room\" at the top, or press Esc."
+      },
+      "source": null,
+      "year": null,
+      "followUps": [
+        "how-tv-works",
+        "what-is-zawaya"
+      ],
+      "examples": {
+        "ar": [
+          "كيفاش نرجع للصالون",
+          "نحب نخرج"
+        ],
+        "fr": [
+          "comment revenir au salon",
+          "je veux sortir"
+        ],
+        "en": [
+          "how do i go back",
+          "i want to leave"
+        ]
+      }
     }
+  ],
+  "demo": [
+    "what-is-zawaya",
+    "show-choufli-hal",
+    "character-sliman",
+    "choufli-doors",
+    "show-om-kalthoum",
+    "kalthoum-front-row",
+    "who-are-you"
   ]
 }

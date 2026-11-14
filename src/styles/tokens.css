@@ -9,6 +9,8 @@
   --tv-screen: #0c0d0e;
   --accent-default: #e30613;
   --red-500: #e30613;
+  /* speaker name in the answer bubble (inferred from the Talk Controls design, not a Figma variable) */
+  --red-400: #ff6a73;
   --memory-gold: #c9a227;
   --memory-paper: #f5efe3;
   --memory-wood: #5a3a24;

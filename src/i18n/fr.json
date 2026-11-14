@@ -62,7 +62,6 @@
   "guide.greetingQuestion": "Où veux-tu voyager ?",
   "guide.input": "Écris ta question…",
   "guide.send": "Envoyer",
-  "guide.mic": "Micro (bientôt)",
   "guide.thinking": "Je cherche dans l'archive…",
   "guide.dontKnow": "Je n'ai pas trouvé ça dans l'archive.",
   "guide.dontKnowFollow": "Tu peux me demander :",
@@ -90,5 +89,16 @@
   "prompt.lobby.action": "Entrer",
   "prompt.custom": "On met la cassette ?",
   "prompt.moment": "On retourne au salon ?",
-  "prompt.moment.action": "Retour"
+  "prompt.moment.action": "Retour",
+  "talk.listening": "Je vous écoute…",
+  "talk.stopped": "Écoute terminée",
+  "talk.unheard.title": "Je n'ai pas bien entendu",
+  "talk.unheard.body": "Touchez une question ci-dessous.",
+  "talk.mic.start": "Parler au guide",
+  "talk.mic.stop": "Arrêter l'écoute",
+  "talk.suggestions": "Questions suggérées",
+  "talk.unsupported": "Le micro n'est pas pris en charge par ce navigateur. Choisissez une question ou écrivez-la.",
+  "talk.denied": "Le micro est bloqué. Autorisez-le dans les réglages du navigateur, ou écrivez votre question.",
+  "talk.unavailable": "Le micro n'est pas disponible pour l'instant. Choisissez une question ou écrivez-la.",
+  "talk.speaks": "{name} répond"
 }

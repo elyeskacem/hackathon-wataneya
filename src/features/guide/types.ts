@@ -16,6 +16,10 @@ export interface KnowledgeEntry {
   source: Localized | null;
   year: number | null;
   followUps: string[];
+  /** Phrases a visitor might say, per language: used by the local matcher and by the scripted demo. */
+  examples?: Partial<Record<'ar' | 'fr' | 'en', string[]>>;
+  /** Who talks in the bubble; the guide when absent. Always a fictional character, never a real person. */
+  speaker?: Localized;
 }
 
 export interface GuideQuestion {
@@ -30,6 +34,8 @@ export type GuideAnswer =
   | {
       kind: 'answer';
       text: string;
+      /** Name shown above the answer; null = the guide itself. */
+      speaker: string | null;
       more?: string;
       source: string | null;
       year: number | null;

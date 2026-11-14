@@ -62,7 +62,6 @@
   "guide.greetingQuestion": "وين تحب تسافر؟",
   "guide.input": "اكتب سؤالك…",
   "guide.send": "ابعث",
-  "guide.mic": "الميكرو (قريب)",
   "guide.thinking": "نلوّج في الأرشيف…",
   "guide.dontKnow": "ما لقيتش هذا في الأرشيف.",
   "guide.dontKnowFollow": "تنجم تسألني على:",
@@ -90,5 +89,16 @@
   "prompt.lobby.action": "ادخل",
   "prompt.custom": "نحطّو الكاسيط؟",
   "prompt.moment": "تحب ترجع للصالون؟",
-  "prompt.moment.action": "ارجع"
+  "prompt.moment.action": "ارجع",
+  "talk.listening": "نسمع فيك…",
+  "talk.stopped": "وقفنا الاستماع",
+  "talk.unheard.title": "ما سمعتكش مليح",
+  "talk.unheard.body": "اختار سؤال من تحت.",
+  "talk.mic.start": "احكي مع الدليل",
+  "talk.mic.stop": "وقّف الاستماع",
+  "talk.suggestions": "أسئلة مقترحة",
+  "talk.unsupported": "الميكرو موش مدعوم في المتصفح هذا. اختار سؤال ولا اكتبو.",
+  "talk.denied": "الميكرو ممنوع. حلّو من إعدادات المتصفح، ولا اكتب سؤالك.",
+  "talk.unavailable": "الميكرو موش متوفّر توّا. اختار سؤال ولا اكتبو.",
+  "talk.speaks": "{name} يقول"
 }

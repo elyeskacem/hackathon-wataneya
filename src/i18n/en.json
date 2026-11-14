@@ -16,5 +16,16 @@
   "prompt.lobby.action": "Enter",
   "prompt.custom": "Put the tape in?",
   "prompt.moment": "Back to the living room?",
-  "prompt.moment.action": "Rewind"
+  "prompt.moment.action": "Rewind",
+  "talk.listening": "Listening…",
+  "talk.stopped": "Stopped listening",
+  "talk.unheard.title": "I didn't quite hear you",
+  "talk.unheard.body": "Tap a question below.",
+  "talk.mic.start": "Talk to the guide",
+  "talk.mic.stop": "Stop listening",
+  "talk.suggestions": "Suggested questions",
+  "talk.unsupported": "This browser does not support the microphone. Pick a question or type it.",
+  "talk.denied": "The microphone is blocked. Allow it in the browser settings, or type your question.",
+  "talk.unavailable": "The microphone is not available right now. Pick a question or type it.",
+  "talk.speaks": "{name} says"
 }
