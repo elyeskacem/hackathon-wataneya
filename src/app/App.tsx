@@ -1,11 +1,30 @@
+import { useState } from 'react';
+import { useApp } from './appStore';
+import { useSettings } from './settingsStore';
+import { useIdle } from './useIdle';
 import { useDocumentLocale } from '../i18n/useT';
-import { Logo } from '../ui/Logo';
+import { EntryScreen } from '../features/entry/EntryScreen';
+import { Stage } from '../stage/Stage';
+import { TopBar } from '../ui/TopBar';
+import styles from './App.module.css';
 
 export function App() {
   useDocumentLocale();
+  const route = useApp((s) => s.route.name);
+  const effects = useSettings((s) => s.effects);
+  const reducedMotion = useSettings((s) => s.reducedMotion);
+  const idle = useIdle(3000);
+  const [entryDone, setEntryDone] = useState(false);
+
   return (
-    <main style={{ display: 'grid', placeItems: 'center', height: '100%' }}>
-      <Logo size="lg" />
-    </main>
+    <div className={styles.app} data-idle={idle} data-effects={effects} data-reduced-motion={reducedMotion}>
+      <Stage />
+      {route !== 'entry' && (
+        <main className={styles.ui}>
+          <TopBar />
+        </main>
+      )}
+      {!entryDone && <EntryScreen onDone={() => setEntryDone(true)} />}
+    </div>
   );
 }

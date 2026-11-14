@@ -1,0 +1,135 @@
+.entry {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  justify-items: center;
+  padding: var(--space-48) var(--space-16) var(--space-48);
+  background:
+    radial-gradient(ellipse 45% 50% at 50% 45%, color-mix(in srgb, var(--memory-gold) 22%, transparent), transparent 70%),
+    var(--bg-default);
+}
+
+.logo {
+  padding-top: var(--space-8);
+}
+
+.tv {
+  position: relative;
+  align-self: center;
+  width: min(560px, 86vw, 62vh * 1.333);
+  aspect-ratio: 1280 / 960;
+}
+
+.tvImage,
+.screen {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.screen {
+  background: var(--tv-screen);
+}
+
+.static,
+.room {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+
+.room {
+  image-rendering: auto;
+  animation: fadeIn var(--dur-ui) ease both;
+}
+
+.status {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-12);
+  min-height: 140px;
+  align-content: start;
+}
+
+.percent {
+  margin: 0;
+  font: var(--type-display);
+}
+
+.bar {
+  width: 136px;
+  height: 3px;
+  border-radius: var(--radius-full);
+  background: var(--ink-500);
+  overflow: hidden;
+}
+
+.bar span {
+  display: block;
+  height: 100%;
+  margin-inline-start: auto;
+  background: var(--memory-gold);
+  transition: width var(--dur-ui) ease;
+}
+
+.hint {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  color: var(--icon-inactive);
+  font: var(--type-body-small);
+}
+
+.enter {
+  min-width: 220px;
+  min-height: var(--size-touch-min);
+  padding: var(--space-8) var(--space-32);
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--accent-default);
+  font: var(--type-body-strong);
+  box-shadow: var(--shadow-float-box);
+  animation: fadeIn var(--dur-ui) ease both;
+}
+
+.enter:hover {
+  filter: brightness(1.08);
+}
+
+/* The TV turns on: the screen grows into the room, then the overlay fades (600 ms). */
+.leaving {
+  animation: tvOn var(--dur-fade-in) var(--ease-glide) forwards;
+}
+
+.leaving .tv {
+  transform-origin: 43% 46%;
+  transition: transform var(--dur-fade-in) var(--ease-glide);
+  transform: scale(3.2);
+}
+
+@keyframes tvOn {
+  0% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

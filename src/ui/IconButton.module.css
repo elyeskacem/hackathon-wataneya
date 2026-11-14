@@ -1,0 +1,23 @@
+.button {
+  display: grid;
+  place-items: center;
+  width: var(--size-touch-min);
+  height: var(--size-touch-min);
+  padding: 0;
+  border-radius: var(--radius-full);
+  color: var(--icon-default);
+}
+
+.button span {
+  display: grid;
+}
+
+.button:disabled {
+  color: var(--icon-inactive);
+  cursor: not-allowed;
+}
+
+.active {
+  background: var(--accent-default);
+  border-color: transparent;
+}

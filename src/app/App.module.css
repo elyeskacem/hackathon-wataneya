@@ -1,0 +1,23 @@
+.app {
+  position: fixed;
+  inset: 0;
+}
+
+.ui {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.ui > * {
+  pointer-events: auto;
+}
+
+/* Glass UI auto-hides after 3 s idle and comes back on any input or focus. */
+.app :global(.chrome) {
+  transition: opacity var(--dur-ui) ease;
+}
+
+.app[data-idle='true'] :global(.chrome:not(:focus-within)) {
+  opacity: 0;
+}
