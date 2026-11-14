@@ -42,7 +42,7 @@ export function TalkControls({ inputRef }: { inputRef: React.RefObject<HTMLInput
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     const q = text.trim();
-    if (!q || busy || listening) return;
+    if (!q || phase === 'thinking' || listening) return;
     setText('');
     ask(q);
   };
@@ -142,7 +142,7 @@ export function TalkControls({ inputRef }: { inputRef: React.RefObject<HTMLInput
         >
           {listening ? <span className={styles.rec} aria-hidden="true" /> : <MicIcon />}
         </button>
-        <button type="submit" className={styles.send} aria-label={t('guide.send')} disabled={!text.trim() || busy || listening}>
+        <button type="submit" className={styles.send} aria-label={t('guide.send')} disabled={!text.trim() || phase === 'thinking' || listening}>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
             <path d="M21 3 3 10l7 3 3 7z" />
           </svg>
