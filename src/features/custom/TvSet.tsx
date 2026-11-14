@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useTexture } from '@react-three/drei';
 import { AdditiveBlending, BufferAttribute, BufferGeometry, CanvasTexture, SRGBColorSpace, type MeshBasicMaterial, type Texture } from 'three';
+import { useSceneTextures } from '../../stage/textures';
 import { asset } from '../../data/moments';
 import type { Vec3 } from '../../stage/cameraStore';
 import { TV_BODY as BODY, TV_IMAGE_ASPECT as IMAGE_ASPECT, TV_SCREEN as SCREEN } from './tvGeometry';
@@ -21,9 +21,7 @@ interface TvSetProps {
 
 /** The old TV cut-out with a live screen (picture or static) mapped onto its glass. */
 export function TvSet({ position, bodyHeight, picture, staticTexture, showStatic, glow }: TvSetProps) {
-  const tv = useTexture(TV_URL, (t) => {
-    (t as Texture).colorSpace = SRGBColorSpace;
-  });
+  const [tv] = useSceneTextures([TV_URL]) as [Texture];
   const h = bodyHeight / BODY.h;
   const w = h * IMAGE_ASPECT;
   const toLocal = (u: number, v: number): [number, number] => [(u - 0.5) * w, (0.5 - v) * h];

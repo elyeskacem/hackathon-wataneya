@@ -1,7 +1,6 @@
-import { useState } from 'react';
 import { useApp } from '../app/appStore';
 import { useSettings } from '../app/settingsStore';
-import { changeScene } from '../app/transitions';
+import { leaveMoment } from '../app/transitions';
 import { audio } from '../audio/AudioManager';
 import { useT } from '../i18n/useT';
 import { IconButton } from './IconButton';
@@ -16,7 +15,8 @@ export function TopBar() {
   const go = useApp((s) => s.go);
   const muted = useSettings((s) => s.muted);
   const setMuted = useSettings((s) => s.setMuted);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const menuOpen = useApp((s) => s.menuOpen);
+  const setMenuOpen = useApp((s) => s.setMenuOpen);
 
   const toggleSound = () => {
     setMuted(!muted);
@@ -29,14 +29,14 @@ export function TopBar() {
         {route === 'lobby' ? (
           <Logo />
         ) : (
-          <button type="button" className={`${styles.back} glass`} onClick={() => (route === 'moment' ? void changeScene({ name: 'lobby' }) : go({ name: 'lobby' }))} data-testid="back-to-lobby">
+          <button type="button" className={`${styles.back} glass`} onClick={() => (route === 'moment' ? void leaveMoment() : go({ name: 'lobby' }))} data-testid="back-to-lobby">
             <HomeIcon />
             {t('top.back')}
           </button>
         )}
       </div>
       <div className={styles.end}>
-        <IconButton label={t('top.menu')} onClick={() => setMenuOpen((o) => !o)} pressed={menuOpen} active={menuOpen}>
+        <IconButton label={t('top.menu')} onClick={() => setMenuOpen(!menuOpen)} pressed={menuOpen} active={menuOpen}>
           <svg width="18" height="14" viewBox="0 0 18 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
             <path d="M1 1h16M1 7h16M1 13h16" />
           </svg>

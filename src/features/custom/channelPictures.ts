@@ -1,17 +1,16 @@
 import { useEffect, useMemo } from 'react';
-import { useTexture } from '@react-three/drei';
 import { CanvasTexture, SRGBColorSpace, type Texture } from 'three';
+import { useSceneTextures } from '../../stage/textures';
 import { asset, channelLabel, moments, type Moment } from '../../data/moments';
-import type { Locale } from '../../app/settingsStore';
+import { isRtl, type Locale } from '../../app/settingsStore';
+import { pickLocalized } from '../../i18n/useT';
 
 const withThumb = moments.filter((m): m is Moment & { thumb: string } => m.thumb !== null);
 export const THUMB_URLS = withThumb.map((m) => asset(m.thumb));
 
 /** One texture per channel: the moment's render, or a test card while it has none. */
 export function useChannelPictures(locale: Locale): Texture[] {
-  const thumbs = useTexture(THUMB_URLS, (loaded) => {
-    (Array.isArray(loaded) ? loaded : [loaded]).forEach((t) => (t.colorSpace = SRGBColorSpace));
-  });
+  const thumbs = useSceneTextures(THUMB_URLS);
 
   const cards = useMemo(() => {
     const result = new Map<number, CanvasTexture>();
@@ -71,9 +70,9 @@ function drawTestCard(canvas: HTMLCanvasElement, moment: Moment, locale: Locale)
   ctx.font = '600 28px "IBM Plex Mono", monospace';
   ctx.fillText(`CH ${channelLabel(moment.channel)}`, 256, 210);
   ctx.font = '700 44px Changa, Cairo, sans-serif';
-  ctx.direction = locale === 'ar' ? 'rtl' : 'ltr';
-  ctx.fillText(moment.title[locale], 256, 280);
+  ctx.direction = isRtl(locale) ? 'rtl' : 'ltr';
+  ctx.fillText(pickLocalized(moment.title, locale), 256, 280);
   ctx.font = '400 22px Cairo, sans-serif';
   ctx.fillStyle = '#ffffff99';
-  ctx.fillText(moment.kind[locale], 256, 330);
+  ctx.fillText(pickLocalized(moment.kind, locale), 256, 330);
 }

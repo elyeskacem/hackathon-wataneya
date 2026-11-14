@@ -11,13 +11,19 @@ import { MomentUI } from '../features/moment/MomentUI';
 import { Curtain } from '../ui/Curtain';
 import { useAmbience } from '../audio/useAmbience';
 import { Stage } from '../stage/Stage';
+import { usePreloadNext } from '../stage/preload';
+import { StoryBar } from '../features/story/StoryBar';
+import { useTravelInput } from '../features/story/useTravelInput';
 import { TopBar } from '../ui/TopBar';
 import styles from './App.module.css';
 
 export function App() {
   useDocumentLocale();
   useAmbience();
+  usePreloadNext();
+  useTravelInput();
   const route = useApp((s) => s.route);
+  const story = useApp((s) => s.story);
   const effects = useSettings((s) => s.effects);
   const reducedMotion = useSettings((s) => s.reducedMotion);
   const idle = useIdle(3000);
@@ -32,6 +38,7 @@ export function App() {
           {route.name === 'lobby' && <LobbyUI />}
           {route.name === 'custom' && <CustomUI />}
           {route.name === 'moment' && <MomentUI momentId={route.momentId} roomId={route.roomId} />}
+          {story && <StoryBar />}
           <Guide />
         </main>
       )}

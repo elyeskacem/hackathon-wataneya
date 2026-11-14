@@ -13,9 +13,12 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@fontsource/aref-ruqaa": "5.1.0",
     "@fontsource/cairo": "5.1.0",
+    "@fontsource/caveat": "5.1.0",
     "@fontsource/changa": "5.1.0",
     "@fontsource/ibm-plex-mono": "5.1.0",
+    "@fontsource/noto-sans-sc": "5.1.0",
     "@react-three/drei": "9.117.3",
     "@react-three/fiber": "8.17.10",
     "@react-three/xr": "6.6.9",

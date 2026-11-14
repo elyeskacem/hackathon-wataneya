@@ -8,6 +8,11 @@
   transition: opacity var(--dur-ui) ease;
 }
 
+.glow {
+  background: radial-gradient(circle at 50% 50%, var(--memory-paper) 0%, var(--memory-gold) 38%, var(--tv-screen) 90%);
+  transition-duration: 450ms;
+}
+
 .on {
   opacity: 1;
   pointer-events: auto;
@@ -18,4 +23,20 @@
   height: 100%;
   image-rendering: pixelated;
   opacity: 0.55;
+}
+
+.dissolve {
+  position: fixed;
+  inset: 0;
+  z-index: 44;
+  background: var(--tv-screen);
+  opacity: 0;
+  pointer-events: none;
+  animation: dissolve 520ms ease both;
+}
+
+@keyframes dissolve {
+  45% {
+    opacity: 1;
+  }
 }

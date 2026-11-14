@@ -17,7 +17,11 @@ export function SettingsMenu({ onClose }: { onClose: () => void }) {
       .then(setVrSupported)
       .catch(() => setVrSupported(false));
     panel.current?.querySelector<HTMLElement>('button, [role=switch]')?.focus();
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      e.stopImmediatePropagation();
+      onClose();
+    };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [onClose]);

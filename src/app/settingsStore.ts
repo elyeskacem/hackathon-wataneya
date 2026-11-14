@@ -1,7 +1,10 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage, type StateStorage } from 'zustand/middleware';
 
-export type Locale = 'ar' | 'fr';
+export type Locale = 'ar' | 'fr' | 'en' | 'zh';
+export const LOCALES: Locale[] = ['ar', 'fr', 'en', 'zh'];
+/** Arabic is right-to-left; French, English and Chinese are left-to-right. */
+export const isRtl = (locale: Locale) => locale === 'ar';
 
 interface SettingsState {
   locale: Locale;

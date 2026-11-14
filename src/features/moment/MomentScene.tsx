@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
-import { useTexture } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
 import { CanvasTexture, SRGBColorSpace, type Texture } from 'three';
+import { useSceneTextures } from '../../stage/textures';
 import { changeScene, useLiftCurtain } from '../../app/transitions';
 import { useT } from '../../i18n/useT';
 import { asset, momentById, type MomentId } from '../../data/moments';
@@ -10,7 +10,7 @@ import { REST_POSE, useCamera, type CameraPose, type Vec3 } from '../../stage/ca
 import { Hotspot3D } from '../../stage/Hotspot3D';
 import { BACKDROP_DEPTH, useBackdropFrame, type BackdropFrame } from '../../stage/useBackdropFrame';
 import { useMoment } from './momentStore';
-import { roomOf, SCENES, type CharacterConfig, type SceneConfig } from './scenes';
+import { roomOf, sceneUrls, SCENES, type CharacterConfig, type SceneConfig } from './scenes';
 
 /** Arrival: the camera glides in (1.6–2 s, motion spec). */
 const ARRIVAL_DURATION = 1.8;
@@ -23,20 +23,15 @@ export default function MomentScene({ momentId, roomId }: { momentId: MomentId; 
 function SceneRooms({ scene, roomId }: { scene: SceneConfig; roomId?: string }) {
   const { t, pick } = useT();
   const room = roomOf(scene, roomId);
-  const urls = useMemo(
-    () => [...scene.rooms.map((r) => r.backdrop), ...scene.rooms.flatMap((r) => r.characters.map((c) => c.image).filter((u): u is string => u !== null))],
-    [scene],
-  );
-  const textures = useTexture(urls, (loaded) => {
-    (loaded as Texture[]).forEach((tex) => (tex.colorSpace = SRGBColorSpace));
-  }) as Texture[];
+  const urls = useMemo(() => sceneUrls(scene), [scene]);
+  const textures = useSceneTextures(urls);
   const textureFor = (url: string) => textures[urls.indexOf(url)]!;
   const frame = useBackdropFrame(room.aspect);
   const aspect = useThree((s) => s.size.width / s.size.height);
   const restPose = useMemo((): CameraPose => {
     // Turn toward the room's point of interest, without revealing the backdrop edges.
     const viewW = 2 * BACKDROP_DEPTH * Math.tan((25 * Math.PI) / 180) * aspect;
-    const slack = Math.max(0, (frame.width - viewW) / 2) * 0.85;
+    const slack = Math.max(0, (frame.width - viewW) / 2) * 0.8;
     const x = Math.max(-slack, Math.min(slack, (room.focusU - 0.5) * frame.width));
     return { ...REST_POSE, target: [x, 0, -BACKDROP_DEPTH] };
   }, [aspect, frame.width, room.focusU]);
@@ -51,7 +46,8 @@ function SceneRooms({ scene, roomId }: { scene: SceneConfig; roomId?: string }) 
 
   useEffect(() => {
     reset();
-    setPose({ ...restPose, position: [0, 0.1, 1.4] }, 0);
+    // Arrive from inside the screen: start close and low, then glide back to the room.
+    setPose({ ...restPose, position: [0, 0.1, 1.4], fov: 42 }, 0);
     setPose(restPose, ARRIVAL_DURATION);
     setInteractive(true);
     // Arrival runs once per room; resizes are handled by the close-up effect below.
@@ -152,9 +148,7 @@ function PlaceholderRoom({ momentId }: { momentId: MomentId }) {
 }
 
 function PlaceholderBackdrop({ url }: { url: string }) {
-  const texture = useTexture(url, (t) => {
-    (t as Texture).colorSpace = SRGBColorSpace;
-  }) as Texture;
+  const [texture] = useSceneTextures([url]) as [Texture];
   const image = texture.image as HTMLImageElement;
   const frame = useBackdropFrame(image.width / image.height);
   return <Backdrop frame={frame} texture={texture} dim={0.55} />;

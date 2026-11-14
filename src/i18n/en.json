@@ -1,0 +1,20 @@
+{
+  "story.stop.lobby": "The living room",
+  "story.stop.tv": "The TV",
+  "story.stop.office": "Choufli Hal · the office",
+  "story.stop.corridor": "Choufli Hal · the corridor",
+  "story.stop.kitchen": "Choufli Hal · the kitchen",
+  "story.stop.tv2": "The TV · channel 02",
+  "story.stop.kalthoum": "Om Kalthoum concert",
+  "story.progress": "Journey: {n} of {total}",
+  "story.hint": "Scroll or swipe down to continue",
+  "story.next": "Next",
+  "story.prev": "Back",
+  "story.end": "Explore on my own",
+  "story.label": "Guided journey",
+  "prompt.lobby": "Shall we step into the TV?",
+  "prompt.lobby.action": "Enter",
+  "prompt.custom": "Put the tape in?",
+  "prompt.moment": "Back to the living room?",
+  "prompt.moment.action": "Rewind"
+}

@@ -4,6 +4,7 @@ import { changeScene, insertTape } from '../../app/transitions';
 import { channelLabel, displayYear, momentByChannel } from '../../data/moments';
 import { useT } from '../../i18n/useT';
 import { switchChannel } from './channelSwitch';
+import { ScenePrompt } from '../../ui/ScenePrompt';
 import { TapeDrawer } from './TapeDrawer';
 import styles from './CustomUI.module.css';
 
@@ -21,12 +22,17 @@ export function CustomUI() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const app = useApp.getState();
-      if (app.guideOpen || app.inserting || isTyping(e.target)) return;
+      if (app.guideOpen || app.inserting || app.menuOpen || isTyping(e.target)) return;
       if (e.key === 'Escape') {
         if (app.drawerOpen) app.setDrawerOpen(false);
-        else void changeScene({ name: 'lobby' });
+        else {
+          app.setStory(false);
+          void changeScene({ name: 'lobby' });
+        }
       } else if (app.drawerOpen) {
         return;
+      } else if (app.story && e.key.startsWith('Arrow')) {
+        return; // arrows travel between story stops
       } else if (e.key === 'ArrowUp' || e.key === 'ArrowRight') {
         e.preventDefault();
         switchChannel(app.channel + 1);
@@ -122,6 +128,8 @@ export function CustomUI() {
       >
         {t('custom.enter')}
       </button>
+
+      {!inserting && <ScenePrompt line={t('prompt.custom')} testId="custom-prompt" />}
 
       {drawerOpen && <TapeDrawer onClose={() => setDrawerOpen(false)} />}
     </>

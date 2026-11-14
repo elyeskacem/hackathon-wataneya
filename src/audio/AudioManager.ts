@@ -18,11 +18,15 @@ const AMBIENCE: Record<Exclude<Ambience, 'none'>, { noise: number; lowpass: numb
   hall: { noise: 0.07, lowpass: 700, murmur: true },
 };
 
+/** Ambient loops crossfade over this long (1–2 s), so the room never goes silent between scenes. */
+const FADE_S = 1.5;
+
 class AudioManagerImpl {
   private current: AmbienceLayer | null = null;
   private currentName: Ambience = 'none';
   private noiseBuffer: AudioBuffer | null = null;
   private duckGain: GainNode | null = null;
+  private roomTone: AudioBufferSourceNode | null = null;
 
   private get ctx(): AudioContext {
     Howler.volume(); // creates Howler.ctx and Howler.masterGain on first use
@@ -34,9 +38,28 @@ class AudioManagerImpl {
     return Howler.masterGain;
   }
 
-  /** Must run inside a user gesture (the "enter" tap). */
+  /** Must run inside a user gesture (the "enter" tap). Starts the room tone that never cuts. */
   async unlock() {
     if (this.ctx.state !== 'running') await this.ctx.resume();
+    this.startRoomTone();
+  }
+
+  /** The base layer under every scene: it starts at the first tap and keeps running through journeys. */
+  private startRoomTone() {
+    if (this.roomTone) return;
+    const ctx = this.ctx;
+    const src = ctx.createBufferSource();
+    src.buffer = this.noise();
+    src.loop = true;
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.value = 260;
+    const level = ctx.createGain();
+    level.gain.setValueAtTime(0, ctx.currentTime);
+    level.gain.linearRampToValueAtTime(0.035, ctx.currentTime + 2);
+    src.connect(filter).connect(level).connect(this.out);
+    src.start();
+    this.roomTone = src;
   }
 
   setMuted(muted: boolean) {
@@ -73,7 +96,7 @@ class AudioManagerImpl {
 
   setAmbience(name: Ambience) {
     if (name === this.currentName) return;
-    this.current?.stop(1.2);
+    this.current?.stop(FADE_S);
     this.current = null;
     this.currentName = name;
     if (name === 'none') return;
@@ -82,7 +105,7 @@ class AudioManagerImpl {
     const spec = AMBIENCE[name];
     const bus = ctx.createGain();
     bus.gain.setValueAtTime(0, ctx.currentTime);
-    bus.gain.linearRampToValueAtTime(1, ctx.currentTime + 1.2);
+    bus.gain.linearRampToValueAtTime(1, ctx.currentTime + FADE_S);
     bus.connect(this.ambienceOut);
 
     const src = ctx.createBufferSource();
@@ -159,6 +182,46 @@ class AudioManagerImpl {
     src.connect(filter).connect(g).connect(this.out);
     src.start(t, Math.random());
     src.stop(t + duration + 0.05);
+  }
+
+  /** VHS going in: a clunk, then the loading motor whirring up. */
+  tapeInsert() {
+    this.click('tape');
+    this.sweep({ from: 90, to: 260, duration: 0.7, delay: 0.3, gain: 0.04, type: 'sawtooth' });
+  }
+
+  /** Brief head-tracking buzz when a tape starts to play. */
+  tracking() {
+    this.static(0.45);
+    this.sweep({ from: 150, to: 110, duration: 0.5, gain: 0.025, type: 'square' });
+  }
+
+  /** Fast-rewind whine for the ◀◀ transition. */
+  rewind() {
+    this.sweep({ from: 700, to: 260, duration: 0.9, gain: 0.04, type: 'sawtooth' });
+    this.static(0.9);
+  }
+
+  /** CRT switch-off: a thud, then the high whine falling away. */
+  powerOff() {
+    this.sweep({ from: 120, to: 40, duration: 0.25, gain: 0.12, type: 'sine' });
+    this.sweep({ from: 9000, to: 1800, duration: 0.6, gain: 0.015, type: 'sine' });
+  }
+
+  private sweep({ from, to, duration, gain, type, delay = 0 }: { from: number; to: number; duration: number; gain: number; type: OscillatorType; delay?: number }) {
+    const ctx = this.ctx;
+    const t = ctx.currentTime + delay;
+    const osc = ctx.createOscillator();
+    osc.type = type;
+    osc.frequency.setValueAtTime(from, t);
+    osc.frequency.exponentialRampToValueAtTime(to, t + duration);
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(gain, t + 0.05);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + duration);
+    osc.connect(g).connect(this.out);
+    osc.start(t);
+    osc.stop(t + duration + 0.05);
   }
 
   /** Short mechanical click: remote buttons, tape insert, UI taps. */

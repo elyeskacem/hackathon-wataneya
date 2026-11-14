@@ -5,7 +5,7 @@ import type { Vec3 } from './cameraStore';
 export const BACKDROP_DEPTH = 10;
 const FOV = 50;
 /** Extra size so drift and drag never reveal the backdrop edges. */
-const OVERSCAN = 1.18;
+const OVERSCAN = 1.3;
 
 export interface BackdropFrame {
   width: number;

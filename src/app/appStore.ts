@@ -1,7 +1,11 @@
 import { create } from 'zustand';
 import type { MomentId } from '../data/moments';
 
-export type Curtain = 'static' | 'fade' | null;
+/** 'glow' = fade through warm CRT light (default journey), 'static' = bridge while an asset loads, 'fade' = plain. */
+export type Curtain = 'glow' | 'static' | 'fade' | null;
+
+/** VHS on-screen states shown over the stage. */
+export type Vhs = 'play' | 'rewind' | 'poweroff' | null;
 
 export type Route =
   | { name: 'entry' }
@@ -16,6 +20,12 @@ interface AppState {
   /** True for 0.5 s while the TV shows static between channels or scenes. */
   staticBurst: boolean;
   guideOpen: boolean;
+  /** Story mode: scroll, swipe or arrows travel from stop to stop. */
+  story: boolean;
+  storyIndex: number;
+  vhs: Vhs;
+  /** The settings menu is open (Esc closes it before anything else). */
+  menuOpen: boolean;
   /** Tape shelf drawer in Custom mode. */
   drawerOpen: boolean;
   /** The lobby scene finished loading its textures (entry can show the enter button). */
@@ -31,6 +41,10 @@ interface AppState {
   setStaticBurst: (on: boolean) => void;
   setGuideOpen: (open: boolean) => void;
   setDrawerOpen: (open: boolean) => void;
+  setStory: (story: boolean, index?: number) => void;
+  setStoryIndex: (index: number) => void;
+  setVhs: (vhs: Vhs) => void;
+  setMenuOpen: (open: boolean) => void;
   setLobbyReady: () => void;
   setCurtain: (curtain: Curtain) => void;
   setInserting: (on: boolean) => void;
@@ -42,6 +56,10 @@ export const useApp = create<AppState>()((set) => ({
   channel: 1,
   staticBurst: false,
   guideOpen: false,
+  story: false,
+  storyIndex: 0,
+  vhs: null,
+  menuOpen: false,
   drawerOpen: false,
   lobbyReady: false,
   curtain: null,
@@ -52,6 +70,10 @@ export const useApp = create<AppState>()((set) => ({
   setStaticBurst: (staticBurst) => set({ staticBurst }),
   setGuideOpen: (guideOpen) => set({ guideOpen }),
   setDrawerOpen: (drawerOpen) => set({ drawerOpen }),
+  setStory: (story, storyIndex = 0) => set({ story, storyIndex }),
+  setStoryIndex: (storyIndex) => set({ storyIndex }),
+  setVhs: (vhs) => set({ vhs }),
+  setMenuOpen: (menuOpen) => set({ menuOpen }),
   setLobbyReady: () => set({ lobbyReady: true }),
   setCurtain: (curtain) => set({ curtain }),
   setInserting: (inserting) => set({ inserting }),

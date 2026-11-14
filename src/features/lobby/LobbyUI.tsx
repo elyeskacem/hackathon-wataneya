@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { useApp } from '../../app/appStore';
 import { useSettings } from '../../app/settingsStore';
 import { useT } from '../../i18n/useT';
-import { switchChannel } from '../custom/channelSwitch';
+import { ScenePrompt } from '../../ui/ScenePrompt';
+import { startStory } from '../story/story';
 import { GuideHomeCard } from '../guide/Guide';
 import { useGuide } from '../guide/guideStore';
 import { ControlsHint } from './ControlsHint';
@@ -16,6 +17,7 @@ export function LobbyUI() {
   const { t } = useT();
   const go = useApp((s) => s.go);
   const guideOpen = useApp((s) => s.guideOpen);
+  const story = useApp((s) => s.story);
   const seenHint = useSettings((s) => s.seenControlsHint);
   const asked = useGuide((s) => s.messages.length > 0);
   const [greet, setGreet] = useState(false);
@@ -30,22 +32,16 @@ export function LobbyUI() {
     <>
       {!seenHint && <ControlsHint />}
       {greet && !guideOpen && !asked && <GuideHomeCard />}
-      <div className={`${styles.actions} chrome`}>
-        <button
-          type="button"
-          className={styles.primary}
-          onClick={() => {
-            go({ name: 'custom' });
-            switchChannel(1);
-          }}
-          data-testid="start-journey"
-        >
-          {t('lobby.start')}
-        </button>
-        <button type="button" className={`${styles.secondary} glass`} onClick={() => go({ name: 'custom' })} data-testid="pick-moment">
-          {t('lobby.pick')}
-        </button>
-      </div>
+      {!story && (
+        <>
+          <ScenePrompt line={t('prompt.lobby')} action={t('prompt.lobby.action')} onAction={() => go({ name: 'custom' })} testId="lobby-prompt" actionTestId="pick-moment" />
+          <div className={`${styles.actions} chrome`}>
+            <button type="button" className={styles.primary} onClick={startStory} data-testid="start-journey">
+              {t('lobby.start')}
+            </button>
+          </div>
+        </>
+      )}
     </>
   );
 }

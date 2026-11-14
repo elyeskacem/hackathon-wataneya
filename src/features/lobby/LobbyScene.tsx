@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import { useTexture } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
-import { SRGBColorSpace, type Texture } from 'three';
+import type { Texture } from 'three';
+import { useSceneTextures } from '../../stage/textures';
 import { useApp } from '../../app/appStore';
 import { useSettings } from '../../app/settingsStore';
 import { useLiftCurtain } from '../../app/transitions';
@@ -37,9 +37,7 @@ export function LobbyScene() {
   const reducedMotion = useSettings((s) => s.reducedMotion);
   const { t, locale } = useT();
 
-  const [room, roomBlur] = useTexture(LOBBY_URLS, (loaded) => {
-    (loaded as Texture[]).forEach((tex) => (tex.colorSpace = SRGBColorSpace));
-  }) as [Texture, Texture];
+  const [room, roomBlur] = useSceneTextures(LOBBY_URLS) as [Texture, Texture];
   const pictures = useChannelPictures(locale);
   const frame = useBackdropFrame(IMAGE_ASPECT);
   const aspect = useThree((s) => s.size.width / s.size.height);

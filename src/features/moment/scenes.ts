@@ -163,3 +163,8 @@ export const SCENES: Partial<Record<MomentId, SceneConfig>> = {
 export function roomOf(scene: SceneConfig, roomId: string | undefined): RoomConfig {
   return scene.rooms.find((r) => r.id === roomId) ?? scene.rooms[0]!;
 }
+
+/** Every image a scene needs; also used to warm the cache before the visitor arrives. */
+export function sceneUrls(scene: SceneConfig): string[] {
+  return [...scene.rooms.map((r) => r.backdrop), ...scene.rooms.flatMap((r) => r.characters.map((c) => c.image).filter((u): u is string => u !== null))];
+}

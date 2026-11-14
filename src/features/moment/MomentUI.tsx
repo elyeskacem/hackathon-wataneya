@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useApp } from '../../app/appStore';
-import { changeScene } from '../../app/transitions';
+import { leaveMoment } from '../../app/transitions';
 import { channelLabel, displayYear, momentById, type MomentId } from '../../data/moments';
 import { useT } from '../../i18n/useT';
+import { ScenePrompt } from '../../ui/ScenePrompt';
 import { entryById } from '../guide/knowledge';
 import { useGuide } from '../guide/guideStore';
 import { useMoment } from './momentStore';
@@ -35,11 +36,11 @@ export function MomentUI({ momentId, roomId }: { momentId: MomentId; roomId?: st
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const app = useApp.getState();
-      if (e.key !== 'Escape' || app.guideOpen) return;
+      if (e.key !== 'Escape' || app.guideOpen || app.menuOpen) return;
       const moment = useMoment.getState();
       if (moment.characterId) setCharacter(null);
       else if (moment.closeUp) moment.toggleCloseUp();
-      else void changeScene({ name: 'lobby' });
+      else void leaveMoment();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
@@ -64,6 +65,8 @@ export function MomentUI({ momentId, roomId }: { momentId: MomentId; roomId?: st
         </h1>
         {titleBig && <p className={styles.source}>{t('moment.source')}</p>}
       </div>
+
+      {!titleBig && !character && <ScenePrompt line={t('prompt.moment')} action={t('prompt.moment.action')} onAction={() => void leaveMoment()} testId="moment-prompt" />}
 
       {!scene && (
         <section className={`${styles.placeholder} glass`}>

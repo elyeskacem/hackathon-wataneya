@@ -1,4 +1,5 @@
 import { config } from '../../config';
+import { pickLocalized } from '../../i18n/useT';
 import { chipsFor, entries, entryById, normalize } from './knowledge';
 import type { GuideAdapter, GuideAnswer, GuideQuestion, KnowledgeEntry } from './types';
 
@@ -10,9 +11,9 @@ export const localAdapter: GuideAdapter = {
     const { locale } = question;
     return {
       kind: 'answer',
-      text: entry.a[locale],
-      more: entry.more?.[locale],
-      source: entry.source?.[locale] ?? null,
+      text: pickLocalized(entry.a, locale),
+      more: entry.more && pickLocalized(entry.more, locale),
+      source: entry.source ? pickLocalized(entry.source, locale) : null,
       year: entry.year,
       action: entry.action,
       followUps: entry.followUps.slice(0, 2),

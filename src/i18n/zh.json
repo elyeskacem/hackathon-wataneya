@@ -1,0 +1,20 @@
+{
+  "story.stop.lobby": "客厅",
+  "story.stop.tv": "电视",
+  "story.stop.office": "Choufli Hal · 办公室",
+  "story.stop.corridor": "Choufli Hal · 走廊",
+  "story.stop.kitchen": "Choufli Hal · 厨房",
+  "story.stop.tv2": "电视 · 02频道",
+  "story.stop.kalthoum": "乌姆·库勒苏姆音乐会",
+  "story.progress": "旅程：第 {n} 站，共 {total} 站",
+  "story.hint": "向下滚动或滑动继续",
+  "story.next": "下一站",
+  "story.prev": "上一站",
+  "story.end": "自由探索",
+  "story.label": "导览旅程",
+  "prompt.lobby": "要走进电视里吗？",
+  "prompt.lobby.action": "进入",
+  "prompt.custom": "放入录像带吗？",
+  "prompt.moment": "回到客厅吗？",
+  "prompt.moment.action": "返回"
+}

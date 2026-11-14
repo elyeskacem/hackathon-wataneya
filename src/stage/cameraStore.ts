@@ -12,18 +12,23 @@ export const REST_POSE: CameraPose = { position: [0, 0, 0], target: [0, 0, -10],
 
 interface CameraState {
   pose: CameraPose;
-  /** Seconds for the glide; 0 jumps (used for the reduced-motion mode and scene changes). */
+  /** Seconds for the journey (1.2–2 s). With reduced motion the rig dissolves instead of travelling. */
   duration: number;
-  /** Drag-to-look and wheel zoom (lobby only). */
+  /** Drag-to-look and wheel zoom. */
   interactive: boolean;
+  /** Counts reduced-motion crossfades, so the DOM dissolve can replay for each one. */
+  dissolveTick: number;
   setPose: (pose: CameraPose, duration?: number) => void;
   setInteractive: (interactive: boolean) => void;
+  dissolve: () => void;
 }
 
 export const useCamera = create<CameraState>()((set) => ({
   pose: REST_POSE,
   duration: 0,
   interactive: false,
+  dissolveTick: 0,
   setPose: (pose, duration = 1.6) => set({ pose, duration }),
   setInteractive: (interactive) => set({ interactive }),
+  dissolve: () => set((s) => ({ dissolveTick: s.dissolveTick + 1 })),
 }));
