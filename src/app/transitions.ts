@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useApp, type Route } from './appStore';
+import { useApp, type Curtain, type Route } from './appStore';
 import { useSettings } from './settingsStore';
 import { audio } from '../audio/AudioManager';
 import type { MomentId } from '../data/moments';
@@ -10,9 +10,9 @@ const CURTAIN_MS = 300;
 const wait = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
 
 /** Scene change behind the curtain; the new scene lifts it when its textures are ready. */
-export async function changeScene(route: Route) {
+export async function changeScene(route: Route, curtain: Exclude<Curtain, null> = 'static') {
   const app = useApp.getState();
-  app.setCurtain(true);
+  app.setCurtain(curtain);
   await wait(useSettings.getState().reducedMotion ? 0 : CURTAIN_MS);
   useApp.getState().go(route);
 }
@@ -31,11 +31,11 @@ export async function insertTape(momentId: MomentId) {
   await changeScene({ name: 'moment', momentId });
 }
 
-/** Called by each scene once mounted (after Suspense resolved its textures). */
-export function useLiftCurtain() {
+/** Called by each scene once mounted (after Suspense resolved its textures); `key` re-lifts on room changes. */
+export function useLiftCurtain(key?: string) {
   const setCurtain = useApp((s) => s.setCurtain);
   useEffect(() => {
-    const timer = window.setTimeout(() => setCurtain(false), 120);
+    const timer = window.setTimeout(() => setCurtain(null), 120);
     return () => window.clearTimeout(timer);
-  }, [setCurtain]);
+  }, [setCurtain, key]);
 }

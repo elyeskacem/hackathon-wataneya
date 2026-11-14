@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 import type { MomentId } from '../data/moments';
 
+export type Curtain = 'static' | 'fade' | null;
+
 export type Route =
   | { name: 'entry' }
   | { name: 'lobby' }
@@ -19,8 +21,8 @@ interface AppState {
   drawerOpen: boolean;
   /** The lobby scene finished loading its textures (entry can show the enter button). */
   lobbyReady: boolean;
-  /** Full-screen static (or a fade when effects are off) that hides scene changes. */
-  curtain: boolean;
+  /** Full-screen cover that hides scene changes: TV static, or a plain fade (doors, effects off). */
+  curtain: Curtain;
   /** The tape is going in: the camera pushes into the TV screen. */
   inserting: boolean;
   go: (route: Route) => void;
@@ -30,7 +32,7 @@ interface AppState {
   setGuideOpen: (open: boolean) => void;
   setDrawerOpen: (open: boolean) => void;
   setLobbyReady: () => void;
-  setCurtain: (on: boolean) => void;
+  setCurtain: (curtain: Curtain) => void;
   setInserting: (on: boolean) => void;
 }
 
@@ -42,7 +44,7 @@ export const useApp = create<AppState>()((set) => ({
   guideOpen: false,
   drawerOpen: false,
   lobbyReady: false,
-  curtain: false,
+  curtain: null,
   inserting: false,
   go: (route) => set({ route, archiveOpen: false, drawerOpen: false, inserting: false }),
   setChannel: (channel) => set({ channel: ((channel - 1 + 9) % 9) + 1 }),

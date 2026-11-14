@@ -1,0 +1,193 @@
+/* Title card: big on arrival (bottom-start), then a small tag top-centre. */
+.title {
+  position: fixed;
+  z-index: 23;
+  top: var(--space-24);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-4) var(--space-16);
+  border-radius: var(--radius-full);
+  transition: all var(--dur-fade-in) var(--ease-glide);
+}
+
+.big {
+  top: auto;
+  left: auto;
+  bottom: calc(var(--space-24) + var(--size-avatar-bubble) + var(--space-16));
+  inset-inline-start: var(--space-32);
+  transform: none;
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-16) var(--space-24);
+  border-radius: var(--radius-lg);
+  animation: rise var(--dur-fade-in) var(--ease-glide) both;
+}
+
+.ch {
+  font: var(--type-caption);
+  color: var(--icon-inactive);
+}
+
+.name {
+  margin: 0;
+  font: var(--type-body-strong);
+}
+
+.big .name {
+  font: var(--type-display);
+}
+
+.year {
+  font: var(--type-caption);
+  color: var(--icon-inactive);
+}
+
+.source {
+  margin: 0;
+  font: var(--type-caption);
+  color: var(--icon-inactive);
+}
+
+.archiveBtn {
+  position: fixed;
+  z-index: 23;
+  top: calc(var(--space-24) + var(--size-touch-min) + var(--space-12));
+  inset-inline-start: var(--space-32);
+  min-height: var(--size-touch-min);
+  padding: 0 var(--space-24);
+  border-radius: var(--radius-full);
+  font: var(--type-body-small-strong);
+}
+
+.placeholder {
+  position: fixed;
+  z-index: 22;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(420px, calc(100vw - 2 * var(--space-16)));
+  padding: var(--space-24);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.placeholder h2 {
+  margin: 0 0 var(--space-8);
+  font: var(--type-h3);
+}
+
+.placeholder p {
+  margin: 0;
+  color: var(--icon-inactive);
+}
+
+.card {
+  position: fixed;
+  z-index: 26;
+  top: 30%;
+  inset-inline-end: var(--space-32);
+  width: min(300px, calc(100vw - 2 * var(--space-16)));
+  padding: var(--space-16) var(--space-24) var(--space-24);
+  border-radius: var(--radius-lg);
+  animation: rise var(--dur-ui) ease both;
+}
+
+.close {
+  position: absolute;
+  top: var(--space-8);
+  inset-inline-end: var(--space-8);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: none;
+}
+
+.cardName {
+  margin: 0;
+  font: var(--type-h2);
+}
+
+.cardRole {
+  margin: 0;
+  font: var(--type-caption);
+  color: var(--icon-inactive);
+}
+
+.fact {
+  margin: var(--space-12) 0;
+}
+
+.toVerify {
+  display: inline-block;
+  padding: 2px var(--space-8);
+  border: 1px dashed var(--memory-gold);
+  border-radius: var(--radius-sm);
+  font: var(--type-caption);
+  color: var(--memory-gold);
+}
+
+.ask {
+  min-height: var(--size-touch-min);
+  width: 100%;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  background: var(--art-ink-900);
+  font: var(--type-body-small-strong);
+}
+
+/* Subtitles always sit on a solid band, never on the scene. */
+.subtitles {
+  position: fixed;
+  z-index: 23;
+  bottom: var(--space-24);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(640px, calc(100vw - 2 * var(--space-16) - 2 * var(--size-avatar-bubble)));
+  margin: 0;
+  padding: var(--space-12) var(--space-24);
+  border-radius: var(--radius-md);
+  background: var(--art-ink-900);
+  font: var(--type-body-small);
+  text-align: center;
+}
+
+.speaker {
+  display: block;
+  font: var(--type-caption);
+  color: var(--memory-gold);
+}
+
+@media (max-width: 640px) {
+  .big {
+    inset-inline: var(--space-16);
+  }
+
+  .archiveBtn {
+    inset-inline-start: var(--space-16);
+  }
+
+  .card {
+    top: auto;
+    bottom: calc(var(--space-16) + var(--size-avatar-bubble) + 96px);
+    inset-inline: var(--space-16);
+    width: auto;
+  }
+
+  .subtitles {
+    bottom: calc(var(--space-16) + var(--size-avatar-bubble) + var(--space-12));
+    width: calc(100vw - 2 * var(--space-16));
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}

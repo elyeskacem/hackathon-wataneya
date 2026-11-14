@@ -44,7 +44,7 @@
   "common.toVerify": "À vérifier",
   "moment.archive": "Voir l'archive",
   "moment.askAbout": "Parle-moi de {name}",
-  "moment.door": "Aller vers {room}",
+  "moment.door": "Aller · {room}",
   "moment.source": "Source : archives Wataniya",
   "moment.subtitle.archive": "Son d'archive",
   "moment.subtitle.guide": "Guide Zawaya",
@@ -75,5 +75,5 @@
   "guide.more": "Plus",
   "guide.source": "Source",
   "guide.close": "Fermer le guide",
-  "guide.goTo": "Aller au moment"
+  "moment.characterLine": "Voici {name}, un personnage de {show}."
 }

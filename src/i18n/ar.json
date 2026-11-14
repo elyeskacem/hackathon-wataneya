@@ -44,7 +44,7 @@
   "common.toVerify": "تستنّى التثبّت",
   "moment.archive": "شوف الأرشيف",
   "moment.askAbout": "احكيلي على {name}",
-  "moment.door": "ادخل لـ{room}",
+  "moment.door": "ادخل · {room}",
   "moment.source": "المصدر: أرشيف الوطنية",
   "moment.subtitle.archive": "صوت الأرشيف",
   "moment.subtitle.guide": "دليل زوايا",
@@ -75,5 +75,5 @@
   "guide.more": "زيد",
   "guide.source": "المصدر",
   "guide.close": "سكّر الدليل",
-  "guide.goTo": "روح للحظة"
+  "moment.characterLine": "هذا {name}، من شخصيات {show}."
 }

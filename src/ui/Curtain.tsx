@@ -5,11 +5,11 @@ import styles from './Curtain.module.css';
 
 /** Full-screen static between scenes; a plain fade when effects are off or motion is reduced. */
 export function Curtain() {
-  const on = useApp((s) => s.curtain);
+  const curtain = useApp((s) => s.curtain);
   const plain = useSettings((s) => !s.effects || s.reducedMotion);
   return (
-    <div className={`${styles.curtain} ${on ? styles.on : ''}`} aria-hidden="true">
-      {!plain && on && <TvStatic className={styles.static} />}
+    <div className={`${styles.curtain} ${curtain ? styles.on : ''}`} aria-hidden="true">
+      {curtain === 'static' && !plain && <TvStatic className={styles.static} />}
     </div>
   );
 }
