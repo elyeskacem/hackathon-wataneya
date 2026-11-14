@@ -8,6 +8,7 @@ import { useT } from '../../i18n/useT';
 import { Logo } from '../../ui/Logo';
 import { TvStatic } from '../../ui/TvStatic';
 import { TV_SCREEN_CLIP } from '../custom/tvGeometry';
+import { webglAvailable } from '../../stage/webgl';
 import styles from './EntryScreen.module.css';
 
 /**
@@ -18,6 +19,7 @@ export function EntryScreen({ onDone }: { onDone: () => void }) {
   const { t } = useT();
   const { progress } = useProgress();
   const ready = useApp((s) => s.lobbyReady);
+  const failed = useApp((s) => s.stageFailed) || !webglAvailable;
   const go = useApp((s) => s.go);
   const setMuted = useSettings((s) => s.setMuted);
   const reducedMotion = useSettings((s) => s.reducedMotion);
@@ -58,7 +60,14 @@ export function EntryScreen({ onDone }: { onDone: () => void }) {
         </div>
       </div>
       <div className={styles.status} aria-live="polite">
-        {ready ? (
+        {failed ? (
+          <>
+            <p className={styles.failed} role="alert">
+              {t('entry.no3d')}
+            </p>
+            <p className={styles.hint}>{t('entry.no3dHint')}</p>
+          </>
+        ) : ready ? (
           <>
             <button ref={button} type="button" className={styles.enter} onClick={enter} disabled={leaving} data-testid="enter">
               {t('entry.enter')}

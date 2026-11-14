@@ -25,6 +25,8 @@ interface AppState {
   curtain: Curtain;
   /** The tape is going in: the camera pushes into the TV screen. */
   inserting: boolean;
+  /** WebGL is missing or the 3D stage crashed. */
+  stageFailed: boolean;
   go: (route: Route) => void;
   setChannel: (channel: number) => void;
   setStaticBurst: (on: boolean) => void;
@@ -34,6 +36,7 @@ interface AppState {
   setLobbyReady: () => void;
   setCurtain: (curtain: Curtain) => void;
   setInserting: (on: boolean) => void;
+  setStageFailed: () => void;
 }
 
 export const useApp = create<AppState>()((set) => ({
@@ -46,6 +49,7 @@ export const useApp = create<AppState>()((set) => ({
   lobbyReady: false,
   curtain: null,
   inserting: false,
+  stageFailed: false,
   go: (route) => set({ route, archiveOpen: false, drawerOpen: false, inserting: false }),
   setChannel: (channel) => set({ channel: ((channel - 1 + 9) % 9) + 1 }),
   setStaticBurst: (staticBurst) => set({ staticBurst }),
@@ -55,4 +59,5 @@ export const useApp = create<AppState>()((set) => ({
   setLobbyReady: () => set({ lobbyReady: true }),
   setCurtain: (curtain) => set({ curtain }),
   setInserting: (inserting) => set({ inserting }),
+  setStageFailed: () => set({ stageFailed: true }),
 }));

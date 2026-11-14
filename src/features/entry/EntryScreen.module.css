@@ -76,7 +76,14 @@
   transition: width var(--dur-ui) ease;
 }
 
+.failed {
+  margin: 0;
+  font: var(--type-h3);
+  text-align: center;
+}
+
 .hint {
+  text-align: center;
   margin: 0;
   display: inline-flex;
   align-items: center;

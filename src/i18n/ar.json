@@ -75,5 +75,7 @@
   "guide.more": "زيد",
   "guide.source": "المصدر",
   "guide.close": "سكّر الدليل",
-  "moment.characterLine": "هذا {name}، من شخصيات {show}."
+  "moment.characterLine": "هذا {name}، من شخصيات {show}.",
+  "entry.no3d": "الـ3D ما يخدمش على الجهاز هذا.",
+  "entry.no3dHint": "جرّب Chrome ولا Edge محدّث، ولا شغّل تسريع الرسوميات في المتصفّح."
 }

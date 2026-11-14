@@ -1,6 +1,9 @@
 # Wataniya Zawaya: web VR build plan
 
-Status: audit done, waiting for "go". No code written yet.
+Status: P0 built on `feature/web-vr-experience` (see README). Notes added during the build:
+- The lobby render was already in the repo (`CHOFLI HAL9 1.png` is the living room); the Figma pull confirmed it.
+- The guide portrait is a drawn, fictional host silhouette (the Figma vector was not exported).
+- `old tv 1.png` had a studio background; it is cut out with a hand-traced mask in `scripts/optimize-assets.mjs`.
 
 ## 1. What I read
 

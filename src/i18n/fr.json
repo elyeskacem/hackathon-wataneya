@@ -75,5 +75,7 @@
   "guide.more": "Plus",
   "guide.source": "Source",
   "guide.close": "Fermer le guide",
-  "moment.characterLine": "Voici {name}, un personnage de {show}."
+  "moment.characterLine": "Voici {name}, un personnage de {show}.",
+  "entry.no3d": "La 3D ne fonctionne pas sur cet appareil.",
+  "entry.no3dHint": "Essaie un Chrome ou Edge à jour, ou active l'accélération graphique du navigateur."
 }
