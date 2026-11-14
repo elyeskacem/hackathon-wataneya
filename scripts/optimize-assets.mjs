@@ -9,8 +9,7 @@ const OUT = 'public/renders';
 
 // crop values are fractions of the source image to remove from each side.
 const JOBS = [
-  { src: 'CHOFLI HAL9 1.png', out: 'lobby-living-room', width: 2048, crop: { right: 0.06, bottom: 0.015 }, blur: true },
-  { src: 'old tv 1.png', out: 'old-tv', width: 1280, cutout: true },
+// The lobby backdrop and the TV are no longer renders: see build-salon.mjs and build-models.mjs.
   { src: 'chofli hal3 1.png', out: 'choufli-office', width: 1920, crop: { left: 0.02, right: 0.05, bottom: 0.015 } },
   { src: 'chof li hal 4 1.png', out: 'choufli-corridor', width: 1920, crop: { right: 0.05, bottom: 0.015 } },
   { src: 'CHOF LI HAL7 1.png', out: 'choufli-kitchen', width: 1920, crop: { right: 0.05, bottom: 0.015 } },

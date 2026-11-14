@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { enter, press } from './helpers';
+import { enter, press, settled } from './helpers';
 
 test('demo path: entry → lobby → custom → moment → back', async ({ page }) => {
   const errors: string[] = [];
@@ -27,6 +27,7 @@ test('demo path: entry → lobby → custom → moment → back', async ({ page 
   await expect(page.getByTestId('enter-moment')).toBeEnabled();
   await press(page, 'enter-moment');
   await expect(page.getByTestId('title-card')).toContainText('شوفلي حل');
+  await settled(page, 'character-sliman');
   await press(page, 'character-sliman');
   await expect(page.getByTestId('character-card')).toContainText('سليمان');
   await page.keyboard.press('Escape');

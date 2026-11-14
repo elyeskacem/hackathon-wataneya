@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { useThree } from '@react-three/fiber';
 import { CanvasTexture, SRGBColorSpace, type Texture } from 'three';
 import { useSceneTextures } from '../../stage/textures';
-import { changeScene, useLiftCurtain } from '../../app/transitions';
+import { announcePlay, changeScene, useLiftCurtain } from '../../app/transitions';
 import { useT } from '../../i18n/useT';
 import { asset, momentById, type MomentId } from '../../data/moments';
 import { Backdrop } from '../../stage/Backdrop';
@@ -43,6 +43,8 @@ function SceneRooms({ scene, roomId }: { scene: SceneConfig; roomId?: string }) 
   const setInteractive = useCamera((s) => s.setInteractive);
 
   useLiftCurtain(room.id);
+  // The tape starts playing when the scene has really arrived (not while it is still loading).
+  useEffect(() => announcePlay(), [scene.momentId]);
 
   useEffect(() => {
     reset();

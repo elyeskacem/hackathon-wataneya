@@ -22,6 +22,8 @@
   --art-warm-500: #a39686;
   --art-ink-700: #2c2d30;
   --art-ink-900: #1b1c1e;
+  /* VHS on-screen display green (inferred from the nostalgia spec, not a Figma variable) */
+  --osd-green: #4dff7a;
 
   /* glass */
   --glass-panel: #1b1c1eb2;
@@ -61,6 +63,8 @@
   --font-heading: 'Changa', 'Cairo', system-ui, sans-serif;
   --font-body: 'Cairo', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', 'Cairo', ui-monospace, monospace;
+  /* handwritten tape labels: Caveat (Latin), Aref Ruqaa (Arabic), Noto Sans SC as the Chinese fallback */
+  --font-hand: 'Caveat', 'Aref Ruqaa', 'Noto Sans SC', cursive;
   --type-h3: 600 18px/1.4 var(--font-heading);
   --type-body-strong: 600 16px/1.6 var(--font-body);
   --type-body-small: 400 14px/1.5 var(--font-body);

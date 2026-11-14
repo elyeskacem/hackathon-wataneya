@@ -30,6 +30,10 @@ interface AppState {
   drawerOpen: boolean;
   /** The lobby scene finished loading its textures (entry can show the enter button). */
   lobbyReady: boolean;
+  roomReady: boolean;
+  tvReady: boolean;
+  /** Entry sequence on stage: the tape slides into the TV, then the screen flickers on. */
+  entryPhase: 'insert' | 'on' | null;
   /** Full-screen cover that hides scene changes: TV static, or a plain fade (doors, effects off). */
   curtain: Curtain;
   /** The tape is going in: the camera pushes into the TV screen. */
@@ -46,6 +50,8 @@ interface AppState {
   setVhs: (vhs: Vhs) => void;
   setMenuOpen: (open: boolean) => void;
   setLobbyReady: () => void;
+  setTvReady: () => void;
+  setEntryPhase: (phase: 'insert' | 'on' | null) => void;
   setCurtain: (curtain: Curtain) => void;
   setInserting: (on: boolean) => void;
   setStageFailed: () => void;
@@ -62,6 +68,9 @@ export const useApp = create<AppState>()((set) => ({
   menuOpen: false,
   drawerOpen: false,
   lobbyReady: false,
+  roomReady: false,
+  tvReady: false,
+  entryPhase: null,
   curtain: null,
   inserting: false,
   stageFailed: false,
@@ -74,8 +83,13 @@ export const useApp = create<AppState>()((set) => ({
   setStoryIndex: (storyIndex) => set({ storyIndex }),
   setVhs: (vhs) => set({ vhs }),
   setMenuOpen: (menuOpen) => set({ menuOpen }),
-  setLobbyReady: () => set({ lobbyReady: true }),
+  setLobbyReady: () => set((s) => ({ roomReady: true, lobbyReady: s.tvReady })),
+  setTvReady: () => set((s) => ({ tvReady: true, lobbyReady: s.roomReady })),
+  setEntryPhase: (entryPhase) => set({ entryPhase }),
   setCurtain: (curtain) => set({ curtain }),
   setInserting: (inserting) => set({ inserting }),
   setStageFailed: () => set({ stageFailed: true }),
 }));
+
+// Dev only: lets tests and screenshots pose the app (e.g. freeze the entry sequence mid-way).
+if (import.meta.env.DEV) (window as unknown as { __app: typeof useApp }).__app = useApp;

@@ -44,7 +44,6 @@ export async function insertTape(momentId: MomentId, roomId?: string) {
     await wait(PUSH_MS * 0.4);
   }
   await changeScene({ name: 'moment', momentId, roomId });
-  announcePlay();
 }
 
 /** Green "▶ PLAY · year" on arrival (no year until verified) and brief tracking lines. */

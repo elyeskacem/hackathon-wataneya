@@ -1,11 +1,155 @@
 [
-  { "id": "choufli-hal", "channel": 1, "title": { "ar": "شوفلي حل", "fr": "Choufli Hal" }, "kind": { "ar": "سيتكوم", "fr": "Sitcom" }, "year": 2005, "yearVerified": false, "scene": "choufli-hal", "thumb": "renders/choufli-office.webp" },
-  { "id": "om-kalthoum", "channel": 2, "title": { "ar": "حفلة أم كلثوم", "fr": "Concert d'Oum Kalthoum" }, "kind": { "ar": "كونسار", "fr": "Concert" }, "year": 1968, "yearVerified": false, "scene": "om-kalthoum", "thumb": "renders/kalthoum-hall.webp" },
-  { "id": "news-studio", "channel": 3, "title": { "ar": "ستوديو الأخبار", "fr": "Le studio du JT" }, "kind": { "ar": "كواليس", "fr": "Coulisses" }, "year": null, "yearVerified": false, "scene": null, "thumb": null },
-  { "id": "el-khottab", "channel": 4, "title": { "ar": "الخطّاب على الباب", "fr": "El Khottab Al Bab" }, "kind": { "ar": "مسلسل", "fr": "Série" }, "year": null, "yearVerified": false, "scene": null, "thumb": null },
-  { "id": "laroui", "channel": 5, "title": { "ar": "حكايات العروي", "fr": "Les histoires de Laroui" }, "kind": { "ar": "حكايات", "fr": "Documentaire" }, "year": null, "yearVerified": false, "scene": null, "thumb": null },
-  { "id": "mnamet-aroussia", "channel": 6, "title": { "ar": "منامة عروسية", "fr": "Mnamet Aroussia" }, "kind": { "ar": "مسلسل", "fr": "Série" }, "year": null, "yearVerified": false, "scene": null, "thumb": "renders/mnamet-patio.webp" },
-  { "id": "tv-launch", "channel": 7, "title": { "ar": "انطلاق البث التلفزي", "fr": "Lancement de la télévision" }, "kind": { "ar": "حدث", "fr": "Événement" }, "year": 1966, "yearVerified": false, "scene": null, "thumb": null },
-  { "id": "independence", "channel": 8, "title": { "ar": "إمضاء الاستقلال", "fr": "Signature de l'indépendance" }, "kind": { "ar": "حدث", "fr": "Événement" }, "year": 1956, "yearVerified": false, "scene": null, "thumb": null },
-  { "id": "dhi3et-mahrous", "channel": 9, "title": { "ar": "ضيعة محروس", "fr": "Dhi3et Mahrous" }, "kind": { "ar": "مسلسل", "fr": "Série" }, "year": null, "yearVerified": false, "scene": null, "thumb": null }
+  {
+    "id": "choufli-hal",
+    "channel": 1,
+    "title": {
+      "ar": "شوفلي حل",
+      "fr": "Choufli Hal"
+    },
+    "kind": {
+      "ar": "سيتكوم",
+      "fr": "Sitcom"
+    },
+    "year": 2005,
+    "yearVerified": false,
+    "scene": "choufli-hal",
+    "thumb": "renders/choufli-office.webp",
+    "look": "vhs90"
+  },
+  {
+    "id": "om-kalthoum",
+    "channel": 2,
+    "title": {
+      "ar": "حفلة أم كلثوم",
+      "fr": "Concert d'Oum Kalthoum"
+    },
+    "kind": {
+      "ar": "كونسار",
+      "fr": "Concert"
+    },
+    "year": 1968,
+    "yearVerified": false,
+    "scene": "om-kalthoum",
+    "thumb": "renders/kalthoum-hall.webp",
+    "look": "bw60"
+  },
+  {
+    "id": "news-studio",
+    "channel": 3,
+    "title": {
+      "ar": "ستوديو الأخبار",
+      "fr": "Le studio du JT"
+    },
+    "kind": {
+      "ar": "كواليس",
+      "fr": "Coulisses"
+    },
+    "year": null,
+    "yearVerified": false,
+    "scene": null,
+    "thumb": null,
+    "look": "warm70"
+  },
+  {
+    "id": "el-khottab",
+    "channel": 4,
+    "title": {
+      "ar": "الخطّاب على الباب",
+      "fr": "El Khottab Al Bab"
+    },
+    "kind": {
+      "ar": "مسلسل",
+      "fr": "Série"
+    },
+    "year": null,
+    "yearVerified": false,
+    "scene": null,
+    "thumb": null,
+    "look": "warm70"
+  },
+  {
+    "id": "laroui",
+    "channel": 5,
+    "title": {
+      "ar": "حكايات العروي",
+      "fr": "Les histoires de Laroui"
+    },
+    "kind": {
+      "ar": "حكايات",
+      "fr": "Documentaire"
+    },
+    "year": null,
+    "yearVerified": false,
+    "scene": null,
+    "thumb": null,
+    "look": "warm70"
+  },
+  {
+    "id": "mnamet-aroussia",
+    "channel": 6,
+    "title": {
+      "ar": "منامة عروسية",
+      "fr": "Mnamet Aroussia"
+    },
+    "kind": {
+      "ar": "مسلسل",
+      "fr": "Série"
+    },
+    "year": null,
+    "yearVerified": false,
+    "scene": null,
+    "thumb": "renders/mnamet-patio.webp",
+    "look": "warm70"
+  },
+  {
+    "id": "tv-launch",
+    "channel": 7,
+    "title": {
+      "ar": "انطلاق البث التلفزي",
+      "fr": "Lancement de la télévision"
+    },
+    "kind": {
+      "ar": "حدث",
+      "fr": "Événement"
+    },
+    "year": 1966,
+    "yearVerified": false,
+    "scene": null,
+    "thumb": null,
+    "look": "bw60"
+  },
+  {
+    "id": "independence",
+    "channel": 8,
+    "title": {
+      "ar": "إمضاء الاستقلال",
+      "fr": "Signature de l'indépendance"
+    },
+    "kind": {
+      "ar": "حدث",
+      "fr": "Événement"
+    },
+    "year": 1956,
+    "yearVerified": false,
+    "scene": null,
+    "thumb": null,
+    "look": "bw60"
+  },
+  {
+    "id": "dhi3et-mahrous",
+    "channel": 9,
+    "title": {
+      "ar": "ضيعة محروس",
+      "fr": "Dhi3et Mahrous"
+    },
+    "kind": {
+      "ar": "مسلسل",
+      "fr": "Série"
+    },
+    "year": null,
+    "yearVerified": false,
+    "scene": null,
+    "thumb": null,
+    "look": "vhs90"
+  }
 ]

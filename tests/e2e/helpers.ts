@@ -9,6 +9,26 @@ export async function press(page: Page, testId: string) {
   await target.click({ force: true });
 }
 
+/** Waits until a hotspot has stopped gliding with the camera (it may still drift a few pixels). */
+export async function settled(page: Page, testId: string) {
+  const target = page.getByTestId(testId);
+  let last = { x: Infinity, y: Infinity };
+  await expect
+    .poll(
+      async () => {
+        const box = await target.boundingBox();
+        if (!box) return false;
+        const vp = page.viewportSize();
+        if (!vp || box.x < 0 || box.y < 0 || box.x + box.width > vp.width || box.y + box.height > vp.height) return false;
+        const still = Math.abs(box.x - last.x) < 4 && Math.abs(box.y - last.y) < 4;
+        last = { x: box.x, y: box.y };
+        return still;
+      },
+      { intervals: [250], timeout: 15_000 },
+    )
+    .toBe(true);
+}
+
 export async function enter(page: Page) {
   await page.goto('/');
   // The loader shows real progress, then the enter button once the lobby is ready.

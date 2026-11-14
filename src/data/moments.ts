@@ -23,7 +23,11 @@ export interface Moment {
   /** Id of the 3D/2.5D scene, or null while the moment is a placeholder. */
   scene: 'choufli-hal' | 'om-kalthoum' | null;
   thumb: string | null;
+  /** Colour grade of the scene: 60s near black-and-white, 70s warm, 90s VHS tones. An aesthetic choice, not a dating claim. */
+  look: Look;
 }
+
+export type Look = 'bw60' | 'warm70' | 'vhs90';
 
 export const moments = raw as Moment[];
 

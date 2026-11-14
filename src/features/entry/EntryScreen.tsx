@@ -3,17 +3,15 @@ import { useProgress } from '@react-three/drei';
 import { useApp } from '../../app/appStore';
 import { useSettings } from '../../app/settingsStore';
 import { audio } from '../../audio/AudioManager';
-import { asset } from '../../data/moments';
 import { useT } from '../../i18n/useT';
 import { Logo } from '../../ui/Logo';
-import { TvStatic } from '../../ui/TvStatic';
-import { TV_SCREEN_CLIP } from '../custom/tvGeometry';
 import { webglAvailable } from '../../stage/webgl';
 import styles from './EntryScreen.module.css';
 
 /**
- * Loading and entry (DOM only): the TV warms up with static while the lobby loads behind it,
- * then shows the living room; the tap unlocks audio and the picture "turns on" into the lobby.
+ * Loading and entry: the real % and the enter button are DOM; the TV itself is the 3D model on the
+ * stage behind (static on its screen while loading). On enter the tape slides into it, the screen
+ * flickers on showing the salon, and the TV travels to its cabinet in the lobby.
  */
 export function EntryScreen({ onDone }: { onDone: () => void }) {
   const { t } = useT();
@@ -24,6 +22,7 @@ export function EntryScreen({ onDone }: { onDone: () => void }) {
   const setMuted = useSettings((s) => s.setMuted);
   const reducedMotion = useSettings((s) => s.reducedMotion);
   const [leaving, setLeaving] = useState(false);
+  const [fading, setFading] = useState(false);
   const button = useRef<HTMLButtonElement>(null);
 
   const percent = ready ? 100 : Math.min(99, Math.round(progress));
@@ -37,14 +36,27 @@ export function EntryScreen({ onDone }: { onDone: () => void }) {
     await audio.unlock();
     setMuted(false);
     audio.setMuted(false);
+    const app = useApp.getState();
+    if (reducedMotion) {
+      go({ name: 'lobby' });
+      onDone();
+      return;
+    }
+    app.setEntryPhase('insert');
+    audio.tapeInsert();
+    await wait(1000);
+    app.setEntryPhase('on');
+    audio.static(0.5);
+    await wait(650);
     go({ name: 'lobby' });
-    if (reducedMotion) onDone();
+    app.setEntryPhase(null);
+    setFading(true);
   };
 
   return (
     <section
-      className={`${styles.entry} ${leaving ? styles.leaving : ''}`}
-      onAnimationEnd={(e) => e.target === e.currentTarget && leaving && onDone()}
+      className={`${styles.entry} ${leaving ? styles.leaving : ''} ${fading ? styles.fading : ''}`}
+      onAnimationEnd={(e) => e.target === e.currentTarget && fading && onDone()}
       aria-labelledby="entry-title"
     >
       <h1 id="entry-title" className="visually-hidden">
@@ -53,12 +65,7 @@ export function EntryScreen({ onDone }: { onDone: () => void }) {
       <div className={styles.logo}>
         <Logo />
       </div>
-      <div className={styles.tv}>
-        <img className={styles.tvImage} src={asset('renders/old-tv.webp')} alt="" />
-        <div className={styles.screen} style={{ clipPath: TV_SCREEN_CLIP }}>
-          {ready ? <img src={asset('renders/lobby-living-room.webp')} alt="" className={styles.room} /> : <TvStatic className={styles.static} />}
-        </div>
-      </div>
+      <div className={styles.tvSpace} aria-hidden="true" />
       <div className={styles.status} aria-live="polite">
         {failed ? (
           <>
@@ -92,6 +99,8 @@ export function EntryScreen({ onDone }: { onDone: () => void }) {
     </section>
   );
 }
+
+const wait = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
 
 function MutedIcon() {
   return (

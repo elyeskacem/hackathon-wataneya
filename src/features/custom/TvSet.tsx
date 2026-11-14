@@ -1,86 +1,113 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { AdditiveBlending, BufferAttribute, BufferGeometry, CanvasTexture, SRGBColorSpace, type MeshBasicMaterial, type Texture } from 'three';
-import { useSceneTextures } from '../../stage/textures';
-import { asset } from '../../data/moments';
-import type { Vec3 } from '../../stage/cameraStore';
-import { TV_BODY as BODY, TV_IMAGE_ASPECT as IMAGE_ASPECT, TV_SCREEN as SCREEN } from './tvGeometry';
-
-export const TV_URL = asset('renders/old-tv.webp');
+import { CanvasTexture, Color, DoubleSide, Group, Mesh, MeshStandardMaterial, PlaneGeometry, PointLight, ShaderMaterial, SRGBColorSpace, Vector3, type Texture } from 'three';
+import { useModel, MODEL_URLS } from '../../stage/useModel';
+import { TV_MODEL } from './tvGeometry';
 
 interface TvSetProps {
-  /** World position of the centre of the TV body. */
-  position: Vec3;
-  /** World height of the TV body (without antenna and tapes). */
-  bodyHeight: number;
-  picture: Texture | null;
-  staticTexture: Texture;
-  showStatic: boolean;
-  glow: boolean;
+  /** What the glass shows: static, a channel picture, the test card, or the room. */
+  screenTexture: Texture | null;
+  /** Cool light spilling from the screen onto the frame, the cabinet and the wall (0–1). */
+  glow: number;
+  /** CRT curvature, scanlines and flicker on the glass (the nostalgia layer; off with "effects off"). */
+  crt: boolean;
+  /** No flicker when motion is reduced. */
+  still?: boolean;
+  /** Brief white flash of the tube switching on (0–1), read every frame so it never re-renders the scene. */
+  flashRef?: { current: number };
+  onReady?: () => void;
 }
 
-/** The old TV cut-out with a live screen (picture or static) mapped onto its glass. */
-export function TvSet({ position, bodyHeight, picture, staticTexture, showStatic, glow }: TvSetProps) {
-  const [tv] = useSceneTextures([TV_URL]) as [Texture];
-  const h = bodyHeight / BODY.h;
-  const w = h * IMAGE_ASPECT;
-  const toLocal = (u: number, v: number): [number, number] => [(u - 0.5) * w, (0.5 - v) * h];
+/**
+ * The old CRT TV (public/models/tv.glb), 1 unit wide with its base on y = 0 (scale it from outside).
+ * The glass is part of the body mesh, so the live picture is a slightly bulged quad in front of it.
+ * Materials are softened (less chrome, warm tint) so the model sits in the painted room.
+ */
+export function TvSet({ screenTexture, glow, crt, still = false, flashRef, onReady }: TvSetProps) {
+  const gltf = useModel(MODEL_URLS.tv);
+  const root = useRef<Group>(null);
+  const light = useRef<PointLight>(null);
 
-  const screen = useMemo(() => {
-    const g = new BufferGeometry();
-    const pts = [SCREEN.tl, SCREEN.tr, SCREEN.br, SCREEN.bl].map(([u, v]) => toLocal(u, v));
-    g.setAttribute('position', new BufferAttribute(new Float32Array(pts.flatMap(([x, y]) => [x, y, 0.002])), 3));
-    g.setAttribute('uv', new BufferAttribute(new Float32Array([0, 1, 1, 1, 1, 0, 0, 0]), 2));
-    g.setIndex([0, 3, 1, 1, 3, 2]);
-    return g;
-    // toLocal only depends on w and h
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [w, h]);
-  useEffect(() => () => screen.dispose(), [screen]);
-
-  const glowTexture = useMemo(() => radialTexture('rgba(255,190,110,0.9)', 'rgba(201,162,39,0)'), []);
-  const shadowTexture = useMemo(() => radialTexture('rgba(0,0,0,0.75)', 'rgba(0,0,0,0)'), []);
+  const body = useMemo(() => {
+    const clone = gltf.scene.clone(true);
+    clone.traverse((o) => {
+      const mesh = o as Mesh;
+      if (!mesh.isMesh) return;
+      const mat = (mesh.material as MeshStandardMaterial).clone();
+      mat.metalness = 0.4;
+      mat.roughness = 1;
+      mat.color = new Color('#f1dfc8');
+      mat.normalScale.set(0.7, 0.7);
+      for (const map of [mat.map, mat.normalMap, mat.metalnessMap, mat.aoMap]) if (map) map.anisotropy = 8;
+      mesh.material = mat;
+    });
+    return clone;
+  }, [gltf]);
   useEffect(
-    () => () => {
-      glowTexture.dispose();
-      shadowTexture.dispose();
-    },
-    [glowTexture, shadowTexture],
+    () => () =>
+      body.traverse((o) => {
+        const mesh = o as Mesh;
+        if (mesh.isMesh) (mesh.material as MeshStandardMaterial).dispose();
+      }),
+    [body],
   );
 
-  const glowMat = useRef<MeshBasicMaterial>(null);
-  useFrame((_, delta) => {
-    if (!glowMat.current) return;
-    const target = glow ? 0.55 : 0;
-    glowMat.current.opacity += (target - glowMat.current.opacity) * Math.min(1, delta * 2);
+  const s = TV_MODEL.screen;
+  const glass = useMemo(() => {
+    const g = new PlaneGeometry(s.w, s.h, 24, 18);
+    const p = g.attributes.position!;
+    for (let i = 0; i < p.count; i++) {
+      const nx = p.getX(i) / (s.w / 2);
+      const ny = p.getY(i) / (s.h / 2);
+      p.setZ(i, -0.075 * (nx * nx + ny * ny));
+    }
+    g.computeVertexNormals();
+    return g;
+  }, [s.w, s.h]);
+  useEffect(() => () => glass.dispose(), [glass]);
+
+  const shadow = useMemo(() => radialTexture('rgba(0,0,0,0.85)', 'rgba(0,0,0,0)'), []);
+  useEffect(() => () => shadow.dispose(), [shadow]);
+
+  const screenMat = useMemo(() => crtMaterial(s.w, s.h), [s.w, s.h]);
+  useEffect(() => () => screenMat.dispose(), [screenMat]);
+  useEffect(() => {
+    onReady?.();
+    // once, when the model has arrived
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useFrame((state) => {
+    const t = state.clock.elapsedTime;
+    const u = screenMat.uniforms;
+    u.map!.value = screenTexture;
+    u.crt!.value = crt ? 1 : 0;
+    u.time!.value = t;
+    u.flicker!.value = crt && !still ? 1 : 0;
+    const flash = flashRef?.current ?? 0;
+    u.flash!.value = flash;
+    if (light.current && root.current) {
+      const k = root.current.getWorldScale(scratch).x;
+      const wobble = !still ? 0.1 * Math.sin(t * 23) * Math.sin(t * 7.3) : 0;
+      light.current.intensity = (glow + flash * 1.5) * (1 + wobble) * 2.4;
+      light.current.distance = 2.4 * k;
+    }
   });
 
-  // Shift the image so `position` is the centre of the TV body, not of the picture.
-  const offset: Vec3 = [-(BODY.cx - 0.5) * w, (BODY.cy - 0.5) * h, 0];
-  const [screenCx, screenCy] = toLocal((SCREEN.tl[0] + SCREEN.br[0]) / 2, (SCREEN.tl[1] + SCREEN.br[1]) / 2);
-
   return (
-    <group position={position}>
-      <group position={offset}>
-        <mesh position={[screenCx, screenCy, -0.02]} renderOrder={0}>
-          <planeGeometry args={[w * 1.4, h * 1.2]} />
-          <meshBasicMaterial ref={glowMat} map={glowTexture} transparent opacity={0} blending={AdditiveBlending} depthWrite={false} toneMapped={false} />
-        </mesh>
-        <mesh position={[0, (0.5 - BODY.bottom) * h, -0.01]} renderOrder={1}>
-          <planeGeometry args={[w * 0.6, h * 0.12]} />
-          <meshBasicMaterial map={shadowTexture} transparent depthWrite={false} toneMapped={false} />
-        </mesh>
-        <mesh renderOrder={2}>
-          <planeGeometry args={[w, h]} />
-          <meshBasicMaterial map={tv} transparent alphaTest={0.02} toneMapped={false} />
-        </mesh>
-        <mesh geometry={screen} renderOrder={3}>
-          <meshBasicMaterial map={showStatic || !picture ? staticTexture : picture} toneMapped={false} />
-        </mesh>
-      </group>
+    <group ref={root}>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.002, 0]} renderOrder={1}>
+        <planeGeometry args={[1.45, 1.0]} />
+        <meshBasicMaterial map={shadow} transparent depthWrite={false} toneMapped={false} />
+      </mesh>
+      <primitive object={body} />
+      <mesh geometry={glass} material={screenMat} position={[s.cx, s.cy, s.z + 0.075 - 0.003]} renderOrder={2} />
+      <pointLight ref={light} position={[s.cx, s.cy, 0.8]} color="#86a9ff" intensity={0} decay={1} />
     </group>
   );
 }
+
+const scratch = new Vector3();
 
 function radialTexture(inner: string, outer: string) {
   const canvas = document.createElement('canvas');
@@ -94,4 +121,61 @@ function radialTexture(inner: string, outer: string) {
   const t = new CanvasTexture(canvas);
   t.colorSpace = SRGBColorSpace;
   return t;
+}
+
+const CRT_VERTEX = `
+varying vec2 vUv;
+void main() {
+  vUv = uv;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+}`;
+
+/** Rounded glass outline, barrel curvature, scanlines, colour fringing, vignette, tube warm-up flash and flicker. */
+const CRT_FRAGMENT = `
+uniform sampler2D map;
+uniform vec2 size;
+uniform float time;
+uniform float crt;
+uniform float flicker;
+uniform float flash;
+varying vec2 vUv;
+
+vec2 curve(vec2 uv) {
+  uv = uv * 2.0 - 1.0;
+  vec2 offset = abs(uv.yx) / vec2(5.5, 4.5);
+  uv = uv + uv * offset * offset;
+  return uv * 0.5 + 0.5;
+}
+
+void main() {
+  vec2 q = abs(vUv - 0.5) * size - size * 0.5 + 0.075;
+  if (length(max(q, 0.0)) - 0.075 > 0.0) discard;
+  vec2 uv = crt > 0.5 ? curve(vUv) : vUv;
+  vec3 col = vec3(0.0);
+  if (uv.x >= 0.0 && uv.x <= 1.0 && uv.y >= 0.0 && uv.y <= 1.0) {
+    col = texture2D(map, uv).rgb;
+    if (crt > 0.5) {
+      float fringe = 0.0016;
+      col.r = texture2D(map, uv + vec2(fringe, 0.0)).r;
+      col.b = texture2D(map, uv - vec2(fringe, 0.0)).b;
+      col *= 0.86 + 0.14 * sin(uv.y * 96.0 * 6.28318);
+      vec2 d = vUv - 0.5;
+      col *= 1.0 - dot(d, d) * 1.6;
+      col += 0.03;
+      col *= 1.0 + flicker * 0.035 * sin(time * 47.0) * sin(time * 5.0);
+    }
+  }
+  col += flash * vec3(0.85, 0.92, 1.0);
+  gl_FragColor = vec4(col, 1.0);
+  #include <colorspace_fragment>
+}`;
+
+function crtMaterial(w: number, h: number) {
+  return new ShaderMaterial({
+    uniforms: { map: { value: null }, size: { value: [w, h] }, time: { value: 0 }, crt: { value: 1 }, flicker: { value: 1 }, flash: { value: 0 } },
+    vertexShader: CRT_VERTEX,
+    fragmentShader: CRT_FRAGMENT,
+    toneMapped: false,
+    side: DoubleSide,
+  });
 }

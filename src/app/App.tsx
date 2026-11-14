@@ -9,6 +9,9 @@ import { LobbyUI } from '../features/lobby/LobbyUI';
 import { CustomUI } from '../features/custom/CustomUI';
 import { MomentUI } from '../features/moment/MomentUI';
 import { Curtain } from '../ui/Curtain';
+import { Atmosphere } from '../ui/Atmosphere';
+import { VhsOverlay } from '../ui/VhsOverlay';
+import { momentById } from '../data/moments';
 import { useAmbience } from '../audio/useAmbience';
 import { Stage } from '../stage/Stage';
 import { usePreloadNext } from '../stage/preload';
@@ -24,14 +27,19 @@ export function App() {
   useTravelInput();
   const route = useApp((s) => s.route);
   const story = useApp((s) => s.story);
+  const vhs = useApp((s) => s.vhs);
   const effects = useSettings((s) => s.effects);
   const reducedMotion = useSettings((s) => s.reducedMotion);
   const idle = useIdle(3000);
   const [entryDone, setEntryDone] = useState(false);
 
+  // Era grade only inside a moment, and only with effects on.
+  const look = effects && route.name === 'moment' ? momentById(route.momentId).look : undefined;
+
   return (
-    <div className={styles.app} data-route={route.name} data-idle={idle} data-effects={effects} data-reduced-motion={reducedMotion}>
+    <div className={styles.app} data-route={route.name} data-idle={idle} data-effects={effects} data-reduced-motion={reducedMotion} data-look={look} data-vhs={vhs ?? undefined}>
       <Stage />
+      <Atmosphere />
       {route.name !== 'entry' && (
         <main className={styles.ui}>
           <TopBar />
@@ -42,6 +50,7 @@ export function App() {
           <Guide />
         </main>
       )}
+      <VhsOverlay />
       <Curtain />
       {!entryDone && <EntryScreen onDone={() => setEntryDone(true)} />}
     </div>

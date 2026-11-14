@@ -1,5 +1,6 @@
 import { Suspense, lazy } from 'react';
 import { Canvas } from '@react-three/fiber';
+import { ACESFilmicToneMapping } from 'three';
 import { XR, createXRStore } from '@react-three/xr';
 import { useApp } from '../app/appStore';
 import { LobbyScene } from '../features/lobby/LobbyScene';
@@ -23,7 +24,7 @@ export function Stage() {
       <StageBoundary onError={setStageFailed}>
         <Canvas
           dpr={[1, 2]}
-          gl={{ antialias: true, powerPreference: 'high-performance' }}
+          gl={{ antialias: true, powerPreference: 'high-performance', toneMapping: ACESFilmicToneMapping, toneMappingExposure: 1.05 }}
           camera={{ fov: 50, near: 0.05, far: 100, position: [0, 0, 0] }}
           onCreated={({ gl }) => gl.setClearColor('#1b1c1e')}
         >

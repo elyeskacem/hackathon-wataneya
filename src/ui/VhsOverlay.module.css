@@ -1,0 +1,110 @@
+.vhs {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+}
+
+.osd {
+  position: absolute;
+  top: calc(var(--space-48) + var(--space-24));
+  inset-inline-start: var(--space-48);
+  margin: 0;
+  color: var(--osd-green);
+  font: 400 clamp(22px, 3vw, 34px) / 1 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 8px var(--osd-green), 0 0 2px var(--osd-green);
+  animation: osd-in 160ms steps(3) both, osd-out 300ms ease 1700ms both;
+}
+
+.rewind .osd {
+  animation: osd-blink 400ms steps(2) infinite;
+}
+
+/* Tracking lines: a few bright, jittering bands drifting across the picture. */
+.bands {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0 12%,
+    #ffffff30 12.4% 13.4%,
+    transparent 13.8% 46%,
+    #ffffff22 46.4% 47.2%,
+    transparent 47.6% 71%,
+    #ffffff38 71.4% 73%,
+    transparent 73.4%
+  );
+  mix-blend-mode: screen;
+  animation: tracking 700ms steps(7) both;
+}
+
+.rewind .bands {
+  animation: tracking 260ms steps(5) infinite;
+  opacity: 0.9;
+}
+
+.dot {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 41;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: var(--radius-full);
+  background: var(--art-white);
+  box-shadow: 0 0 24px 8px var(--art-white);
+  opacity: 0;
+  pointer-events: none;
+  animation: dot 700ms ease-out both;
+}
+
+@keyframes osd-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes osd-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes osd-blink {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes tracking {
+  0% {
+    transform: translateY(-6%) skewX(8deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(4%) skewX(-5deg);
+  }
+  100% {
+    transform: translateY(0) skewX(0);
+    opacity: 0;
+  }
+}
+
+/* The stage is collapsing (see Stage.module.css); the dot appears as the line vanishes. */
+@keyframes dot {
+  0%,
+  55% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.1);
+  }
+}

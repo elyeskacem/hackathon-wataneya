@@ -2,4 +2,44 @@
   position: fixed;
   inset: 0;
   touch-action: none;
+  transition: filter 1.2s ease;
+}
+
+/* Colour grading per era, only with effects on (the root gets data-look then). */
+:global([data-look='bw60']) .stage {
+  filter: grayscale(0.92) contrast(1.1) brightness(0.96) sepia(0.12);
+}
+
+:global([data-look='warm70']) .stage {
+  filter: sepia(0.28) saturate(1.15) contrast(1.03) brightness(1.02);
+}
+
+:global([data-look='vhs90']) .stage {
+  filter: saturate(0.82) contrast(1.06) hue-rotate(-4deg);
+}
+
+/* CRT power-off: the picture collapses to a bright line, then a dot (VhsOverlay draws the dot). */
+:global([data-vhs='poweroff']) .stage {
+  animation: crt-off 700ms cubic-bezier(0.55, 0, 0.8, 0.3) both;
+}
+
+@keyframes crt-off {
+  0% {
+    transform: scale(1, 1);
+    filter: brightness(1);
+  }
+  45% {
+    transform: scale(1, 0.006);
+    filter: brightness(3);
+  }
+  70% {
+    transform: scale(0.12, 0.006);
+    filter: brightness(4);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0, 0.006);
+    filter: brightness(4);
+    opacity: 0;
+  }
 }

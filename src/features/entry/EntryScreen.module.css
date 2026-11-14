@@ -6,45 +6,21 @@
   grid-template-rows: auto 1fr auto;
   justify-items: center;
   padding: var(--space-48) var(--space-16) var(--space-48);
-  background:
-    radial-gradient(ellipse 45% 50% at 50% 45%, color-mix(in srgb, var(--memory-gold) 22%, transparent), transparent 70%),
-    var(--bg-default);
+  /* The 3D TV is drawn on the stage behind; this layer only adds a faint warm pool of light. */
+  background: radial-gradient(ellipse 45% 50% at 50% 45%, color-mix(in srgb, var(--memory-gold) 14%, transparent), transparent 70%);
+  pointer-events: none;
+}
+
+.entry > * {
+  pointer-events: auto;
 }
 
 .logo {
   padding-top: var(--space-8);
 }
 
-.tv {
-  position: relative;
+.tvSpace {
   align-self: center;
-  width: min(560px, 86vw, 62vh * 1.333);
-  aspect-ratio: 1280 / 960;
-}
-
-.tvImage,
-.screen {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.screen {
-  background: var(--tv-screen);
-}
-
-.static,
-.room {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  image-rendering: pixelated;
-}
-
-.room {
-  image-rendering: auto;
-  animation: fadeIn var(--dur-ui) ease both;
 }
 
 .status {
@@ -108,26 +84,31 @@
   filter: brightness(1.08);
 }
 
-/* The TV turns on: the screen grows into the room, then the overlay fades (600 ms). */
+/* The visitor pressed enter: the status block steps aside while the tape goes in. */
 .leaving {
   pointer-events: none;
-  animation: tvOn var(--dur-fade-in) var(--ease-glide) forwards;
 }
 
-.leaving .tv {
-  transform-origin: 43% 46%;
-  transition: transform var(--dur-fade-in) var(--ease-glide);
-  transform: scale(3.2);
+.leaving .status {
+  opacity: 0;
+  transition: opacity var(--dur-ui) ease;
 }
 
-@keyframes tvOn {
-  0% {
+.leaving .logo {
+  opacity: 0;
+  transition: opacity var(--dur-fade-in) ease;
+}
+
+/* The TV has reached the cabinet: the overlay's glow lets go. */
+.fading {
+  animation: lift var(--dur-fade-in) var(--ease-glide) forwards;
+}
+
+@keyframes lift {
+  from {
     opacity: 1;
   }
-  40% {
-    opacity: 1;
-  }
-  100% {
+  to {
     opacity: 0;
     visibility: hidden;
   }

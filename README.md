@@ -14,6 +14,8 @@ npm run preview      # serve the production build
 npm run lint
 npm run test:e2e     # Playwright smoke tests (desktop + phone); first run: npx playwright install chromium
 npm run assets       # rebuild public/renders/*.webp from assets/renders/
+npm run assets:salon   # lobby backdrop (AVIF + WebP) from assets-src/renders/salon.jpg
+npm run assets:models  # TV + cassette GLBs (Meshopt + KTX2 UASTC) from assets-src/models/ (a few minutes)
 ```
 
 Node 20+ recommended.
@@ -92,6 +94,7 @@ src/
   styles/     tokens.css (Figma variables, Theme · Dark) and global styles
 data/         moments.json, guide-knowledge.json
 assets/       raw renders (source); public/renders/ holds the optimised WebP files
+assets-src/   the team's originals for the TV, cassette and salon (never edited; public/models and public/renders are built from them)
 docs/         PLAN.md, TO-VERIFY.md, research PDF, exported Figma screens
 tests/e2e/    Playwright smoke tests
 ```

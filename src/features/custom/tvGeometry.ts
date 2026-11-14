@@ -1,18 +1,22 @@
-/** Measurements of old-tv.webp, as fractions of the image from its top-left corner. */
-export const TV_IMAGE_ASPECT = 1280 / 960;
-export const TV_BODY = { cx: 0.466, cy: 0.516, h: 0.577, bottom: 0.8 };
-export const TV_SCREEN = { tl: [0.311, 0.294], tr: [0.548, 0.321], br: [0.551, 0.618], bl: [0.3125, 0.5625] } as const;
+/**
+ * Measurements of public/models/tv.glb after scripts/build-models.mjs: 1 unit wide, base on y = 0,
+ * centred on x/z. Everything below is in those units, so multiply by the TV's world width.
+ */
+export const TV_MODEL = {
+  /** Body (without the antennas): height, and the front of the bezel / the glass centre in z. */
+  bodyHeight: 0.64,
+  frontZ: 0.3,
+  /** The glass: centre, size and the z of its (convex) middle. */
+  screen: { cx: -0.09, cy: 0.336, w: 0.7, h: 0.5, z: 0.315 },
+} as const;
 
-/** The screen quad as a CSS clip-path, for the DOM version of the TV (entry screen). */
-export const TV_SCREEN_CLIP = `polygon(${[TV_SCREEN.tl, TV_SCREEN.tr, TV_SCREEN.br, TV_SCREEN.bl]
-  .map(([u, v]) => `${u * 100}% ${v * 100}%`)
-  .join(', ')})`;
-
-/** Offset from the TV body centre to the screen centre, for a TV of the given body height. */
-export function screenCenterOffset(bodyHeight: number): [number, number] {
-  const h = bodyHeight / TV_BODY.h;
-  const w = h * TV_IMAGE_ASPECT;
-  const u = (TV_SCREEN.tl[0] + TV_SCREEN.br[0]) / 2;
-  const v = (TV_SCREEN.tl[1] + TV_SCREEN.br[1]) / 2;
-  return [(u - TV_BODY.cx) * w, (TV_BODY.cy - v) * h];
+/** World size of a TV that is `width` wide: body height, and where its screen is relative to its base. */
+export function tvMetrics(width: number) {
+  const s = TV_MODEL.screen;
+  return {
+    bodyHeight: TV_MODEL.bodyHeight * width,
+    bodyCenterY: (TV_MODEL.bodyHeight / 2) * width,
+    frontZ: TV_MODEL.frontZ * width,
+    screenOffset: [s.cx * width, s.cy * width, s.z * width] as const,
+  };
 }

@@ -20,6 +20,8 @@
 
 .app[data-idle='true'] :global(.chrome:not(:focus-within)) {
   opacity: 0;
+  /* Invisible chrome must not swallow taps meant for the world behind it. */
+  pointer-events: none;
 }
 
 /* Floating question line: sits above each scene's own controls. */
