@@ -1,0 +1,149 @@
+{
+  "_readme": "Curated answers for the AI guide. The guide answers ONLY from this file (or a server that follows the same rules). status 'verified' = may be shown; 'to-verify' = never shown, the guide says it does not know. Archive facts need a source and, when relevant, a year. Keep answers to 3 sentences max; put extra detail in 'more'.",
+  "contexts": {
+    "home": { "chips": ["what-is-zawaya", "show-choufli-hal", "book-vr"] },
+    "custom": { "chips": ["show-om-kalthoum", "how-tv-works", "what-is-zawaya"] },
+    "choufli-hal": { "chips": ["choufli-what", "choufli-characters", "colour-how"] },
+    "om-kalthoum": { "chips": ["kalthoum-concert", "kalthoum-where", "colour-how"] }
+  },
+  "entries": [
+    {
+      "id": "what-is-zawaya",
+      "status": "verified",
+      "q": { "ar": "شنوّة زوايا؟", "fr": "C'est quoi Zawaya ?" },
+      "keywords": ["زوايا", "شنوة", "شنوّة", "zawaya", "c'est quoi", "quoi"],
+      "a": {
+        "ar": "زوايا هي رحلة في الزمن عبر تسع لحظات من تاريخ الوطنية. تنجم تختار لحظة من التلفزة، ولا تبدا الرحلة من الأول.",
+        "fr": "Zawaya est un voyage dans le temps à travers neuf moments de l'histoire de la Wataniya. Tu peux choisir un moment à la télé, ou commencer le voyage depuis le début."
+      },
+      "more": {
+        "ar": "أنا دليل بالذكاء الاصطناعي، موش إنسان، ونجاوب كان من أرشيف الوطنية.",
+        "fr": "Je suis un guide IA, pas une personne, et je réponds seulement à partir des archives de la Wataniya."
+      },
+      "source": null,
+      "year": null,
+      "followUps": ["how-tv-works", "colour-how"]
+    },
+    {
+      "id": "show-choufli-hal",
+      "status": "verified",
+      "q": { "ar": "ورّيني شوفلي حل", "fr": "Montre-moi Choufli Hal" },
+      "keywords": ["شوفلي", "choufli", "chouf li hal", "sbou3i", "سبوعي", "سليمان"],
+      "a": { "ar": "هاو شوفلي حل على القناة 01.", "fr": "Voici Choufli Hal, sur la chaîne 01." },
+      "action": { "type": "channel", "channel": 1 },
+      "source": null,
+      "year": null,
+      "followUps": ["choufli-characters", "show-om-kalthoum"]
+    },
+    {
+      "id": "show-om-kalthoum",
+      "status": "verified",
+      "q": { "ar": "ورّيني حفلة أم كلثوم", "fr": "Montre-moi le concert d'Oum Kalthoum" },
+      "keywords": ["كلثوم", "kalthoum", "kalthom", "koulthoum", "concert", "حفلة", "كونسار"],
+      "a": { "ar": "هاي حفلة أم كلثوم على القناة 02.", "fr": "Voici le concert d'Oum Kalthoum, sur la chaîne 02." },
+      "action": { "type": "channel", "channel": 2 },
+      "source": null,
+      "year": null,
+      "followUps": ["kalthoum-concert", "colour-how"]
+    },
+    {
+      "id": "book-vr",
+      "status": "verified",
+      "q": { "ar": "نحجز تجربة الـVR", "fr": "Réserver l'expérience VR" },
+      "keywords": ["vr", "نحجز", "حجز", "réserver", "reserver", "casque", "stand"],
+      "a": {
+        "ar": "زيارة الـVR الكاملة تدوم 20 دقيقة على الأكثر. الحجز يجي قريب في الموقع: تختار النهار، الوقت، وتعطي اسمك ونمرتك.",
+        "fr": "Une visite VR complète dure 20 minutes au maximum. La réservation arrive bientôt sur le site : tu choisis le jour, l'heure, puis ton nom et ton numéro."
+      },
+      "source": null,
+      "year": null,
+      "followUps": ["what-is-zawaya", "show-choufli-hal"]
+    },
+    {
+      "id": "how-tv-works",
+      "status": "verified",
+      "q": { "ar": "كيفاش نبدّل القناة؟", "fr": "Comment changer de chaîne ?" },
+      "keywords": ["قناة", "نبدل", "نبدّل", "ريموت", "chaîne", "chaine", "télécommande", "remote"],
+      "a": {
+        "ar": "استعمل الريموت: CH ▲▼ ولا الأرقام من 1 لـ9. بالكلافيي زادة: الأسهم والأرقام، وEsc باش ترجع للصالون.",
+        "fr": "Utilise la télécommande : CH ▲▼ ou les touches 1 à 9. Au clavier aussi : les flèches et les chiffres, et Échap pour revenir au salon."
+      },
+      "source": null,
+      "year": null,
+      "followUps": ["show-om-kalthoum", "colour-how"]
+    },
+    {
+      "id": "colour-how",
+      "status": "verified",
+      "q": { "ar": "الألوان هاذي حقيقية؟", "fr": "Ces couleurs sont-elles vraies ?" },
+      "keywords": ["ألوان", "الوان", "لون", "ملوّن", "couleur", "colorisé", "colorise", "noir et blanc"],
+      "a": {
+        "ar": "الأرشيف الأصلي بالأبيض والأكحل، ونورّيوه هو الأول. الألوان زادها الذكاء الاصطناعي، وممكن موش دقيقة.",
+        "fr": "L'archive originale est en noir et blanc, et on la montre en premier. La couleur est ajoutée par une IA et peut ne pas être exacte."
+      },
+      "source": null,
+      "year": null,
+      "followUps": ["what-is-zawaya", "how-tv-works"]
+    },
+    {
+      "id": "choufli-what",
+      "status": "to-verify",
+      "q": { "ar": "شنوّة شوفلي حل؟", "fr": "C'est quoi Choufli Hal ?" },
+      "keywords": ["شنوة شوفلي", "شنوّة شوفلي", "c'est quoi choufli", "quand", "وقتاش", "عام"],
+      "a": { "ar": "TO VERIFY: وصف قصير للمسلسل وسنة البث من أرشيف الوطنية.", "fr": "TO VERIFY : courte description de la série et année de diffusion, depuis les archives." },
+      "source": { "ar": "أرشيف الوطنية", "fr": "Archives Wataniya" },
+      "year": null,
+      "followUps": ["choufli-characters", "colour-how"]
+    },
+    {
+      "id": "choufli-characters",
+      "status": "to-verify",
+      "q": { "ar": "شكون الشخصيات؟", "fr": "Qui sont les personnages ?" },
+      "keywords": ["شخصيات", "شكون", "personnages", "qui"],
+      "a": { "ar": "TO VERIFY: أسماء الشخصيات والممثلين كيما مكتوبين في الأرشيف.", "fr": "TO VERIFY : noms des personnages et des acteurs tels qu'écrits dans l'archive." },
+      "source": { "ar": "أرشيف الوطنية", "fr": "Archives Wataniya" },
+      "year": null,
+      "followUps": ["choufli-what", "colour-how"]
+    },
+    {
+      "id": "character-sliman",
+      "status": "to-verify",
+      "q": { "ar": "احكيلي على سليمان", "fr": "Parle-moi de Sliman" },
+      "keywords": ["سليمان", "sliman", "slimane"],
+      "a": { "ar": "TO VERIFY: معلومة قصيرة على شخصية سليمان من الأرشيف.", "fr": "TO VERIFY : une courte information d'archive sur le personnage de Sliman." },
+      "source": { "ar": "أرشيف الوطنية", "fr": "Archives Wataniya" },
+      "year": null,
+      "followUps": ["character-sbou3i", "choufli-what"]
+    },
+    {
+      "id": "character-sbou3i",
+      "status": "to-verify",
+      "q": { "ar": "احكيلي على السبوعي", "fr": "Parle-moi de Sbou3i" },
+      "keywords": ["سبوعي", "السبوعي", "sbou3i", "sboui"],
+      "a": { "ar": "TO VERIFY: معلومة قصيرة على شخصية السبوعي من الأرشيف.", "fr": "TO VERIFY : une courte information d'archive sur le personnage de Sbou3i." },
+      "source": { "ar": "أرشيف الوطنية", "fr": "Archives Wataniya" },
+      "year": null,
+      "followUps": ["character-sliman", "choufli-what"]
+    },
+    {
+      "id": "kalthoum-concert",
+      "status": "to-verify",
+      "q": { "ar": "وقتاش صارت الحفلة؟", "fr": "Quand a eu lieu le concert ?" },
+      "keywords": ["وقتاش", "عام", "سنة", "quand", "année", "date"],
+      "a": { "ar": "TO VERIFY: تاريخ الحفلة والأغاني من أرشيف الوطنية.", "fr": "TO VERIFY : date du concert et chansons, depuis les archives." },
+      "source": { "ar": "أرشيف الوطنية", "fr": "Archives Wataniya" },
+      "year": null,
+      "followUps": ["kalthoum-where", "colour-how"]
+    },
+    {
+      "id": "kalthoum-where",
+      "status": "to-verify",
+      "q": { "ar": "وين صارت الحفلة؟", "fr": "Où a eu lieu le concert ?" },
+      "keywords": ["وين", "قاعة", "où", "salle", "lieu"],
+      "a": { "ar": "TO VERIFY: مكان الحفلة كيما مسجّل في الأرشيف.", "fr": "TO VERIFY : lieu du concert tel qu'enregistré dans l'archive." },
+      "source": { "ar": "أرشيف الوطنية", "fr": "Archives Wataniya" },
+      "year": null,
+      "followUps": ["kalthoum-concert", "colour-how"]
+    }
+  ]
+}

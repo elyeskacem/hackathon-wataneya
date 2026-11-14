@@ -18,7 +18,8 @@ interface HotspotProps {
  */
 export function Hotspot3D({ position, label, onSelect, icon = 'ring', showLabel = false, testId }: HotspotProps) {
   return (
-    <Html position={position} center zIndexRange={[20, 10]}>
+    // The zero-width anchor must stay LTR, or RTL right-aligns the button away from its point.
+    <Html position={position} center zIndexRange={[20, 10]} wrapperClass={styles.anchor}>
       <button
         type="button"
         className={`${styles.hotspot} ${showLabel ? styles.pinned : ''}`}

@@ -4,6 +4,8 @@ import { useSettings } from './settingsStore';
 import { useIdle } from './useIdle';
 import { useDocumentLocale } from '../i18n/useT';
 import { EntryScreen } from '../features/entry/EntryScreen';
+import { Guide } from '../features/guide/Guide';
+import { LobbyUI } from '../features/lobby/LobbyUI';
 import { Stage } from '../stage/Stage';
 import { TopBar } from '../ui/TopBar';
 import styles from './App.module.css';
@@ -22,6 +24,8 @@ export function App() {
       {route !== 'entry' && (
         <main className={styles.ui}>
           <TopBar />
+          {route === 'lobby' && <LobbyUI />}
+          <Guide />
         </main>
       )}
       {!entryDone && <EntryScreen onDone={() => setEntryDone(true)} />}

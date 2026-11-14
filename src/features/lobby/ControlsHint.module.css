@@ -1,0 +1,101 @@
+.card {
+  position: fixed;
+  bottom: var(--space-24);
+  inset-inline-start: var(--space-32);
+  z-index: 26;
+  width: min(380px, calc(100vw - 2 * var(--space-16)));
+  padding: var(--space-16) var(--space-24) var(--space-16);
+  border-radius: var(--radius-lg);
+  animation: rise var(--dur-ui) ease both;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+
+.counter {
+  padding: var(--space-4) var(--space-8);
+  border-radius: var(--radius-sm);
+  background: var(--art-ink-900);
+  font: var(--type-caption);
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--art-ink-900);
+}
+
+.title {
+  margin: var(--space-12) 0 var(--space-4);
+  font: var(--type-h3);
+  outline: none;
+}
+
+.body {
+  margin: 0 0 var(--space-16);
+  color: var(--icon-inactive);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+}
+
+.dots {
+  display: inline-flex;
+  gap: var(--space-4);
+  margin-inline-end: auto;
+}
+
+.dot,
+.dotOn {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--icon-inactive);
+}
+
+.dotOn {
+  background: var(--memory-gold);
+}
+
+.skip,
+.next {
+  min-height: var(--size-touch-min);
+  padding: 0 var(--space-24);
+  border-radius: var(--radius-full);
+  font: var(--type-body-strong);
+}
+
+.skip {
+  border: 0;
+  background: none;
+}
+
+.next {
+  border: 1px solid var(--glass-border);
+  background: var(--art-ink-900);
+}
+
+@media (max-width: 640px) {
+  .card {
+    inset-inline: var(--space-16);
+    width: auto;
+    bottom: calc(var(--space-16) + 72px);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}

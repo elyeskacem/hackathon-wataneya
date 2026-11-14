@@ -1,3 +1,7 @@
+.anchor {
+  direction: ltr;
+}
+
 .hotspot {
   position: relative;
   display: grid;
