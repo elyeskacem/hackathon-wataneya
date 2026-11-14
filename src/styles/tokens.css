@@ -1,0 +1,78 @@
+/*
+ * Design tokens — Figma variables, Theme · Dark (file web-vr, read from node 56:13224).
+ * Components use these variables only; no raw colours, sizes or radii elsewhere.
+ * Values marked "inferred" are not Figma variables; they were measured from the exported screens.
+ */
+:root {
+  /* colour */
+  --bg-default: #1b1c1e;
+  --tv-screen: #0c0d0e;
+  --accent-default: #e30613;
+  --red-500: #e30613;
+  --memory-gold: #c9a227;
+  --memory-paper: #f5efe3;
+  --memory-wood: #5a3a24;
+  --ink-500: #6b6e75;
+  --text-primary: #ffffff;
+  --icon-default: #ffffff;
+  --icon-inactive: #ffffff99;
+  --logo-ink: #ffffff;
+  --art-white: #ffffff;
+  --art-warm-300: #c9beb1;
+  --art-warm-500: #a39686;
+  --art-ink-700: #2c2d30;
+  --art-ink-900: #1b1c1e;
+
+  /* glass */
+  --glass-panel: #1b1c1eb2;
+  --glass-control: #1b1c1e99;
+  --glass-border: #ffffff3d;
+  --glass-highlight: #ffffff66;
+  --glass-inner-glow: #ffffff1f;
+  --glass-blur: 10px;
+  --glass-effect: inset 0 1.5px 0.5px 0 var(--glass-highlight), inset 0 0 16px 0 var(--glass-inner-glow);
+
+  /* scrim and shadow */
+  --scrim-room: #1b1c1ecc;
+  --scrim-room-end: #1b1c1e00;
+  --shadow-float: #00000066;
+  --shadow-float-box: 0 8px 24px var(--shadow-float);
+
+  /* space */
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-48: 48px;
+
+  /* radius */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 999px;
+
+  /* size */
+  --size-touch-min: 48px;
+  --size-avatar-bubble: 64px;
+
+  /* type — Figma text styles */
+  --font-heading: 'Changa', 'Cairo', system-ui, sans-serif;
+  --font-body: 'Cairo', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --type-h3: 600 18px/1.4 var(--font-heading);
+  --type-body-strong: 600 16px/1.6 var(--font-body);
+  --type-body-small: 400 14px/1.5 var(--font-body);
+  --type-body-small-strong: 600 14px/1.5 var(--font-body);
+  --type-caption: 400 12px/1.4 var(--font-mono);
+  /* inferred from the screens: progress %, moment titles, story years */
+  --type-display: 700 clamp(40px, 6vw, 64px) / 1.1 var(--font-heading);
+  --type-h2: 700 clamp(24px, 3vw, 32px) / 1.25 var(--font-heading);
+
+  /* motion — from the Figma motion spec cards */
+  --ease-glide: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 200ms;
+  --dur-ui: 300ms;
+  --dur-fade-in: 600ms;
+}

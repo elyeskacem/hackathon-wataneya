@@ -1,0 +1,44 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  color: var(--logo-ink);
+  user-select: none;
+}
+
+.mark {
+  width: 1.75em;
+  height: auto;
+  flex: none;
+}
+
+.words {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1;
+}
+
+.arabic {
+  font: 700 1.15em/1 var(--font-heading);
+  display: inline-flex;
+  gap: 0.15em;
+}
+
+.red {
+  color: var(--red-500);
+}
+
+.latin {
+  font: 600 0.32em/1.4 var(--font-body);
+  letter-spacing: 0.22em;
+  margin-top: 0.25em;
+}
+
+.md {
+  font-size: 22px;
+}
+
+.lg {
+  font-size: 32px;
+}
