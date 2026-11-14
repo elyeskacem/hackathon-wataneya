@@ -5,6 +5,7 @@ import { channelLabel, displayYear, momentByChannel } from '../../data/moments';
 import { useT } from '../../i18n/useT';
 import { switchChannel } from './channelSwitch';
 import { ScenePrompt } from '../../ui/ScenePrompt';
+import { hasExperience } from '../moment/experience';
 import { TapeDrawer } from './TapeDrawer';
 import styles from './CustomUI.module.css';
 
@@ -61,7 +62,7 @@ export function CustomUI() {
           <span className={styles.meta}>
             {year !== null && <bdi>{year} · </bdi>}
             {pick(moment.kind)}
-            {!moment.scene && <span className={styles.soon}> · {t('custom.soon')}</span>}
+            {!hasExperience(moment) && <span className={styles.soon}> · {t('custom.soon')}</span>}
           </span>
         </span>
         <span className={styles.onAir} aria-hidden="true" />

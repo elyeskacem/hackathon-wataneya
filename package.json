@@ -12,6 +12,8 @@
     "assets": "node scripts/optimize-assets.mjs",
     "assets:salon": "node scripts/build-salon.mjs",
     "assets:models": "node scripts/build-models.mjs",
+    "assets:scenes": "node scripts/build-models.mjs scenes",
+    "assets:sample-scene": "node scripts/make-sample-scene.mjs",
     "test:e2e": "playwright test"
   },
   "dependencies": {

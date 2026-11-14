@@ -4,28 +4,27 @@ import { leaveMoment } from '../../app/transitions';
 import { channelLabel, displayYear, momentById, type MomentId } from '../../data/moments';
 import { useT } from '../../i18n/useT';
 import { ScenePrompt } from '../../ui/ScenePrompt';
-import { entryById } from '../guide/knowledge';
-import { useGuide } from '../guide/guideStore';
 import { useMoment } from './momentStore';
-import { roomOf, SCENES } from './scenes';
+import { experienceFor, hasExperience } from './experience';
+import { characterInfo, SCENES } from './scenes';
+import { useAskEntry } from './useAskEntry';
 import styles from './MomentUI.module.css';
 
 /** The title card stays 4 s, then leaves a small tag (motion spec). */
 const TITLE_MS = 4000;
 
 /** Overlay inside a moment: title card, character card, subtitle band, Esc. */
-export function MomentUI({ momentId, roomId }: { momentId: MomentId; roomId?: string }) {
-  const { t, pick, locale } = useT();
+export function MomentUI({ momentId }: { momentId: MomentId }) {
+  const { t, pick } = useT();
   const moment = momentById(momentId);
   const scene = SCENES[momentId];
-  const room = scene ? roomOf(scene, roomId) : null;
   const year = displayYear(moment);
   const characterId = useMoment((s) => s.characterId);
   const setCharacter = useMoment((s) => s.setCharacter);
-  const setGuideOpen = useApp((s) => s.setGuideOpen);
-  const ask = useGuide((s) => s.ask);
+  const askEntry = useAskEntry(momentId);
   const [titleBig, setTitleBig] = useState(true);
-  const character = room?.characters.find((c) => c.id === characterId);
+  // Characters come from the 2.5D scene, a GLB or a Unity build; the card needs only a name and a guide entry.
+  const character = characterId ? characterInfo(characterId) : undefined;
 
   useEffect(() => {
     setTitleBig(true);
@@ -46,12 +45,7 @@ export function MomentUI({ momentId, roomId }: { momentId: MomentId; roomId?: st
     return () => window.removeEventListener('keydown', onKey);
   }, [setCharacter]);
 
-  const askAboutCharacter = () => {
-    if (!character) return;
-    const entry = entryById(character.entryId);
-    setGuideOpen(true);
-    if (entry) void ask({ text: pick(entry.q), entryId: entry.id }, scene ? (momentId as 'choufli-hal' | 'om-kalthoum') : 'home', locale);
-  };
+  const askAboutCharacter = () => askEntry(character?.entryId);
 
   return (
     <>
@@ -68,7 +62,7 @@ export function MomentUI({ momentId, roomId }: { momentId: MomentId; roomId?: st
 
       {!titleBig && !character && <ScenePrompt line={t('prompt.moment')} action={t('prompt.moment.action')} onAction={() => void leaveMoment()} testId="moment-prompt" />}
 
-      {!scene && (
+      {!hasExperience(moment) && (
         <section className={`${styles.placeholder} glass`}>
           <h2>{t('moment.placeholderTitle')}</h2>
           <p>{t('moment.placeholderBody')}</p>
@@ -95,7 +89,7 @@ export function MomentUI({ momentId, roomId }: { momentId: MomentId; roomId?: st
         </section>
       )}
 
-      {(character || scene?.ambientLine) && (
+      {(character || (scene?.ambientLine && experienceFor(momentId).kind === 'render')) && (
         <p className={styles.subtitles} aria-live="polite">
           <span className={styles.speaker}>{character ? t('moment.subtitle.guide') : t('moment.subtitle.sound')}</span>
           {character ? t('moment.characterLine', { name: pick(character.name), show: pick(moment.title) }) : pick(scene!.ambientLine!)}

@@ -39,8 +39,13 @@ export function CameraRig() {
   const pointerNow = useRef({ x: 0, y: 0 });
   const target = useRef(new Vector3());
   const first = useRef(true);
+  const free = useRef(false);
+  const right = useRef(new Vector3());
+  const up = useRef(new Vector3());
+  const fwd = useRef(new Vector3());
 
   useEffect(() => {
+    free.current = Boolean(pose.free);
     const [px, py, pz] = pose.position;
     const [tx, ty, tz] = pose.target;
     const to = { px, py, pz, tx, ty, tz, fov: pose.fov };
@@ -134,12 +139,26 @@ export function CameraRig() {
     const offX = p.x * PARALLAX.x * amount + driftX;
     const offY = p.y * PARALLAX.y * amount + driftY;
 
-    camera.position.set(c.px + offX, c.py + offY, c.pz);
     const dist = Math.hypot(c.tx - c.px, c.ty - c.py, c.tz - c.pz);
     // Drag right turns the view left, like grabbing the room.
     const yaw = -lk.yaw;
     const pitch = lk.pitch;
-    target.current.set(c.tx + yaw * dist + offX * 0.4, c.ty + pitch * dist + offY * 0.4, c.tz);
+    if (free.current) {
+      // Real 3D scenes: the camera may face any way, so the offsets follow its own right and up axes.
+      fwd.current.set(c.tx - c.px, c.ty - c.py, c.tz - c.pz).normalize();
+      right.current.crossVectors(fwd.current, WORLD_UP);
+      if (right.current.lengthSq() < 1e-6) right.current.set(1, 0, 0);
+      right.current.normalize();
+      up.current.crossVectors(right.current, fwd.current).normalize();
+      camera.position.set(c.px, c.py, c.pz).addScaledVector(right.current, offX).addScaledVector(up.current, offY);
+      target.current
+        .set(c.tx, c.ty, c.tz)
+        .addScaledVector(right.current, yaw * dist + offX * 0.4)
+        .addScaledVector(up.current, pitch * dist + offY * 0.4);
+    } else {
+      camera.position.set(c.px + offX, c.py + offY, c.pz);
+      target.current.set(c.tx + yaw * dist + offX * 0.4, c.ty + pitch * dist + offY * 0.4, c.tz);
+    }
     camera.lookAt(target.current);
     const fov = c.fov + lk.zoom;
     if (Math.abs(camera.fov - fov) > 0.001) {
@@ -151,4 +170,5 @@ export function CameraRig() {
   return null;
 }
 
+const WORLD_UP = new Vector3(0, 1, 0);
 const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));

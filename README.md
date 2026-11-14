@@ -16,6 +16,7 @@ npm run test:e2e     # Playwright smoke tests (desktop + phone); first run: npx 
 npm run assets       # rebuild public/renders/*.webp from assets/renders/
 npm run assets:salon   # lobby backdrop (AVIF + WebP) from assets-src/renders/salon.jpg
 npm run assets:models  # TV + cassette GLBs (Meshopt + KTX2 UASTC) from assets-src/models/ (a few minutes)
+npm run assets:scenes  # the 3D team's scene GLBs from assets-src/models/scenes/ (see docs/3D-HANDOFF.md)
 ```
 
 Node 20+ recommended.
@@ -46,6 +47,13 @@ Node 20+ recommended.
 Also: settings (effects off, reduced motion, fullscreen, Enter VR when a headset is present,
 Français); the UI auto-hides after 3 s idle; one ambient loop per scene, ducked while the guide
 is open; WebGL failure shows a clear message instead of hanging.
+
+## Real 3D scenes (replacing the 2.5D renders)
+
+Each moment can be delivered as a Blender GLB (`assets-src/models/scenes/<moment-id>.glb`, then
+`npm run assets:scenes`) or as a Unity WebGL build (`public/experiences/<moment-id>/`). A moment uses
+Unity if it has it, otherwise the GLB, otherwise its 2.5D render, so the site never breaks while the
+3D is in progress. File names, marker naming, scale, budgets and testing: **docs/3D-HANDOFF.md**.
 
 ## Demo script for the jury (≈ 3 minutes)
 

@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { lazy, useEffect, useMemo } from 'react';
 import { useThree } from '@react-three/fiber';
 import { CanvasTexture, SRGBColorSpace, type Texture } from 'three';
 import { useSceneTextures } from '../../stage/textures';
@@ -10,14 +10,33 @@ import { REST_POSE, useCamera, type CameraPose, type Vec3 } from '../../stage/ca
 import { Hotspot3D } from '../../stage/Hotspot3D';
 import { BACKDROP_DEPTH, useBackdropFrame, type BackdropFrame } from '../../stage/useBackdropFrame';
 import { useMoment } from './momentStore';
+import { experienceFor } from './experience';
 import { roomOf, sceneUrls, SCENES, type CharacterConfig, type SceneConfig } from './scenes';
+
+// Only moments with a real GLB pay for the glTF loaders.
+const GlbScene = lazy(() => import('./GlbScene'));
 
 /** Arrival: the camera glides in (1.6–2 s, motion spec). */
 const ARRIVAL_DURATION = 1.8;
 
 export default function MomentScene({ momentId, roomId }: { momentId: MomentId; roomId?: string }) {
+  const experience = experienceFor(momentId);
+  // A Unity build is a DOM iframe (UnityExperience); the canvas stays empty behind it.
+  if (experience.kind === 'unity') return <EmptyStage />;
+  if (experience.kind === 'glb') return <GlbScene momentId={momentId} url={experience.url} roomId={roomId} />;
   const scene = SCENES[momentId];
   return scene ? <SceneRooms scene={scene} roomId={roomId} /> : <PlaceholderRoom momentId={momentId} />;
+}
+
+/** The canvas while a Unity build owns the screen: nothing to draw, and the iframe lifts the curtain. */
+function EmptyStage() {
+  const setPose = useCamera((s) => s.setPose);
+  const setInteractive = useCamera((s) => s.setInteractive);
+  useEffect(() => {
+    setPose(REST_POSE, 0);
+    setInteractive(false);
+  }, [setPose, setInteractive]);
+  return null;
 }
 
 function SceneRooms({ scene, roomId }: { scene: SceneConfig; roomId?: string }) {

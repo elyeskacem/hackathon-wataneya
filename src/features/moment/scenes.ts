@@ -73,6 +73,32 @@ const SBOU3I: CharacterConfig = {
   entryId: 'character-sbou3i',
 };
 
+const FOCHIKA: CharacterConfig = {
+  id: 'fochika',
+  name: { ar: 'فوشيكة', fr: 'Fochika' },
+  image: null,
+  imageAspect: 0.42,
+  u: 0.3,
+  v: 0.88,
+  depth: 7,
+  heightShare: 0.36,
+  ring: { u: 0.9, v: 0.12 },
+  entryId: 'choufli-characters',
+};
+
+const OM_KALTHOUM: CharacterConfig = {
+  id: 'om-kalthoum',
+  name: { ar: 'أم كلثوم', fr: 'Oum Kalthoum' },
+  image: asset('renders/char-om-kalthoum.webp'),
+  imageAspect: 665 / 709,
+  u: 0.5,
+  v: 0.64,
+  depth: 8,
+  heightShare: 0.14,
+  ring: { u: 0.8, v: 0.1 },
+  entryId: 'kalthoum-concert',
+};
+
 export const SCENES: Partial<Record<MomentId, SceneConfig>> = {
   'choufli-hal': {
     momentId: 'choufli-hal',
@@ -106,18 +132,7 @@ export const SCENES: Partial<Record<MomentId, SceneConfig>> = {
         focusU: 0.45,
         characters: [
           SBOU3I,
-          {
-            id: 'fochika',
-            name: { ar: 'فوشيكة', fr: 'Fochika' },
-            image: null,
-            imageAspect: 0.42,
-            u: 0.3,
-            v: 0.88,
-            depth: 7,
-            heightShare: 0.36,
-            ring: { u: 0.9, v: 0.12 },
-            entryId: 'choufli-characters',
-          },
+          FOCHIKA,
         ],
         doors: [{ to: 'corridor', u: 0.2, v: 0.45 }],
       },
@@ -134,20 +149,7 @@ export const SCENES: Partial<Record<MomentId, SceneConfig>> = {
         focusU: 0.5,
         // Real person: shown only when the team turns the flag on (docs/PLAN.md §6.6).
         characters: config.showOmKalthoumFigure
-          ? [
-              {
-                id: 'om-kalthoum',
-                name: { ar: 'أم كلثوم', fr: 'Oum Kalthoum' },
-                image: asset('renders/char-om-kalthoum.webp'),
-                imageAspect: 665 / 709,
-                u: 0.5,
-                v: 0.64,
-                depth: 8,
-                heightShare: 0.14,
-                ring: { u: 0.8, v: 0.1 },
-                entryId: 'kalthoum-concert',
-              },
-            ]
+          ? [OM_KALTHOUM]
           : [],
         doors: [],
         viewpoint: { label: { ar: 'الصف الأول', fr: 'Premier rang' }, backLabel: { ar: 'القاعة كاملة', fr: 'Toute la salle' }, u: 0.5, v: 0.72, dolly: 3.2 },
@@ -167,4 +169,18 @@ export function roomOf(scene: SceneConfig, roomId: string | undefined): RoomConf
 /** Every image a scene needs; also used to warm the cache before the visitor arrives. */
 export function sceneUrls(scene: SceneConfig): string[] {
   return [...scene.rooms.map((r) => r.backdrop), ...scene.rooms.flatMap((r) => r.characters.map((c) => c.image).filter((u): u is string => u !== null))];
+}
+
+/** Name and guide entry of a character, whichever scene form shows it (2.5D, GLB or Unity). Unknown ids still get a card. */
+export function characterInfo(id: string): Pick<CharacterConfig, 'id' | 'name' | 'entryId'> {
+  const known = [SLIMAN, SBOU3I, FOCHIKA, OM_KALTHOUM].find((c) => c.id === id);
+  if (known) return known;
+  const name = id.replace(/[-_]+/g, ' ').replace(/^\w/, (c) => c.toUpperCase());
+  return { id, name: { ar: name, fr: name }, entryId: `character-${id}` };
+}
+
+/** Display name of a room: from the 2.5D scene when it knows the room, otherwise the id. */
+export function roomName(momentId: MomentId, roomId: string): Localized {
+  const known = SCENES[momentId]?.rooms.find((r) => r.id === roomId);
+  return known?.name ?? { ar: roomId, fr: roomId };
 }

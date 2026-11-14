@@ -2,3 +2,8 @@
 *.png binary
 *.webp binary
 *.pdf binary
+*.glb binary
+*.ktx2 binary
+*.wasm binary
+*.data binary
+*.unityweb binary

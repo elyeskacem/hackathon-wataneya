@@ -12,6 +12,8 @@ import { Curtain } from '../ui/Curtain';
 import { Atmosphere } from '../ui/Atmosphere';
 import { VhsOverlay } from '../ui/VhsOverlay';
 import { momentById } from '../data/moments';
+import { experienceFor } from '../features/moment/experience';
+import { UnityExperience } from '../features/moment/UnityExperience';
 import { useAmbience } from '../audio/useAmbience';
 import { Stage } from '../stage/Stage';
 import { usePreloadNext } from '../stage/preload';
@@ -30,7 +32,9 @@ export function App() {
   const vhs = useApp((s) => s.vhs);
   const effects = useSettings((s) => s.effects);
   const reducedMotion = useSettings((s) => s.reducedMotion);
-  const idle = useIdle(3000);
+  const unity = route.name === 'moment' ? experienceFor(route.momentId) : null;
+  // Pointer input inside a Unity iframe never reaches this page, so the HUD must not wait for it to hide.
+  const idle = useIdle(3000) && unity?.kind !== 'unity';
   const [entryDone, setEntryDone] = useState(false);
 
   // Era grade only inside a moment, and only with effects on.
@@ -40,12 +44,13 @@ export function App() {
     <div className={styles.app} data-route={route.name} data-idle={idle} data-effects={effects} data-reduced-motion={reducedMotion} data-look={look} data-vhs={vhs ?? undefined}>
       <Stage />
       <Atmosphere />
+      {route.name === 'moment' && unity?.kind === 'unity' && <UnityExperience key={route.momentId} momentId={route.momentId} url={unity.url} />}
       {route.name !== 'entry' && (
         <main className={styles.ui}>
           <TopBar />
           {route.name === 'lobby' && <LobbyUI />}
           {route.name === 'custom' && <CustomUI />}
-          {route.name === 'moment' && <MomentUI momentId={route.momentId} roomId={route.roomId} />}
+          {route.name === 'moment' && <MomentUI momentId={route.momentId} />}
           {story && <StoryBar />}
           <Guide />
         </main>

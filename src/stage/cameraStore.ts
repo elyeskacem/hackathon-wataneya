@@ -6,6 +6,11 @@ export interface CameraPose {
   position: Vec3;
   target: Vec3;
   fov: number;
+  /**
+   * Free camera (real 3D scenes): drag, parallax and sway follow the camera's own right and up axes.
+   * The 2.5D renders leave it off and keep world axes, because their camera always faces -Z.
+   */
+  free?: boolean;
 }
 
 export const REST_POSE: CameraPose = { position: [0, 0, 0], target: [0, 0, -10], fov: 50 };
