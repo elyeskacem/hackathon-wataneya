@@ -61,7 +61,6 @@ src/
     lobby/        LobbyScene, ControlsHint, LobbyActions
     custom/       CustomScene, TvSet, ChannelStatic, Remote, LowerThird, TapeDrawer, VhsCard
     moment/       MomentScene, TitleCard, CharacterCard, DoorHotspot, SubtitleBand, scenes/{choufli-hal,om-kalthoum}.ts
-    archive/      ArchiveViewer, BeforeAfterSlider, AiBadge, SourceLine
     guide/        GuideBubble, GuidePanel (side panel/bottom sheet), GuideStates, Chips, guideEngine.ts, adapters/{local,remote}.ts
     story/        (P1) StoryMode, StopCard, StopProgress, JumpMenu
     booking/      (P1) BookingFlow
@@ -95,7 +94,6 @@ tests/e2e/demo-path.spec.ts
 | `TitleCard` | 4-moment: CH 01, «شوفلي حل», 2005, source line | Slides in, stays 4 s |
 | `CharacterCard` | «السبوعي» card: role, year, fact, «احكيلي على السبوعي» | The guide talks *about* the character |
 | `SubtitleBand` | Solid band: «صوت الأرشيف · [موسيقى] تسجيل الحفلة من أرشيف الوطنية.» | Never over scanlines |
-| `ArchiveViewer` | «شوف الأرشيف» button → overlay | Built from the research spec (no PNG for it) |
 
 ## 5. Scenes → assets
 
@@ -104,7 +102,7 @@ The research gives no verified years. The Figma cards show 2005 for Choufli Hal 
 | # | Moment | Channel | Renders available | Plan |
 |---|---|---|---|---|
 | 1 | Choufli Hal (شوفلي حل) | 01 | `chofli hal2…9` (8 rooms: corridor, office, kitchen…), `sbou3i` cut-out, `sliman` cut-out | **P0 3D scene.** Rooms linked by door hotspots, two clickable characters |
-| 2 | Om Kalthoum concert (حفلة أم كلثوم) | 02 | `stage kalthom`, `om kalthom satge`, `om_kalthoum` cut-out | **P0 3D scene.** Hall backdrop, stage hotspot, archive viewer |
+| 2 | Om Kalthoum concert (حفلة أم كلثوم) | 02 | `stage kalthom`, `om kalthom satge`, `om_kalthoum` cut-out | **P0 3D scene.** Hall backdrop, front-row viewpoint |
 | 3 | News studio (ستوديو الأخبار) | 03 | none | P1 placeholder |
 | 4 | El Khottab Al Bab (الخطاب على الباب) | 04 | none | P1 placeholder |
 | 5 | Abdelaziz Laroui (حكايات العروي) | 05 | none | P1 placeholder |
@@ -125,10 +123,10 @@ Asset prep (scripted, `scripts/optimize-assets.mjs` using sharp):
 
 1. **Lobby render (living room).** It's in the Figma "3D Renders" page but wasn't exported to `public/renders/`. Without it the lobby has no backdrop. *Ask:* export it as PNG at 2× into `public/renders/`. I could pull it with one Figma call, but that spends budget.
 2. **Guide portrait.** The bubble uses a small host illustration that isn't in the repo. *Ask:* export it, or I'll draw a neutral SVG host silhouette. Either way it's fictional, not a real person.
-3. **Archive media.** There are no B&W clips or frames, and no colorized versions. For the demo I'll generate the "original" by desaturating and adding grain to the render, and label it **"صورة توضيحية · placeholder"**. It won't be passed off as archive. Real clips also depend on the rights question in the research.
+3. **Archive media.** *Dropped:* the colour/archive viewer was removed from scope. Scenes use the renders only.
 4. **Audio.** No sound files. I'll synthesise room tone, TV hum, static crackle and tape click in code with WebAudio, so there are no licensing issues, and wire Howler for real loops when they arrive.
 5. **GLB models.** None. Every scene is 2.5D. The loader is ready for `public/models/<moment>.glb` (Draco/Meshopt/KTX2), so dropping a file in upgrades the scene with no code change.
-6. **Om Kalthoum 3D cut-out vs. the research ethics.** The research says real people appear only in real archive footage. The Figma marks her figure "3D CHARACTER · PLACEHOLDER". *My proposal:* show the stage without her likeness by default and make the archive viewer the way you "see" her. I need your call on this.
+6. **Om Kalthoum 3D cut-out vs. the research ethics.** The research says real people appear only in real archive footage. The Figma marks her figure "3D CHARACTER · PLACEHOLDER". *My proposal:* show the stage without her likeness by default and let the guide and subtitles carry her presence. I need your call on this.
 7. **Facts.** The research lists no dates or facts. `guide-knowledge.json` will hold only safe, structural answers ("what is Zawaya", "how to use the TV", booking) plus per-moment entries marked **TO VERIFY**. The guide will answer "ما لقيتش هذا في الأرشيف" until someone verifies them. That's correct for the ethics bar, but the demo answers will be thin unless someone gives me 5–10 verified facts.
 8. **PDF filename.** It's `docs/research/VR + Web.pdf`, not `VR-Web.pdf`. I'll leave it as is.
 
@@ -137,16 +135,15 @@ Asset prep (scripted, `scripts/optimize-assets.mjs` using sharp):
 - **Start through Story, but Custom is one click away.** The research says "Two modes, one door". In the lobby, «ابدا الرحلة» is primary and «اختار لحظة» secondary.
 - **The guide never interrupts.** Inside a moment it's a silent bubble, and opening it pauses scene audio. Only Story mode narrates between stops (research §AI avatar).
 - **Answers ≤ 3 sentences + «زيد».** Every answer carries a source chip. When the guide doesn't know, it says so and offers 2 suggestions.
-- **The original always shows first.** The slider handle starts on the original side, with the badge «ملوّن بالذكاء الاصطناعي» and the note «الألوان ممكن موش دقيقة».
 - **Effects off** (glow, noise, static) and **reduced motion** are separate toggles. Reduced motion is pre-set from `prefers-reduced-motion`.
 - **The guide is text only for the demo.** The mic button is visible but disabled, with the tooltip "قريب".
 
 ## 8. Build order and checkpoints
 
 0. Scaffold (Vite, TS strict, ESLint, tokens.css, i18n, fonts, asset optimiser). **First commit on main.** Then branch `feature/web-vr-experience`.
-1. Entry. 2. Lobby. 3. Custom. 4. Moments (Choufli Hal, Om Kalthoum). 5. Archive viewer. 6. Guide.
+1. Entry. 2. Lobby. 3. Custom. 4. Moments (Choufli Hal, Om Kalthoum). 5. Guide.
    After each step: `npm run build`, run it, take a Playwright screenshot, fix, commit.
-7. Playwright smoke test: entry → lobby → custom → moment → archive → back.
+7. Playwright smoke test: entry → lobby → custom → moment → back.
 8. Production build + Lighthouse, then fix the top issues.
 **Stop for your review after P0.** Then P1: Story, placeholders, booking, 2D fallback, and a deploy script (Vercel: `npx vercel --prod`, or GitHub Pages through Actions).
 

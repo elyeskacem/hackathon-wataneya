@@ -38,15 +38,13 @@ export interface RoomConfig {
   doors: DoorConfig[];
   /** A spot in the room that moves the camera closer (e.g. the front row), and the way back. */
   viewpoint?: { label: Localized; backLabel: Localized; u: number; v: number; dolly: number };
-  /** An object in the scene that opens the archive viewer. */
-  archiveSpot?: { u: number; v: number };
 }
 
 export interface SceneConfig {
   momentId: MomentId;
   rooms: RoomConfig[];
-  /** Placeholder line for the archive subtitle band (real recordings pending). */
-  archiveLine?: Localized;
+  /** Placeholder subtitle for the room sound (real recordings pending). */
+  ambientLine?: Localized;
 }
 
 const SLIMAN: CharacterConfig = {
@@ -153,10 +151,9 @@ export const SCENES: Partial<Record<MomentId, SceneConfig>> = {
           : [],
         doors: [],
         viewpoint: { label: { ar: 'الصف الأول', fr: 'Premier rang' }, backLabel: { ar: 'القاعة كاملة', fr: 'Toute la salle' }, u: 0.5, v: 0.72, dolly: 3.2 },
-        archiveSpot: { u: 0.5, v: 0.52 },
       },
     ],
-    archiveLine: {
+    ambientLine: {
       ar: '[موسيقى] صوت تجريبي · تسجيل الحفلة الأصلي يجي من أرشيف الوطنية.',
       fr: '[musique] son provisoire · l’enregistrement original viendra des archives Wataniya.',
     },

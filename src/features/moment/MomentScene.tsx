@@ -2,7 +2,6 @@ import { useEffect, useMemo } from 'react';
 import { useTexture } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
 import { CanvasTexture, SRGBColorSpace, type Texture } from 'three';
-import { useApp } from '../../app/appStore';
 import { changeScene, useLiftCurtain } from '../../app/transitions';
 import { useT } from '../../i18n/useT';
 import { asset, momentById, type MomentId } from '../../data/moments';
@@ -45,7 +44,6 @@ function SceneRooms({ scene, roomId }: { scene: SceneConfig; roomId?: string }) 
   const toggleCloseUp = useMoment((s) => s.toggleCloseUp);
   const setCharacter = useMoment((s) => s.setCharacter);
   const reset = useMoment((s) => s.reset);
-  const setArchiveOpen = useApp((s) => s.setArchiveOpen);
   const setPose = useCamera((s) => s.setPose);
   const setInteractive = useCamera((s) => s.setInteractive);
 
@@ -95,9 +93,6 @@ function SceneRooms({ scene, roomId }: { scene: SceneConfig; roomId?: string }) 
           onSelect={toggleCloseUp}
           testId="viewpoint"
         />
-      )}
-      {room.archiveSpot && (
-        <Hotspot3D position={frame.anchor(room.archiveSpot.u, room.archiveSpot.v, 8)} showLabel label={t('moment.archive')} onSelect={() => setArchiveOpen(true)} testId="archive-spot" />
       )}
     </group>
   );

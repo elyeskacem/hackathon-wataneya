@@ -41,8 +41,6 @@ The cards show «تستنّى التثبّت» instead of a fact. They read from
 
 ## Media
 
-- Archive frames in the viewer are the 3D renders turned black and white, labelled
-  «صورة توضيحية · موش من الأرشيف». Replace with cleared archive frames and their colorized versions.
 - All sound is synthesised in the browser (room tone, TV hum, static, clicks, crowd murmur).
   The Om Kalthoum subtitle says so explicitly.
 - Clip rights: confirm with the organizer which Wataniya clips can be shown (research, risks).

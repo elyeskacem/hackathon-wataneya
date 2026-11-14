@@ -31,13 +31,10 @@ Node 20+ recommended.
 4. **Inside a moment**:
    - **Choufli Hal**: office → corridor → kitchen, joined by door hotspots. Sliman and Sbou3i
      are clickable; Fochika is a silhouette placeholder.
-   - **Om Kalthoum**: the concert hall with a front-row viewpoint and a stage hotspot that opens
-     the archive.
+   - **Om Kalthoum**: the concert hall with a front-row viewpoint.
    - In both: title card, character card, subtitles on a solid band, Esc or «رجوع للصالون» back
      to the lobby.
-5. **Archive viewer**: the original (black and white) first, then a before/after slider
-   (drag, touch, arrows, Home/End). The "AI colorized" badge, accuracy note and source line.
-6. **AI guide**: one component everywhere: bubble → side panel (desktop) or bottom sheet (phone).
+5. **AI guide**: one component everywhere: bubble → side panel (desktop) or bottom sheet (phone).
    - The first line says it is an AI.
    - States: idle, thinking (TV static, < 3 s), speaking (with source chip), don't know,
      unavailable.
@@ -60,11 +57,9 @@ is open; WebGL failure shows a clear message instead of hanging.
 4. **«ادخل للحظة»**: the tape goes in, the camera pushes through the screen into Choufli Hal.
    Click **«احكيلي على سليمان»** → character card and subtitle band. Walk **الكولوار → الكوجينة**
    to meet Sbou3i.
-5. **«شوف الأرشيف»**: the original appears first, then drag the slider to the colour version.
-   Point at the badge «ملوّن بالذكاء الاصطناعي», the accuracy note and the source line.
-6. Open the guide and type **«وقتاش صارت الحفلة؟»** — it answers *«ما لقيتش هذا في الأرشيف»*
+5. Open the guide and type **«وقتاش صارت الحفلة؟»** — it answers *«ما لقيتش هذا في الأرشيف»*
    and suggests two questions: *"it never invents a date."*
-7. **Esc** back to the living room. Optional: menu → المؤثرات off to show the calm mode.
+6. **Esc** back to the living room. Optional: menu → المؤثرات off to show the calm mode.
 
 ## Configuration
 
@@ -72,7 +67,7 @@ Copy `.env.example` to `.env.local`. Nothing secret goes in it — every `VITE_*
 
 | Variable | Default | Effect |
 |---|---|---|
-| `VITE_SHOW_OM_KALTHOUM_FIGURE` | `false` | Shows the 3D figure of Om Kalthoum on stage. Off: she appears only through the archive (research ethics). |
+| `VITE_SHOW_OM_KALTHOUM_FIGURE` | `false` | Shows the 3D figure of Om Kalthoum on stage. Off: her likeness is not shown (research ethics). |
 | `VITE_SHOW_UNVERIFIED_YEARS` | `false` | Shows years not yet verified (rehearsal only). |
 | `VITE_GUIDE_ENDPOINT` | empty | POST endpoint of a server-side LLM guide. Without it the guide uses `data/guide-knowledge.json`. |
 
@@ -90,7 +85,7 @@ answer without a source into "I don't know".
 src/
   app/        routes store, settings, transitions (curtain, tape insert), idle hook
   stage/      the persistent R3F canvas, camera rig, 2.5D backdrop frame, hotspots
-  features/   entry · lobby · custom · moment · archive · guide (one folder each)
+  features/   entry · lobby · custom · moment · guide (one folder each)
   audio/      AudioManager (Howler context, synthesised placeholders), ambience per route
   ui/         top bar, settings menu, icon button, curtain, logo, TV static
   i18n/       ar.json (default, RTL) and fr.json
@@ -105,7 +100,6 @@ tests/e2e/    Playwright smoke tests
 
 - **No GLB models yet**: every scene is 2.5D (flat render plus parallax props and characters).
   The renders are small (≈ 850–1600 px wide), so they look soft on large screens.
-- **Placeholders**: archive frames are black-and-white versions of the renders, clearly labelled.
   All sound is synthesised. Fochika is a silhouette.
 - **Facts**: years and archive facts are hidden until verified — see `docs/TO-VERIFY.md`.
 - **Not built yet (P1)**:

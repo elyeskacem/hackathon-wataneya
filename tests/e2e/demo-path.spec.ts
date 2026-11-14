@@ -17,7 +17,7 @@ async function enter(page: Page) {
   await expect(page.getByTestId('controls-hint')).toBeVisible();
 }
 
-test('demo path: entry → lobby → custom → moment → archive → back', async ({ page }) => {
+test('demo path: entry → lobby → custom → moment → back', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
 
@@ -54,19 +54,6 @@ test('demo path: entry → lobby → custom → moment → archive → back', as
   await press(page, 'door-kitchen');
   await expect(page.getByTestId('character-sbou3i')).toBeAttached();
 
-  // Archive viewer: original first, keyboard slider, AI label and source.
-  await press(page, 'open-archive');
-  const viewer = page.getByTestId('archive-viewer');
-  await expect(viewer).toContainText('ملوّن بالذكاء الاصطناعي');
-  await expect(viewer).toContainText('المصدر: أرشيف الوطنية');
-  const slider = page.getByTestId('archive-slider');
-  await expect(slider).toHaveAttribute('aria-valuenow', '80');
-  await slider.focus();
-  await page.keyboard.press('ArrowLeft');
-  await expect(slider).toHaveAttribute('aria-valuenow', '75');
-  await page.keyboard.press('Escape');
-  await expect(viewer).toBeHidden();
-
   // Esc back to the lobby.
   await page.keyboard.press('Escape');
   await expect(page.getByTestId('start-journey')).toBeVisible();
@@ -93,7 +80,7 @@ test('guide answers only from the knowledge file and admits what it does not kno
   await expect(panel).not.toContainText('TO VERIFY');
 });
 
-test('Om Kalthoum stage has no figure by default and opens the archive', async ({ page }) => {
+test('Om Kalthoum stage has no figure by default', async ({ page }) => {
   await enter(page);
   await page.getByRole('button', { name: 'تخطّى' }).click();
   await press(page, 'pick-moment');
@@ -102,6 +89,4 @@ test('Om Kalthoum stage has no figure by default and opens the archive', async (
   await press(page, 'enter-moment');
   await expect(page.getByTestId('title-card')).toContainText('حفلة أم كلثوم');
   await expect(page.getByTestId('character-om-kalthoum')).toHaveCount(0);
-  await press(page, 'archive-spot');
-  await expect(page.getByTestId('archive-viewer')).toBeVisible();
 });
