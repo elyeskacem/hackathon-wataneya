@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useTexture } from '@react-three/drei';
+import { useThree } from '@react-three/fiber';
 import { SRGBColorSpace, type Texture } from 'three';
 import { useApp } from '../../app/appStore';
 import { useSettings } from '../../app/settingsStore';
@@ -41,6 +42,7 @@ export function LobbyScene() {
   }) as [Texture, Texture];
   const pictures = useChannelPictures(locale);
   const frame = useBackdropFrame(IMAGE_ASPECT);
+  const aspect = useThree((s) => s.size.width / s.size.height);
 
   const isCustom = route === 'custom';
   const showStatic = !isCustom || staticBurst;
@@ -63,7 +65,9 @@ export function LobbyScene() {
     } else if (route === 'custom') {
       // Glide to the TV so its body fills about 55 % of the view height (1.4 s, motion spec);
       // when the tape goes in, push through the screen.
-      const distance = bodyHeight / (0.55 * 2 * Math.tan((25 * Math.PI) / 180));
+      // On narrow screens the width decides: the TV (body ≈ 0.9 × its height wide) fills 85 % of it.
+      const tan = Math.tan((25 * Math.PI) / 180);
+      const distance = Math.max(bodyHeight / (0.55 * 2 * tan), (bodyHeight * 0.9) / (0.85 * 2 * tan * aspect));
       const [sx, sy] = screenCenterOffset(bodyHeight);
       const pose: CameraPose = inserting
         ? { position: [tx + sx, ty + sy, tz + distance * 0.18], target: [tx + sx, ty + sy, tz - 10], fov: 50 }
@@ -71,7 +75,7 @@ export function LobbyScene() {
       setPose(pose, inserting ? 0.9 : 1.4);
       setInteractive(false);
     }
-  }, [route, inserting, tx, ty, tz, bodyHeight, setPose, setInteractive]);
+  }, [route, inserting, tx, ty, tz, bodyHeight, aspect, setPose, setInteractive]);
 
   // Runs once textures resolved (this component suspends until then).
   useEffect(setLobbyReady, [setLobbyReady]);

@@ -22,6 +22,7 @@ class AudioManagerImpl {
   private current: AmbienceLayer | null = null;
   private currentName: Ambience = 'none';
   private noiseBuffer: AudioBuffer | null = null;
+  private duckGain: GainNode | null = null;
 
   private get ctx(): AudioContext {
     Howler.volume(); // creates Howler.ctx and Howler.masterGain on first use
@@ -40,6 +41,24 @@ class AudioManagerImpl {
 
   setMuted(muted: boolean) {
     Howler.mute(muted);
+  }
+
+  /** Ambience bus; ducked while the guide panel is open (the guide "pauses" the scene). */
+  private get ambienceOut(): GainNode {
+    if (!this.duckGain) {
+      this.duckGain = this.ctx.createGain();
+      this.duckGain.connect(this.out);
+    }
+    return this.duckGain;
+  }
+
+  duck(on: boolean) {
+    if (!Howler.ctx) return; // nothing plays before the first tap
+    const g = this.ambienceOut.gain;
+    const t = this.ctx.currentTime;
+    g.cancelScheduledValues(t);
+    g.setValueAtTime(g.value, t);
+    g.linearRampToValueAtTime(on ? 0.2 : 1, t + 0.4);
   }
 
   private noise(): AudioBuffer {
@@ -64,7 +83,7 @@ class AudioManagerImpl {
     const bus = ctx.createGain();
     bus.gain.setValueAtTime(0, ctx.currentTime);
     bus.gain.linearRampToValueAtTime(1, ctx.currentTime + 1.2);
-    bus.connect(this.out);
+    bus.connect(this.ambienceOut);
 
     const src = ctx.createBufferSource();
     src.buffer = this.noise();

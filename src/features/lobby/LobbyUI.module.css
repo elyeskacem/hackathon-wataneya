@@ -32,7 +32,7 @@
     left: var(--space-16);
     right: var(--space-16);
     transform: none;
-    bottom: calc(var(--space-16) + var(--size-avatar-bubble) + var(--space-12));
+    bottom: var(--space-16);
   }
 
   .primary,

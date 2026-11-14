@@ -17,9 +17,11 @@ function ambienceFor(route: Route): Ambience {
   }
 }
 
-/** One ambient loop per scene, crossfaded on every route change. */
+/** One ambient loop per scene, crossfaded on every route change; ducked while the guide is open. */
 export function useAmbience() {
   const route = useApp((s) => s.route);
+  const guideOpen = useApp((s) => s.guideOpen);
   const ambience = ambienceFor(route);
   useEffect(() => audio.setAmbience(ambience), [ambience]);
+  useEffect(() => audio.duck(guideOpen), [guideOpen]);
 }

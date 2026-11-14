@@ -1,14 +1,15 @@
 import { useEffect, useMemo } from 'react';
 import { useTexture } from '@react-three/drei';
+import { useThree } from '@react-three/fiber';
 import { CanvasTexture, SRGBColorSpace, type Texture } from 'three';
 import { useApp } from '../../app/appStore';
 import { changeScene, useLiftCurtain } from '../../app/transitions';
 import { useT } from '../../i18n/useT';
 import { asset, momentById, type MomentId } from '../../data/moments';
 import { Backdrop } from '../../stage/Backdrop';
-import { REST_POSE, useCamera, type Vec3 } from '../../stage/cameraStore';
+import { REST_POSE, useCamera, type CameraPose, type Vec3 } from '../../stage/cameraStore';
 import { Hotspot3D } from '../../stage/Hotspot3D';
-import { useBackdropFrame, type BackdropFrame } from '../../stage/useBackdropFrame';
+import { BACKDROP_DEPTH, useBackdropFrame, type BackdropFrame } from '../../stage/useBackdropFrame';
 import { useMoment } from './momentStore';
 import { roomOf, SCENES, type CharacterConfig, type SceneConfig } from './scenes';
 
@@ -32,6 +33,14 @@ function SceneRooms({ scene, roomId }: { scene: SceneConfig; roomId?: string }) 
   }) as Texture[];
   const textureFor = (url: string) => textures[urls.indexOf(url)]!;
   const frame = useBackdropFrame(room.aspect);
+  const aspect = useThree((s) => s.size.width / s.size.height);
+  const restPose = useMemo((): CameraPose => {
+    // Turn toward the room's point of interest, without revealing the backdrop edges.
+    const viewW = 2 * BACKDROP_DEPTH * Math.tan((25 * Math.PI) / 180) * aspect;
+    const slack = Math.max(0, (frame.width - viewW) / 2) * 0.85;
+    const x = Math.max(-slack, Math.min(slack, (room.focusU - 0.5) * frame.width));
+    return { ...REST_POSE, target: [x, 0, -BACKDROP_DEPTH] };
+  }, [aspect, frame.width, room.focusU]);
   const closeUp = useMoment((s) => s.closeUp);
   const toggleCloseUp = useMoment((s) => s.toggleCloseUp);
   const setCharacter = useMoment((s) => s.setCharacter);
@@ -44,17 +53,19 @@ function SceneRooms({ scene, roomId }: { scene: SceneConfig; roomId?: string }) 
 
   useEffect(() => {
     reset();
-    setPose({ ...REST_POSE, position: [0, 0.1, 1.4] }, 0);
-    setPose(REST_POSE, ARRIVAL_DURATION);
+    setPose({ ...restPose, position: [0, 0.1, 1.4] }, 0);
+    setPose(restPose, ARRIVAL_DURATION);
     setInteractive(true);
+    // Arrival runs once per room; resizes are handled by the close-up effect below.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [room.id, reset, setPose, setInteractive]);
 
   useEffect(() => {
     const vp = room.viewpoint;
     if (!vp) return;
     const [x, y] = frame.anchor(vp.u, vp.v, vp.dolly);
-    setPose(closeUp ? { position: [x * 0.6, y * 0.3, -vp.dolly], target: [x * 0.6, y * 0.3, -10], fov: 50 } : REST_POSE, 1.6);
-  }, [closeUp, room.viewpoint, frame, setPose]);
+    setPose(closeUp ? { position: [x * 0.6, y * 0.3, -vp.dolly], target: [x * 0.6, y * 0.3, -10], fov: 50 } : restPose, 1.6);
+  }, [closeUp, room.viewpoint, frame, restPose, setPose]);
 
   return (
     <group>

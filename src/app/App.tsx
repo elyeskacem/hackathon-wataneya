@@ -26,7 +26,7 @@ export function App() {
   const [entryDone, setEntryDone] = useState(false);
 
   return (
-    <div className={styles.app} data-idle={idle} data-effects={effects} data-reduced-motion={reducedMotion}>
+    <div className={styles.app} data-route={route.name} data-idle={idle} data-effects={effects} data-reduced-motion={reducedMotion}>
       <Stage />
       {route.name !== 'entry' && (
         <main className={styles.ui}>

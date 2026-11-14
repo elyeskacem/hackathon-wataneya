@@ -21,3 +21,14 @@
 .app[data-idle='true'] :global(.chrome:not(:focus-within)) {
   opacity: 0;
 }
+
+/* Phones: bottom controls stack per screen; the guide bubble sits above them (Figma mobile frames). */
+@media (max-width: 640px) {
+  .app[data-route='lobby'] {
+    --bubble-bottom: calc(var(--space-16) + var(--size-touch-min) + var(--space-12));
+  }
+
+  .app[data-route='custom'] {
+    --bubble-bottom: calc(var(--space-16) + var(--size-touch-min) + var(--space-12) + 64px + var(--space-12));
+  }
+}

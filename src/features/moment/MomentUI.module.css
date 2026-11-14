@@ -164,6 +164,10 @@
 }
 
 @media (max-width: 640px) {
+  .title:not(.big) {
+    display: none;
+  }
+
   .big {
     inset-inline: var(--space-16);
   }

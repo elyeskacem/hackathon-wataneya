@@ -89,7 +89,7 @@
   .card {
     inset-inline: var(--space-16);
     width: auto;
-    bottom: calc(var(--space-16) + 72px);
+    bottom: calc(var(--bubble-bottom, var(--space-16)) + var(--size-avatar-bubble) + var(--space-12));
   }
 }
 

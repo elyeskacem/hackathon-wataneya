@@ -32,6 +32,8 @@ export interface RoomConfig {
   name: Localized;
   backdrop: string;
   aspect: number;
+  /** Horizontal point of interest; narrow screens turn the camera toward it. */
+  focusU: number;
   characters: CharacterConfig[];
   doors: DoorConfig[];
   /** A spot in the room that moves the camera closer (e.g. the front row), and the way back. */
@@ -82,6 +84,7 @@ export const SCENES: Partial<Record<MomentId, SceneConfig>> = {
         name: { ar: 'البيرو', fr: 'le bureau' },
         backdrop: asset('renders/choufli-office.webp'),
         aspect: 849 / 545,
+        focusU: 0.38,
         characters: [SLIMAN],
         doors: [{ to: 'corridor', u: 0.56, v: 0.5 }],
       },
@@ -90,6 +93,7 @@ export const SCENES: Partial<Record<MomentId, SceneConfig>> = {
         name: { ar: 'الكولوار', fr: 'le couloir' },
         backdrop: asset('renders/choufli-corridor.webp'),
         aspect: 865 / 544,
+        focusU: 0.48,
         characters: [],
         doors: [
           { to: 'kitchen', u: 0.52, v: 0.48 },
@@ -101,6 +105,7 @@ export const SCENES: Partial<Record<MomentId, SceneConfig>> = {
         name: { ar: 'الكوجينة', fr: 'la cuisine' },
         backdrop: asset('renders/choufli-kitchen.webp'),
         aspect: 851 / 531,
+        focusU: 0.55,
         characters: [
           SBOU3I,
           {
@@ -128,6 +133,7 @@ export const SCENES: Partial<Record<MomentId, SceneConfig>> = {
         name: { ar: 'القاعة', fr: 'la salle' },
         backdrop: asset('renders/kalthoum-hall.webp'),
         aspect: 1600 / 900,
+        focusU: 0.5,
         // Real person: shown only when the team turns the flag on (docs/PLAN.md §6.6).
         characters: config.showOmKalthoumFigure
           ? [
