@@ -8,6 +8,7 @@ import { Guide } from '../features/guide/Guide';
 import { LobbyUI } from '../features/lobby/LobbyUI';
 import { CustomUI } from '../features/custom/CustomUI';
 import { MomentUI } from '../features/moment/MomentUI';
+import { ArchiveViewer } from '../features/archive/ArchiveViewer';
 import { Curtain } from '../ui/Curtain';
 import { useAmbience } from '../audio/useAmbience';
 import { Stage } from '../stage/Stage';
@@ -18,6 +19,7 @@ export function App() {
   useDocumentLocale();
   useAmbience();
   const route = useApp((s) => s.route);
+  const archiveOpen = useApp((s) => s.archiveOpen);
   const effects = useSettings((s) => s.effects);
   const reducedMotion = useSettings((s) => s.reducedMotion);
   const idle = useIdle(3000);
@@ -33,6 +35,7 @@ export function App() {
           {route.name === 'custom' && <CustomUI />}
           {route.name === 'moment' && <MomentUI momentId={route.momentId} roomId={route.roomId} />}
           <Guide />
+          {route.name === 'moment' && archiveOpen && <ArchiveViewer momentId={route.momentId} />}
         </main>
       )}
       <Curtain />

@@ -11,7 +11,7 @@ const OUT = 'public/renders';
 const JOBS = [
   { src: 'CHOFLI HAL9 1.png', out: 'lobby-living-room', width: 2048, crop: { right: 0.06, bottom: 0.015 }, blur: true },
   { src: 'old tv 1.png', out: 'old-tv', width: 1280, cutout: true },
-  { src: 'chofli hal3 1.png', out: 'choufli-office', width: 1920, crop: { right: 0.05, bottom: 0.015 } },
+  { src: 'chofli hal3 1.png', out: 'choufli-office', width: 1920, crop: { left: 0.02, right: 0.05, bottom: 0.015 } },
   { src: 'chof li hal 4 1.png', out: 'choufli-corridor', width: 1920, crop: { right: 0.05, bottom: 0.015 } },
   { src: 'CHOF LI HAL7 1.png', out: 'choufli-kitchen', width: 1920, crop: { right: 0.05, bottom: 0.015 } },
   { src: 'chofli hal 9.png', out: 'choufli-salon', width: 1920 },

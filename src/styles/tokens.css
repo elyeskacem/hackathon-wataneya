@@ -60,7 +60,7 @@
   /* type — Figma text styles */
   --font-heading: 'Changa', 'Cairo', system-ui, sans-serif;
   --font-body: 'Cairo', system-ui, sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --font-mono: 'IBM Plex Mono', 'Cairo', ui-monospace, monospace;
   --type-h3: 600 18px/1.4 var(--font-heading);
   --type-body-strong: 600 16px/1.6 var(--font-body);
   --type-body-small: 400 14px/1.5 var(--font-body);

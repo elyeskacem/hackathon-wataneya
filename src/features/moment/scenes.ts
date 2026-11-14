@@ -81,7 +81,7 @@ export const SCENES: Partial<Record<MomentId, SceneConfig>> = {
         id: 'office',
         name: { ar: 'البيرو', fr: 'le bureau' },
         backdrop: asset('renders/choufli-office.webp'),
-        aspect: 866 / 545,
+        aspect: 849 / 545,
         characters: [SLIMAN],
         doors: [{ to: 'corridor', u: 0.56, v: 0.5 }],
       },
