@@ -12,11 +12,22 @@ const PHRASE_BONUS = 2;
 /** The questions suggested in the current scene win a tie with the same question asked in another scene. */
 const CONTEXT_BONUS = 0.5;
 
-const tokensOf = (text: string) =>
-  normalize(text)
-    .replace(/[^\p{L}\p{N}]+/gu, ' ')
-    .split(' ')
-    .filter((t) => t.length > 1);
+const HAN = /\p{Script=Han}/u;
+
+/**
+ * Words of a sentence. Chinese has no spaces, so each run of Han characters is cut into overlapping
+ * pairs (频道, 道怎, …): two sentences about the same thing share pairs. A lone character says too little.
+ */
+const tokensOf = (text: string) => {
+  const out: string[] = [];
+  for (const word of normalize(text).replace(/[^\p{L}\p{N}]+/gu, ' ').split(' ')) {
+    for (const part of word.match(/\p{Script=Han}+|[^\p{Script=Han}]+/gu) ?? []) {
+      if (HAN.test(part)) for (let i = 0; i + 2 <= part.length; i++) out.push(part.slice(i, i + 2));
+      else if (part.length > 1) out.push(part);
+    }
+  }
+  return out;
+};
 
 const phrasesOf = (e: KnowledgeEntry) => [...Object.values(e.q), ...Object.values(e.examples ?? {}).flat(), ...e.keywords.filter((k) => k.includes(' '))];
 
@@ -82,7 +93,7 @@ export function matchIntent(text: string, context?: GuideContext): Match | undef
       }
       score += top;
     }
-    if (phrases.some((p) => p.length > 5 && query.includes(p))) score += PHRASE_BONUS;
+    if (phrases.some((p) => p.length > (HAN.test(p) ? 3 : 5) && query.includes(p))) score += PHRASE_BONUS;
     if (score >= MIN_SCORE && local.has(entry.id)) score += CONTEXT_BONUS;
     if (score >= MIN_SCORE && (!best || score > best.score)) best = { entry, score };
   }

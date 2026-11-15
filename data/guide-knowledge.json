@@ -1,5 +1,5 @@
 {
-  "_readme": "Curated answers for the AI guide. The guide answers ONLY from this file (or a server that follows the same rules). status 'verified' = may be shown; 'to-verify' = never shown, the guide says it does not know (TO VERIFY against the archive). Archive facts (dates, names of actors, places) need a source and, when relevant, a year, so they stay 'to-verify' until checked. Keep answers to 3 sentences max; put extra detail in 'more'. 'examples' are phrases a visitor might say, per language, used by the local matcher and by the jury demo mode; 'speaker' is who talks in the bubble (default: the guide). Characters are fictional TV characters voiced by text written by the team, never a real person. 'demo' lists the entries the scripted demo mode asks, in order.",
+  "_readme": "Curated answers for the AI guide. The guide answers ONLY from this file (or a server that follows the same rules). status 'verified' = may be shown; 'to-verify' = never shown, the guide says it does not know (TO VERIFY against the archive). Archive facts (dates, names of actors, places) need a source and, when relevant, a year, so they stay 'to-verify' until checked. Keep answers to 3 sentences max; put extra detail in 'more'. 'examples' are phrases a visitor might say, per language (ar, fr, en, zh), used by the local matcher and by the jury demo mode; 'speaker' is who talks in the bubble (default: the guide). Characters are fictional TV characters voiced by text written by the team, never a real person. 'demo' lists the entries the scripted demo mode asks, in order.",
   "contexts": {
     "home": {
       "chips": [
@@ -37,7 +37,8 @@
       "q": {
         "ar": "شنوّة زوايا؟",
         "fr": "C'est quoi Zawaya ?",
-        "en": "What is Zawaya?"
+        "en": "What is Zawaya?",
+        "zh": "Zawaya 是什么？"
       },
       "keywords": [
         "زوايا",
@@ -45,16 +46,22 @@
         "شنوّة",
         "zawaya",
         "c'est quoi",
-        "quoi"
+        "quoi",
+        "是什么",
+        "介绍",
+        "体验"
       ],
       "a": {
         "ar": "زوايا هي رحلة في الزمن عبر تسع لحظات من تاريخ الوطنية. تنجم تختار لحظة من التلفزة، ولا تبدا الرحلة من الأول.",
         "fr": "Zawaya est un voyage dans le temps à travers neuf moments de l'histoire de la Wataniya. Tu peux choisir un moment à la télé, ou commencer le voyage depuis le début.",
-        "en": "Zawaya is a journey through time across nine moments of Wataniya history. You can pick a moment on the TV, or start the journey from the beginning."
+        "en": "Zawaya is a journey through time across nine moments of Wataniya history. You can pick a moment on the TV, or start the journey from the beginning.",
+        "zh": "Zawaya 是一场穿越时间的旅程，带你走过 Wataniya 历史上的九个时刻。你可以在电视上选一个时刻，也可以从头开始旅程。"
       },
       "more": {
         "ar": "أنا دليل بالذكاء الاصطناعي، موش إنسان، ونجاوب كان من أرشيف الوطنية.",
-        "fr": "Je suis un guide IA, pas une personne, et je réponds seulement à partir des archives de la Wataniya."
+        "fr": "Je suis un guide IA, pas une personne, et je réponds seulement à partir des archives de la Wataniya.",
+        "en": "I am an AI guide, not a person, and I only answer from the Wataniya archive.",
+        "zh": "我是 AI 向导，不是真人，只根据 Wataniya 档案回答。"
       },
       "source": null,
       "year": null,
@@ -74,6 +81,10 @@
         "fr": [
           "c'est quoi zawaya",
           "parle moi de zawaya"
+        ],
+        "zh": [
+          "Zawaya 是什么",
+          "介绍一下这个体验"
         ]
       }
     },
@@ -83,7 +94,8 @@
       "q": {
         "ar": "ورّيني شوفلي حل",
         "fr": "Montre-moi Choufli Hal",
-        "en": "Show me Choufli Hal"
+        "en": "Show me Choufli Hal",
+        "zh": "带我看 Choufli Hal"
       },
       "keywords": [
         "شوفلي",
@@ -91,12 +103,15 @@
         "chouf li hal",
         "sbou3i",
         "سبوعي",
-        "سليمان"
+        "سليمان",
+        "带我看",
+        "想看"
       ],
       "a": {
         "ar": "هاو شوفلي حل على القناة 01.",
         "fr": "Voici Choufli Hal, sur la chaîne 01.",
-        "en": "Here is Choufli Hal, on channel 01."
+        "en": "Here is Choufli Hal, on channel 01.",
+        "zh": "这就是 Choufli Hal，在 01 频道。"
       },
       "action": {
         "type": "channel",
@@ -120,6 +135,10 @@
         "fr": [
           "montre moi choufli hal",
           "je veux voir choufli hal"
+        ],
+        "zh": [
+          "带我看 Choufli Hal",
+          "我想看 Choufli Hal"
         ]
       }
     },
@@ -129,7 +148,8 @@
       "q": {
         "ar": "ورّيني حفلة أم كلثوم",
         "fr": "Montre-moi le concert d'Oum Kalthoum",
-        "en": "Show me the Oum Kalthoum concert"
+        "en": "Show me the Oum Kalthoum concert",
+        "zh": "带我看乌姆·库勒苏姆音乐会"
       },
       "keywords": [
         "كلثوم",
@@ -138,12 +158,16 @@
         "koulthoum",
         "concert",
         "حفلة",
-        "كونسار"
+        "كونسار",
+        "库勒苏姆",
+        "音乐会",
+        "乌姆"
       ],
       "a": {
         "ar": "هاي حفلة أم كلثوم على القناة 02.",
         "fr": "Voici le concert d'Oum Kalthoum, sur la chaîne 02.",
-        "en": "Here is the Oum Kalthoum concert, on channel 02."
+        "en": "Here is the Oum Kalthoum concert, on channel 02.",
+        "zh": "这就是乌姆·库勒苏姆音乐会，在 02 频道。"
       },
       "action": {
         "type": "channel",
@@ -167,6 +191,10 @@
         "fr": [
           "montre moi le concert",
           "montre moi le concert d'oum kalthoum"
+        ],
+        "zh": [
+          "带我看音乐会",
+          "我想看乌姆·库勒苏姆音乐会"
         ]
       }
     },
@@ -176,7 +204,8 @@
       "q": {
         "ar": "نحجز تجربة الـVR",
         "fr": "Réserver l'expérience VR",
-        "en": "Book the VR experience"
+        "en": "Book the VR experience",
+        "zh": "预约 VR 体验"
       },
       "keywords": [
         "vr",
@@ -185,12 +214,15 @@
         "réserver",
         "reserver",
         "casque",
-        "stand"
+        "stand",
+        "预约",
+        "头显"
       ],
       "a": {
         "ar": "زيارة الـVR الكاملة تدوم 20 دقيقة على الأكثر. الحجز يجي قريب في الموقع: تختار النهار، الوقت، وتعطي اسمك ونمرتك.",
         "fr": "Une visite VR complète dure 20 minutes au maximum. La réservation arrive bientôt sur le site : tu choisis le jour, l'heure, puis ton nom et ton numéro.",
-        "en": "A full VR visit lasts 20 minutes at most. Booking is coming soon on the site: you pick the day and time, then give your name and number."
+        "en": "A full VR visit lasts 20 minutes at most. Booking is coming soon on the site: you pick the day and time, then give your name and number.",
+        "zh": "完整的 VR 参观最长 20 分钟。网站很快会开放预约：选择日期和时间，再填写姓名和电话。"
       },
       "source": null,
       "year": null,
@@ -210,6 +242,10 @@
         "fr": [
           "réserver l'expérience vr",
           "je veux réserver"
+        ],
+        "zh": [
+          "预约 VR 体验",
+          "我想预约"
         ]
       }
     },
@@ -219,7 +255,8 @@
       "q": {
         "ar": "كيفاش نبدّل القناة؟",
         "fr": "Comment changer de chaîne ?",
-        "en": "How do I change channel?"
+        "en": "How do I change channel?",
+        "zh": "怎么换频道？"
       },
       "keywords": [
         "قناة",
@@ -229,12 +266,17 @@
         "chaîne",
         "chaine",
         "télécommande",
-        "remote"
+        "remote",
+        "频道",
+        "遥控器",
+        "换台",
+        "电视"
       ],
       "a": {
         "ar": "استعمل الريموت: CH ▲▼ ولا الأرقام من 1 لـ9. بالكلافيي زادة: الأسهم والأرقام، وEsc باش ترجع للصالون.",
         "fr": "Utilise la télécommande : CH ▲▼ ou les touches 1 à 9. Au clavier aussi : les flèches et les chiffres, et Échap pour revenir au salon.",
-        "en": "Use the remote: CH ▲▼ or the numbers 1 to 9. With the keyboard, use the arrow keys and the number keys."
+        "en": "Use the remote: CH ▲▼ or the numbers 1 to 9. With the keyboard, use the arrow keys and the number keys.",
+        "zh": "用遥控器：CH ▲▼ 或数字 1 到 9。用键盘的话，可以按方向键和数字键。"
       },
       "source": null,
       "year": null,
@@ -254,6 +296,10 @@
         "fr": [
           "comment changer de chaîne",
           "comment marche la télé"
+        ],
+        "zh": [
+          "怎么换频道",
+          "电视怎么用"
         ]
       }
     },
@@ -262,7 +308,9 @@
       "status": "to-verify",
       "q": {
         "ar": "شنوّة شوفلي حل؟",
-        "fr": "C'est quoi Choufli Hal ?"
+        "fr": "C'est quoi Choufli Hal ?",
+        "en": "What is Choufli Hal?",
+        "zh": "Choufli Hal 是什么？"
       },
       "keywords": [
         "شنوة شوفلي",
@@ -270,15 +318,29 @@
         "c'est quoi choufli",
         "quand",
         "وقتاش",
-        "عام"
+        "عام",
+        "when",
+        "year",
+        "where",
+        "venue",
+        "date",
+        "air",
+        "aired",
+        "播出",
+        "年份",
+        "什么时候"
       ],
       "a": {
         "ar": "TO VERIFY: وصف قصير للمسلسل وسنة البث من أرشيف الوطنية.",
-        "fr": "TO VERIFY : courte description de la série et année de diffusion, depuis les archives."
+        "fr": "TO VERIFY : courte description de la série et année de diffusion, depuis les archives.",
+        "en": "TO VERIFY: a short description of the series and its broadcast year, from the archive.",
+        "zh": "TO VERIFY：从 Wataniya 档案中获取的剧集简介和播出年份。"
       },
       "source": {
         "ar": "أرشيف الوطنية",
-        "fr": "Archives Wataniya"
+        "fr": "Archives Wataniya",
+        "en": "Wataniya archive",
+        "zh": "Wataniya 档案"
       },
       "year": null,
       "followUps": [
@@ -291,6 +353,14 @@
         ],
         "fr": [
           "quand"
+        ],
+        "en": [
+          "what is choufli hal",
+          "when did it air"
+        ],
+        "zh": [
+          "Choufli Hal 是什么",
+          "什么时候播出"
         ]
       }
     },
@@ -300,7 +370,8 @@
       "q": {
         "ar": "شكون الشخصيات؟",
         "fr": "Qui sont les personnages ?",
-        "en": "Who are the characters?"
+        "en": "Who are the characters?",
+        "zh": "有哪些角色？"
       },
       "keywords": [
         "شخصيات",
@@ -308,12 +379,16 @@
         "personnages",
         "qui",
         "characters",
-        "who"
+        "who",
+        "角色",
+        "人物",
+        "有谁"
       ],
       "a": {
         "ar": "في المشهد هذا تنجم تلقى سليمان والسبوعي. اضغط على الحلقة الذهبية جنبهم باش تعرف عليهم.",
         "fr": "Dans cette scène, vous pouvez rencontrer Sliman et Sbou3i. Touchez l'anneau doré à côté d'eux pour faire connaissance.",
-        "en": "In this scene you can meet Sliman and Sbou3i. Tap the gold ring beside them to say hello."
+        "en": "In this scene you can meet Sliman and Sbou3i. Tap the gold ring beside them to say hello.",
+        "zh": "在这个场景里，你可以见到 Sliman 和 Sbou3i。点击他们旁边的金色圆环打个招呼。"
       },
       "source": null,
       "year": null,
@@ -333,6 +408,10 @@
         "en": [
           "who are the characters",
           "who is in this scene"
+        ],
+        "zh": [
+          "有哪些角色",
+          "场景里有谁"
         ]
       }
     },
@@ -342,19 +421,22 @@
       "q": {
         "ar": "احكيلي على سليمان",
         "fr": "Parle-moi de Sliman",
-        "en": "Tell me about Sliman"
+        "en": "Tell me about Sliman",
+        "zh": "给我讲讲 Sliman"
       },
       "keywords": [
         "سليمان",
         "sliman",
         "slimane",
         "شكون سليمان",
-        "qui est sliman"
+        "qui est sliman",
+        "苏利曼"
       ],
       "a": {
         "ar": "أنا سليمان، شخصية خيالية من مسلسل شوفلي حل. في المشهد هذا تلقاني في البيرو.",
         "fr": "Je suis Sliman, un personnage fictif de la sitcom Choufli Hal. Dans cette scène, vous me trouvez au bureau.",
-        "en": "I am Sliman, a fictional character from the sitcom Choufli Hal. In this scene you will find me in the office."
+        "en": "I am Sliman, a fictional character from the sitcom Choufli Hal. In this scene you will find me in the office.",
+        "zh": "我是 Sliman，情景喜剧 Choufli Hal 里的虚构角色。在这个场景里，你能在办公室找到我。"
       },
       "source": null,
       "year": null,
@@ -365,12 +447,14 @@
       "speaker": {
         "ar": "سليمان",
         "fr": "Sliman",
-        "en": "Sliman"
+        "en": "Sliman",
+        "zh": "Sliman"
       },
       "more": {
         "ar": "الكلام هذا كتبو فريق زوايا، موش مقطع من المسلسل.",
         "fr": "Ces mots sont écrits par l'équipe Zawaya, ce n'est pas un extrait de la série.",
-        "en": "These words are written by the Zawaya team; they are not a clip from the series."
+        "en": "These words are written by the Zawaya team; they are not a clip from the series.",
+        "zh": "这些话由 Zawaya 团队撰写，并非剧集中的片段。"
       },
       "examples": {
         "ar": [
@@ -385,6 +469,10 @@
         "en": [
           "who is sliman",
           "tell me about sliman"
+        ],
+        "zh": [
+          "Sliman 是谁",
+          "给我讲讲 Sliman"
         ]
       }
     },
@@ -394,7 +482,8 @@
       "q": {
         "ar": "احكيلي على السبوعي",
         "fr": "Parle-moi de Sbou3i",
-        "en": "Tell me about Sbou3i"
+        "en": "Tell me about Sbou3i",
+        "zh": "给我讲讲 Sbou3i"
       },
       "keywords": [
         "سبوعي",
@@ -407,7 +496,8 @@
       "a": {
         "ar": "أنا السبوعي، شخصية خيالية من مسلسل شوفلي حل. تلقاني في الكوجينة.",
         "fr": "Je suis Sbou3i, un personnage fictif de la sitcom Choufli Hal. Vous me trouvez dans la cuisine.",
-        "en": "I am Sbou3i, a fictional character from the sitcom Choufli Hal. You will find me in the kitchen."
+        "en": "I am Sbou3i, a fictional character from the sitcom Choufli Hal. You will find me in the kitchen.",
+        "zh": "我是 Sbou3i，情景喜剧 Choufli Hal 里的虚构角色。你能在厨房找到我。"
       },
       "source": null,
       "year": null,
@@ -418,12 +508,14 @@
       "speaker": {
         "ar": "السبوعي",
         "fr": "Sbou3i",
-        "en": "Sbou3i"
+        "en": "Sbou3i",
+        "zh": "Sbou3i"
       },
       "more": {
         "ar": "الكلام هذا كتبو فريق زوايا، موش مقطع من المسلسل.",
         "fr": "Ces mots sont écrits par l'équipe Zawaya, ce n'est pas un extrait de la série.",
-        "en": "These words are written by the Zawaya team; they are not a clip from the series."
+        "en": "These words are written by the Zawaya team; they are not a clip from the series.",
+        "zh": "这些话由 Zawaya 团队撰写，并非剧集中的片段。"
       },
       "examples": {
         "ar": [
@@ -437,6 +529,10 @@
         "en": [
           "who is sbou3i",
           "tell me about sbou3i"
+        ],
+        "zh": [
+          "Sbou3i 是谁",
+          "给我讲讲 Sbou3i"
         ]
       }
     },
@@ -445,7 +541,9 @@
       "status": "to-verify",
       "q": {
         "ar": "وقتاش صارت الحفلة؟",
-        "fr": "Quand a eu lieu le concert ?"
+        "fr": "Quand a eu lieu le concert ?",
+        "en": "When did the concert take place?",
+        "zh": "音乐会是什么时候举行的？"
       },
       "keywords": [
         "وقتاش",
@@ -453,15 +551,29 @@
         "سنة",
         "quand",
         "année",
-        "date"
+        "date",
+        "when",
+        "year",
+        "where",
+        "venue",
+        "date",
+        "air",
+        "aired",
+        "时候",
+        "年份",
+        "日期"
       ],
       "a": {
         "ar": "TO VERIFY: تاريخ الحفلة والأغاني من أرشيف الوطنية.",
-        "fr": "TO VERIFY : date du concert et chansons, depuis les archives."
+        "fr": "TO VERIFY : date du concert et chansons, depuis les archives.",
+        "en": "TO VERIFY: the date of the concert and its songs, from the archive.",
+        "zh": "TO VERIFY：音乐会的日期和曲目，来自 Wataniya 档案。"
       },
       "source": {
         "ar": "أرشيف الوطنية",
-        "fr": "Archives Wataniya"
+        "fr": "Archives Wataniya",
+        "en": "Wataniya archive",
+        "zh": "Wataniya 档案"
       },
       "year": null,
       "followUps": [
@@ -474,6 +586,14 @@
         ],
         "fr": [
           "quand"
+        ],
+        "en": [
+          "when was the concert",
+          "what year was the concert"
+        ],
+        "zh": [
+          "音乐会是什么时候",
+          "哪一年的音乐会"
         ]
       }
     },
@@ -482,22 +602,38 @@
       "status": "to-verify",
       "q": {
         "ar": "وين صارت الحفلة؟",
-        "fr": "Où a eu lieu le concert ?"
+        "fr": "Où a eu lieu le concert ?",
+        "en": "Where did the concert take place?",
+        "zh": "音乐会在哪里举行？"
       },
       "keywords": [
         "وين",
         "قاعة",
         "où",
         "salle",
-        "lieu"
+        "lieu",
+        "when",
+        "year",
+        "where",
+        "venue",
+        "date",
+        "air",
+        "aired",
+        "哪里",
+        "地点",
+        "剧场"
       ],
       "a": {
         "ar": "TO VERIFY: مكان الحفلة كيما مسجّل في الأرشيف.",
-        "fr": "TO VERIFY : lieu du concert tel qu'enregistré dans l'archive."
+        "fr": "TO VERIFY : lieu du concert tel qu'enregistré dans l'archive.",
+        "en": "TO VERIFY: the venue of the concert as recorded in the archive.",
+        "zh": "TO VERIFY：音乐会的地点，以档案记录为准。"
       },
       "source": {
         "ar": "أرشيف الوطنية",
-        "fr": "Archives Wataniya"
+        "fr": "Archives Wataniya",
+        "en": "Wataniya archive",
+        "zh": "Wataniya 档案"
       },
       "year": null,
       "followUps": [
@@ -510,6 +646,14 @@
         ],
         "fr": [
           "où a eu lieu le concert"
+        ],
+        "en": [
+          "where was the concert",
+          "where did the concert take place"
+        ],
+        "zh": [
+          "音乐会在哪里",
+          "音乐会的地点"
         ]
       }
     },
@@ -519,7 +663,8 @@
       "q": {
         "ar": "شكون إنت؟",
         "fr": "Qui es-tu ?",
-        "en": "Who are you?"
+        "en": "Who are you?",
+        "zh": "你是谁？"
       },
       "keywords": [
         "شكون انت",
@@ -531,12 +676,16 @@
         "who are you",
         "are you human",
         "are you real",
-        "ia"
+        "ia",
+        "你是谁",
+        "真人",
+        "机器人"
       ],
       "a": {
         "ar": "أنا دليل زوايا، ذكاء اصطناعي ومذيع خيالي من الوطنية. موش إنسان حقيقي.",
         "fr": "Je suis le guide Zawaya, une IA et un animateur fictif de la Wataniya. Pas une vraie personne.",
-        "en": "I am the Zawaya guide, an AI and a fictional Wataniya host. Not a real person."
+        "en": "I am the Zawaya guide, an AI and a fictional Wataniya host. Not a real person.",
+        "zh": "我是 Zawaya 向导，一个 AI，也是 Wataniya 的虚构主持人。我不是真人。"
       },
       "source": null,
       "year": null,
@@ -556,6 +705,10 @@
         "en": [
           "who are you",
           "are you a real person"
+        ],
+        "zh": [
+          "你是谁",
+          "你是真人吗"
         ]
       }
     },
@@ -565,7 +718,8 @@
       "q": {
         "ar": "شنوة نشوف هنا؟",
         "fr": "Que vois-je ici ?",
-        "en": "What am I looking at?"
+        "en": "What am I looking at?",
+        "zh": "我在看什么？"
       },
       "keywords": [
         "شنوة نشوف",
@@ -579,12 +733,16 @@
         "scene",
         "looking",
         "office",
-        "see here"
+        "see here",
+        "办公室",
+        "场景",
+        "这里"
       ],
       "a": {
         "ar": "هذا مكتب من عالم شوفلي حل، مشهد صنعو فريق زوايا للتجربة. من الأبواب تنجم تمشي للكولوار وللكوجينة.",
         "fr": "C'est un bureau de l'univers de Choufli Hal, une scène créée par l'équipe Zawaya. Par les portes, vous passez au couloir puis à la cuisine.",
-        "en": "This is an office from the world of Choufli Hal, a scene built by the Zawaya team. Through the doors you can reach the corridor and the kitchen."
+        "en": "This is an office from the world of Choufli Hal, a scene built by the Zawaya team. Through the doors you can reach the corridor and the kitchen.",
+        "zh": "这是 Choufli Hal 世界里的一间办公室，由 Zawaya 团队为这次体验搭建的场景。穿过这些门，可以去走廊和厨房。"
       },
       "source": null,
       "year": null,
@@ -604,6 +762,10 @@
         "en": [
           "what am i looking at",
           "what is this place"
+        ],
+        "zh": [
+          "我在看什么",
+          "这是什么地方"
         ]
       }
     },
@@ -613,7 +775,8 @@
       "q": {
         "ar": "كيفاش نمشي للكوجينة؟",
         "fr": "Comment aller à la cuisine ?",
-        "en": "How do I get to the kitchen?"
+        "en": "How do I get to the kitchen?",
+        "zh": "怎么去厨房？"
       },
       "keywords": [
         "كوجينة",
@@ -629,12 +792,16 @@
         "kitchen",
         "corridor",
         "door",
-        "get to"
+        "get to",
+        "厨房",
+        "走廊",
+        "怎么去"
       ],
       "a": {
         "ar": "اضغط على الباب الذهبي. من البيرو تمشي للكولوار، وبعدها للكوجينة.",
         "fr": "Touchez la porte dorée. Du bureau, vous allez au couloir, puis à la cuisine.",
-        "en": "Tap the gold door. From the office you go to the corridor, then to the kitchen."
+        "en": "Tap the gold door. From the office you go to the corridor, then to the kitchen.",
+        "zh": "点击金色的门。从办公室先到走廊，再到厨房。"
       },
       "source": null,
       "year": null,
@@ -654,6 +821,10 @@
         "en": [
           "how do i get to the kitchen",
           "where is the door"
+        ],
+        "zh": [
+          "怎么去厨房",
+          "门在哪里"
         ]
       }
     },
@@ -663,7 +834,8 @@
       "q": {
         "ar": "شنوة نشوف هنا؟",
         "fr": "Que vois-je ici ?",
-        "en": "What am I looking at?"
+        "en": "What am I looking at?",
+        "zh": "我在看什么？"
       },
       "keywords": [
         "قاعة",
@@ -676,12 +848,16 @@
         "scène",
         "hall",
         "stage",
-        "concert hall"
+        "concert hall",
+        "音乐厅",
+        "舞台",
+        "大厅"
       ],
       "a": {
         "ar": "هذي قاعة حفلة صنعها فريق زوايا للتجربة. الصف الأول تنجم تقرّب منو.",
         "fr": "C'est une salle de concert créée par l'équipe Zawaya pour l'expérience. Vous pouvez vous rapprocher du premier rang.",
-        "en": "This is a concert hall built by the Zawaya team for the experience. You can move closer to the front row."
+        "en": "This is a concert hall built by the Zawaya team for the experience. You can move closer to the front row.",
+        "zh": "这是 Zawaya 团队为这次体验搭建的音乐厅。你可以走近前排。"
       },
       "source": null,
       "year": null,
@@ -701,6 +877,10 @@
         "en": [
           "what is this hall",
           "what am i looking at in the concert"
+        ],
+        "zh": [
+          "这个音乐厅是什么",
+          "音乐会现场在看什么"
         ]
       }
     },
@@ -710,7 +890,8 @@
       "q": {
         "ar": "كيفاش نقرّب للصف الأول؟",
         "fr": "Comment aller au premier rang ?",
-        "en": "How do I reach the front row?"
+        "en": "How do I reach the front row?",
+        "zh": "怎么走到前排？"
       },
       "keywords": [
         "الصف الاول",
@@ -722,12 +903,16 @@
         "rapprocher",
         "front row",
         "closer",
-        "front"
+        "front",
+        "前排",
+        "走近",
+        "靠近"
       ],
       "a": {
         "ar": "اضغط على «الصف الأول» باش تقرّب. كي تحب ترجع للقاعة كاملة، اضغط عليها مرة أخرى ولا Esc.",
         "fr": "Touchez « Premier rang » pour vous rapprocher. Pour revoir toute la salle, touchez-le encore ou appuyez sur Échap.",
-        "en": "Tap \"Front row\" to move closer. To see the whole hall again, tap it once more or press Esc."
+        "en": "Tap \"Front row\" to move closer. To see the whole hall again, tap it once more or press Esc.",
+        "zh": "点击“前排”就能走近。想再看整个大厅，可以再点一次，或按 Esc。"
       },
       "source": null,
       "year": null,
@@ -747,6 +932,10 @@
         "en": [
           "how do i reach the front row",
           "i want to sit closer"
+        ],
+        "zh": [
+          "怎么走到前排",
+          "我想坐近一点"
         ]
       }
     },
@@ -756,7 +945,8 @@
       "q": {
         "ar": "علاش ما كاينش مجسّم؟",
         "fr": "Pourquoi pas de personnage ?",
-        "en": "Why is there no figure?"
+        "en": "Why is there no figure?",
+        "zh": "为什么没有人物形象？"
       },
       "keywords": [
         "مجسم",
@@ -769,12 +959,16 @@
         "avatar",
         "why",
         "model",
-        "singer"
+        "singer",
+        "人物",
+        "形象",
+        "为什么"
       ],
       "a": {
         "ar": "في التجربة هذي ما نعرضوش مجسّم ثلاثي الأبعاد لأم كلثوم، لأنها شخصية حقيقية. القاعة والأجواء بركة.",
         "fr": "Dans cette expérience, nous n'affichons pas de figure 3D d'Oum Kalthoum, car c'est une personne réelle. Seuls la salle et l'ambiance sont montrées.",
-        "en": "In this experience we do not show a 3D figure of Oum Kalthoum, because she is a real person. Only the hall and its atmosphere are shown."
+        "en": "In this experience we do not show a 3D figure of Oum Kalthoum, because she is a real person. Only the hall and its atmosphere are shown.",
+        "zh": "在这次体验中，我们不展示乌姆·库勒苏姆的 3D 人物形象，因为她是真实的人。这里只呈现大厅和现场氛围。"
       },
       "source": null,
       "year": null,
@@ -794,6 +988,10 @@
         "en": [
           "why is there no figure",
           "where is oum kalthoum"
+        ],
+        "zh": [
+          "为什么没有人物形象",
+          "乌姆·库勒苏姆在哪里"
         ]
       }
     },
@@ -803,7 +1001,8 @@
       "q": {
         "ar": "كيفاش نرجع للصالون؟",
         "fr": "Comment revenir au salon ?",
-        "en": "How do I go back to the living room?"
+        "en": "How do I go back to the living room?",
+        "zh": "怎么回到客厅？"
       },
       "keywords": [
         "نرجع",
@@ -816,12 +1015,17 @@
         "back",
         "leave",
         "exit",
-        "living room"
+        "living room",
+        "回到",
+        "客厅",
+        "离开",
+        "返回"
       ],
       "a": {
         "ar": "اضغط على «رجوع للصالون» فوق، ولا Esc.",
         "fr": "Touchez « Retour au salon » en haut, ou appuyez sur Échap.",
-        "en": "Tap \"Back to the living room\" at the top, or press Esc."
+        "en": "Tap \"Back to the living room\" at the top, or press Esc.",
+        "zh": "点击上方的“回到客厅”，或按 Esc。"
       },
       "source": null,
       "year": null,
@@ -841,6 +1045,10 @@
         "en": [
           "how do i go back",
           "i want to leave"
+        ],
+        "zh": [
+          "怎么回到客厅",
+          "我想离开"
         ]
       }
     }

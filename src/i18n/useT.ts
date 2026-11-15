@@ -6,20 +6,21 @@ import zh from './zh.json';
 import { isRtl, useSettings, type Locale } from '../app/settingsStore';
 
 export type MessageKey = keyof typeof ar;
-/** Arabic is always present; other languages may be missing, and then English, then Arabic, is shown. */
-export type Localized = { ar: string } & Partial<Record<Exclude<Locale, 'ar'>, string>>;
+/** Text in every language of the site. All four are required: a missing one is a compile error (and `npm run check:i18n` checks the JSON data). */
+export type Localized = Record<Locale, string>;
 
-const messages: Record<Locale, Partial<Record<MessageKey, string>>> = { ar, fr, en, zh };
+/** Every language must have every key of the Arabic file; a missing key fails `tsc`. */
+const messages: Record<Locale, Record<MessageKey, string>> = { ar, fr, en, zh };
 
 export function translate(locale: Locale, key: MessageKey, vars?: Record<string, string | number>): string {
-  const template = messages[locale][key] ?? messages.en[key] ?? messages.ar[key] ?? key;
+  const template = messages[locale][key] ?? messages.en[key] ?? messages.ar[key];
   if (!vars) return template;
   return template.replace(/\{(\w+)\}/g, (_, name: string) => String(vars[name] ?? `{${name}}`));
 }
 
-/** The text for a language, falling back to English and then Arabic; never invented. */
-export function pickLocalized(value: Localized, locale: Locale): string {
-  return value[locale as keyof Localized] ?? value.en ?? value.ar;
+/** The text for a language; if data was loaded without it, English and then Arabic stand in. Never invented. */
+export function pickLocalized(value: Partial<Localized> & { ar: string }, locale: Locale): string {
+  return value[locale] ?? value.en ?? value.ar;
 }
 
 export function useT() {

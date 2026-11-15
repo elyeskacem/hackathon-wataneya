@@ -17,7 +17,7 @@ export interface KnowledgeEntry {
   year: number | null;
   followUps: string[];
   /** Phrases a visitor might say, per language: used by the local matcher and by the scripted demo. */
-  examples?: Partial<Record<'ar' | 'fr' | 'en', string[]>>;
+  examples?: Record<Locale, string[]>;
   /** Who talks in the bubble; the guide when absent. Always a fictional character, never a real person. */
   speaker?: Localized;
 }

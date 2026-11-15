@@ -9,7 +9,7 @@ import type { CameraPose, Vec3 } from '../../stage/cameraStore';
  *   cam_closeup[@room]     optional second camera, e.g. the front row; pair it with hotspot_closeup
  *   char_<id>[@room]       character anchor at the feet; custom property "height" (metres) places the talk ring
  *   door_<room>[@room]     door hotspot leading to <room>
- *   hotspot_<id>[@room]    point of interest; custom properties "entry" (guide entry id), "label_ar", "label_fr"
+ *   hotspot_<id>[@room]    point of interest; custom properties "entry" (guide entry id), "label_ar", "label_fr", "label_en", "label_zh"
  *
  * A name without @room belongs to the default room "main". Blender's duplicate suffix (.001) is ignored.
  */
@@ -19,6 +19,9 @@ const NAME = /^(cam|char|door|hotspot)_([a-z0-9-]+)(?:@([a-z0-9]+))?$/i;
 const LOOK_DISTANCE = 10;
 const DEFAULT_FOV = 50;
 const DEFAULT_CHARACTER_HEIGHT = 1.7;
+
+/** A label typed by the artist; languages left out fall back (zh to en, en to fr, fr to ar). */
+export type GlbLabel = { ar: string; fr?: string; en?: string; zh?: string };
 
 export interface GlbCharacter {
   id: string;
@@ -31,13 +34,13 @@ export interface GlbCharacter {
 export interface GlbDoor {
   to: string;
   position: Vec3;
-  label?: { ar: string; fr?: string };
+  label?: GlbLabel;
 }
 export interface GlbHotspot {
   id: string;
   position: Vec3;
   entry?: string;
-  label?: { ar: string; fr?: string };
+  label?: GlbLabel;
 }
 export interface GlbRoom {
   id: string;
@@ -54,10 +57,19 @@ export interface GlbLayout {
   warnings: string[];
 }
 
-const labelOf = (o: Object3D) => {
+const labelOf = (o: Object3D): GlbLabel | undefined => {
   const ar = o.userData.label_ar as string | undefined;
-  return ar ? { ar, fr: o.userData.label_fr as string | undefined } : undefined;
+  if (!ar) return undefined;
+  const text = (key: string) => (typeof o.userData[key] === 'string' ? (o.userData[key] as string) : undefined);
+  return { ar, fr: text('label_fr'), en: text('label_en'), zh: text('label_zh') };
 };
+
+/** The label as text in every language, with the fallbacks above. */
+export function fullLabel(l: GlbLabel) {
+  const fr = l.fr ?? l.ar;
+  const en = l.en ?? fr;
+  return { ar: l.ar, fr, en, zh: l.zh ?? en };
+}
 
 export function readLayout(root: Object3D): GlbLayout {
   const rooms = new Map<string, GlbRoom>();

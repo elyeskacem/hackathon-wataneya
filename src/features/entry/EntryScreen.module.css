@@ -31,6 +31,10 @@
   align-content: start;
 }
 
+.language {
+  margin-top: var(--space-8);
+}
+
 .percent {
   margin: 0;
   font: var(--type-display);

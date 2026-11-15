@@ -49,7 +49,7 @@ export interface SceneConfig {
 
 const SLIMAN: CharacterConfig = {
   id: 'sliman',
-  name: { ar: 'سليمان', fr: 'Sliman' },
+  name: { ar: 'سليمان', fr: 'Sliman', en: 'Sliman', zh: 'Sliman' },
   image: asset('renders/char-sliman.webp'),
   imageAspect: 636 / 1200,
   u: 0.3,
@@ -62,7 +62,7 @@ const SLIMAN: CharacterConfig = {
 
 const SBOU3I: CharacterConfig = {
   id: 'sbou3i',
-  name: { ar: 'السبوعي', fr: 'Sbou3i' },
+  name: { ar: 'السبوعي', fr: 'Sbou3i', en: 'Sbou3i', zh: 'Sbou3i' },
   image: asset('renders/char-sbou3i.webp'),
   imageAspect: 798 / 883,
   u: 0.68,
@@ -75,7 +75,7 @@ const SBOU3I: CharacterConfig = {
 
 const FOCHIKA: CharacterConfig = {
   id: 'fochika',
-  name: { ar: 'فوشيكة', fr: 'Fochika' },
+  name: { ar: 'فوشيكة', fr: 'Fochika', en: 'Fochika', zh: 'Fochika' },
   image: null,
   imageAspect: 0.42,
   u: 0.3,
@@ -88,7 +88,7 @@ const FOCHIKA: CharacterConfig = {
 
 const OM_KALTHOUM: CharacterConfig = {
   id: 'om-kalthoum',
-  name: { ar: 'أم كلثوم', fr: 'Oum Kalthoum' },
+  name: { ar: 'أم كلثوم', fr: 'Oum Kalthoum', en: 'Oum Kalthoum', zh: '乌姆·库勒苏姆' },
   image: asset('renders/char-om-kalthoum.webp'),
   imageAspect: 665 / 709,
   u: 0.5,
@@ -105,7 +105,7 @@ export const SCENES: Partial<Record<MomentId, SceneConfig>> = {
     rooms: [
       {
         id: 'office',
-        name: { ar: 'البيرو', fr: 'le bureau' },
+        name: { ar: 'البيرو', fr: 'le bureau', en: 'the office', zh: '办公室' },
         backdrop: asset('renders/choufli-office.webp'),
         aspect: 849 / 545,
         focusU: 0.45,
@@ -114,7 +114,7 @@ export const SCENES: Partial<Record<MomentId, SceneConfig>> = {
       },
       {
         id: 'corridor',
-        name: { ar: 'الكولوار', fr: 'le couloir' },
+        name: { ar: 'الكولوار', fr: 'le couloir', en: 'the corridor', zh: '走廊' },
         backdrop: asset('renders/choufli-corridor.webp'),
         aspect: 865 / 544,
         focusU: 0.42,
@@ -126,7 +126,7 @@ export const SCENES: Partial<Record<MomentId, SceneConfig>> = {
       },
       {
         id: 'kitchen',
-        name: { ar: 'الكوجينة', fr: 'la cuisine' },
+        name: { ar: 'الكوجينة', fr: 'la cuisine', en: 'the kitchen', zh: '厨房' },
         backdrop: asset('renders/choufli-kitchen.webp'),
         aspect: 851 / 531,
         focusU: 0.45,
@@ -143,7 +143,7 @@ export const SCENES: Partial<Record<MomentId, SceneConfig>> = {
     rooms: [
       {
         id: 'hall',
-        name: { ar: 'القاعة', fr: 'la salle' },
+        name: { ar: 'القاعة', fr: 'la salle', en: 'the hall', zh: '音乐厅' },
         backdrop: asset('renders/kalthoum-hall.webp'),
         aspect: 1600 / 900,
         focusU: 0.5,
@@ -152,12 +152,20 @@ export const SCENES: Partial<Record<MomentId, SceneConfig>> = {
           ? [OM_KALTHOUM]
           : [],
         doors: [],
-        viewpoint: { label: { ar: 'الصف الأول', fr: 'Premier rang' }, backLabel: { ar: 'القاعة كاملة', fr: 'Toute la salle' }, u: 0.5, v: 0.72, dolly: 3.2 },
+        viewpoint: {
+          label: { ar: 'الصف الأول', fr: 'Premier rang', en: 'Front row', zh: '前排' },
+          backLabel: { ar: 'القاعة كاملة', fr: 'Toute la salle', en: 'Whole hall', zh: '整个大厅' },
+          u: 0.5,
+          v: 0.72,
+          dolly: 3.2,
+        },
       },
     ],
     ambientLine: {
       ar: '[موسيقى] صوت تجريبي · تسجيل الحفلة الأصلي يجي من أرشيف الوطنية.',
       fr: '[musique] son provisoire · l’enregistrement original viendra des archives Wataniya.',
+      en: '[music] placeholder sound · the original recording will come from the Wataniya archive.',
+      zh: '[音乐] 临时音效 · 原始录音将来自 Wataniya 档案。',
     },
   },
 };
@@ -176,11 +184,11 @@ export function characterInfo(id: string): Pick<CharacterConfig, 'id' | 'name' |
   const known = [SLIMAN, SBOU3I, FOCHIKA, OM_KALTHOUM].find((c) => c.id === id);
   if (known) return known;
   const name = id.replace(/[-_]+/g, ' ').replace(/^\w/, (c) => c.toUpperCase());
-  return { id, name: { ar: name, fr: name }, entryId: `character-${id}` };
+  return { id, name: { ar: name, fr: name, en: name, zh: name }, entryId: `character-${id}` };
 }
 
 /** Display name of a room: from the 2.5D scene when it knows the room, otherwise the id. */
 export function roomName(momentId: MomentId, roomId: string): Localized {
   const known = SCENES[momentId]?.rooms.find((r) => r.id === roomId);
-  return known?.name ?? { ar: roomId, fr: roomId };
+  return known?.name ?? { ar: roomId, fr: roomId, en: roomId, zh: roomId };
 }

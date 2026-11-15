@@ -7,7 +7,7 @@ import { useT } from '../../i18n/useT';
 import { REST_POSE, useCamera, type CameraPose } from '../../stage/cameraStore';
 import { Hotspot3D } from '../../stage/Hotspot3D';
 import { useModel } from '../../stage/useModel';
-import { readLayout, type GlbRoom } from './glbLayout';
+import { fullLabel, readLayout, type GlbRoom } from './glbLayout';
 import { characterInfo, roomName } from './scenes';
 import { useAskEntry } from './useAskEntry';
 import { useMoment } from './momentStore';
@@ -103,7 +103,7 @@ export default function GlbScene({ momentId, url, roomId }: { momentId: MomentId
         );
       })}
       {room.doors.map((door) => {
-        const label = door.label ? pick({ ar: door.label.ar, fr: door.label.fr }) : pick(roomName(momentId, door.to));
+        const label = door.label ? pick(fullLabel(door.label)) : pick(roomName(momentId, door.to));
         return (
           <Hotspot3D
             key={door.to}
@@ -121,7 +121,7 @@ export default function GlbScene({ momentId, url, roomId }: { momentId: MomentId
           key={h.id}
           position={h.position}
           showLabel
-          label={h.label ? pick({ ar: h.label.ar, fr: h.label.fr }) : h.id.replace(/-/g, ' ')}
+          label={h.label ? pick(fullLabel(h.label)) : h.id.replace(/-/g, ' ')}
           onSelect={() => askEntry(h.entry)}
           testId={`hotspot-${h.id}`}
         />
@@ -130,7 +130,7 @@ export default function GlbScene({ momentId, url, roomId }: { momentId: MomentId
         <Hotspot3D
           position={closeUp ? inFront(room.closeup, 2) : closeupSpot.position}
           showLabel
-          label={closeupSpot.label ? pick({ ar: closeupSpot.label.ar, fr: closeupSpot.label.fr }) : t(closeUp ? 'moment.farther' : 'moment.closer')}
+          label={closeupSpot.label ? pick(fullLabel(closeupSpot.label)) : t(closeUp ? 'moment.farther' : 'moment.closer')}
           onSelect={toggleCloseUp}
           testId="viewpoint"
         />

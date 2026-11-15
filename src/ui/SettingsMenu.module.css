@@ -4,7 +4,7 @@
   inset-inline-end: 0;
   display: grid;
   gap: var(--space-4);
-  min-width: 220px;
+  min-width: 260px;
   padding: var(--space-8);
   border-radius: var(--radius-md);
 }
@@ -20,6 +20,18 @@
   background: none;
   font: var(--type-body-small);
   text-align: start;
+}
+
+.language {
+  display: grid;
+  gap: var(--space-8);
+  justify-items: start;
+  padding: var(--space-8) var(--space-12);
+}
+
+.languageLabel {
+  font: var(--type-caption);
+  color: var(--icon-inactive);
 }
 
 .item:hover {

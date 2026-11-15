@@ -5,7 +5,18 @@
 @import '@fontsource/ibm-plex-mono/400.css';
 @import '@fontsource/caveat/600.css';
 @import '@fontsource/aref-ruqaa/700.css';
+/* Chinese: the package cuts the font into 101 unicode-range slices (font-display: swap), so a page downloads only the slices of the characters it shows. */
+@import '@fontsource/noto-sans-sc/400.css';
+@import '@fontsource/noto-sans-sc/600.css';
+@import '@fontsource/noto-sans-sc/700.css';
 @import './tokens.css';
+
+/* Chinese text leads with Noto Sans SC; Arabic and Latin keep their own fonts. */
+html:lang(zh-CN) {
+  --font-heading: 'Noto Sans SC', 'Changa', system-ui, sans-serif;
+  --font-body: 'Noto Sans SC', 'Cairo', system-ui, sans-serif;
+  --font-hand: 'Noto Sans SC', 'Caveat', cursive;
+}
 
 *,
 *::before,

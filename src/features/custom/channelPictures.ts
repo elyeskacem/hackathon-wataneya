@@ -21,7 +21,10 @@ export function useChannelPictures(locale: Locale): Texture[] {
   useEffect(() => {
     // Redraw once the brand fonts are ready so the card text is not in a fallback face.
     let alive = true;
-    document.fonts.ready.then(() => {
+    // Chinese text needs its own font slices: ask for exactly these characters before drawing.
+    const sample = moments.map((m) => pickLocalized(m.title, locale) + pickLocalized(m.kind, locale)).join('');
+    const wanted = locale === 'zh' ? Promise.all([document.fonts.load('700 44px "Noto Sans SC"', sample), document.fonts.load('400 22px "Noto Sans SC"', sample)]) : Promise.resolve();
+    void Promise.all([document.fonts.ready, wanted.catch(() => undefined)]).then(() => {
       if (!alive) return;
       for (const m of moments) {
         const card = cards.get(m.channel);
@@ -69,10 +72,11 @@ function drawTestCard(canvas: HTMLCanvasElement, moment: Moment, locale: Locale)
   ctx.textAlign = 'center';
   ctx.font = '600 28px "IBM Plex Mono", monospace';
   ctx.fillText(`CH ${channelLabel(moment.channel)}`, 256, 210);
-  ctx.font = '700 44px Changa, Cairo, sans-serif';
+  const cjk = locale === 'zh' ? '"Noto Sans SC", ' : '';
+  ctx.font = `700 44px ${cjk}Changa, Cairo, sans-serif`;
   ctx.direction = isRtl(locale) ? 'rtl' : 'ltr';
   ctx.fillText(pickLocalized(moment.title, locale), 256, 280);
-  ctx.font = '400 22px Cairo, sans-serif';
+  ctx.font = `400 22px ${cjk}Cairo, sans-serif`;
   ctx.fillStyle = '#ffffff99';
   ctx.fillText(pickLocalized(moment.kind, locale), 256, 330);
 }

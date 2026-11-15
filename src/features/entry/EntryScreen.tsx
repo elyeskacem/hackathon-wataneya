@@ -4,6 +4,7 @@ import { useApp } from '../../app/appStore';
 import { useSettings } from '../../app/settingsStore';
 import { audio } from '../../audio/AudioManager';
 import { useT } from '../../i18n/useT';
+import { LanguageSwitch } from '../../ui/LanguageSwitch';
 import { Logo } from '../../ui/Logo';
 import { webglAvailable } from '../../stage/webgl';
 import styles from './EntryScreen.module.css';
@@ -95,6 +96,7 @@ export function EntryScreen({ onDone }: { onDone: () => void }) {
             <p className={styles.hint}>{t('entry.loading')}</p>
           </>
         )}
+        <LanguageSwitch className={styles.language} />
       </div>
     </section>
   );

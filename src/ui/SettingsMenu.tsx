@@ -2,12 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 import { useSettings } from '../app/settingsStore';
 import { useT } from '../i18n/useT';
 import { xrStore } from '../stage/Stage';
+import { LanguageSwitch } from './LanguageSwitch';
 import styles from './SettingsMenu.module.css';
 
 /** Menu panel: effects, reduced motion, fullscreen, Enter VR (only with a headset), language. */
 export function SettingsMenu({ onClose }: { onClose: () => void }) {
   const { t } = useT();
-  const { effects, reducedMotion, locale, toggleEffects, toggleReducedMotion, setLocale } = useSettings();
+  const { effects, reducedMotion, toggleEffects, toggleReducedMotion } = useSettings();
   const [vrSupported, setVrSupported] = useState(false);
   const panel = useRef<HTMLDivElement>(null);
 
@@ -49,13 +50,10 @@ export function SettingsMenu({ onClose }: { onClose: () => void }) {
           {t('settings.enterVr')}
         </button>
       )}
-      <button type="button" className={styles.item} onClick={() => setLocale(locale === 'ar' ? 'fr' : 'ar')} lang={locale === 'ar' ? 'fr' : 'ar'}>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-          <circle cx="12" cy="12" r="9" />
-          <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
-        </svg>
-        {t('settings.language')}
-      </button>
+      <div className={styles.language}>
+        <span className={styles.languageLabel}>{t('settings.language')}</span>
+        <LanguageSwitch />
+      </div>
     </div>
   );
 }

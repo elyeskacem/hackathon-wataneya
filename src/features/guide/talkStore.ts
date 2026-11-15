@@ -100,12 +100,13 @@ export const useTalk = create<TalkState>()((set, get) => ({
     if (demo) {
       // Jury demo: the listening animation with a scripted question, whatever the noise in the hall.
       const entry = demoEntries[demoIndex++ % demoEntries.length]!;
-      const sample = entry.examples?.[locale === 'zh' ? 'en' : locale]?.[0] ?? pickLocalized(entry.q, locale);
-      const words = sample.split(' ');
+      const sample = entry.examples?.[locale]?.[0] ?? pickLocalized(entry.q, locale);
+      // Chinese has no spaces: reveal it a few characters at a time instead of word by word.
+      const words = locale === 'zh' ? (sample.match(/.{1,2}/gu) ?? [sample]) : sample.split(' ');
       set({ phase: 'listening', transcript: '', error: null });
       clearTimers();
       words.forEach((_, i) => {
-        timers.push(window.setTimeout(() => get().phase === 'listening' && set({ transcript: words.slice(0, i + 1).join(' ') }), 250 + (i * (DEMO_LISTEN_MS - 700)) / words.length));
+        timers.push(window.setTimeout(() => get().phase === 'listening' && set({ transcript: words.slice(0, i + 1).join(locale === 'zh' ? '' : ' ') }), 250 + (i * (DEMO_LISTEN_MS - 700)) / words.length));
       });
       timers.push(window.setTimeout(() => void submit(sample, { voice: true }, context, locale), DEMO_LISTEN_MS));
       return;
