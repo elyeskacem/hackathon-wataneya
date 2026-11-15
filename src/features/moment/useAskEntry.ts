@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useApp } from '../../app/appStore';
-import { momentById, type MomentId } from '../../data/moments';
+import type { MomentId } from '../../data/moments';
 import { useT } from '../../i18n/useT';
 import { entryById } from '../guide/knowledge';
 import { useTalk } from '../guide/talkStore';
@@ -16,8 +16,7 @@ export function useAskEntry(momentId: MomentId) {
       setGuideOpen(true);
       const entry = entryId ? entryById(entryId) : undefined;
       if (!entry) return;
-      // The guide only knows two moments so far; the rest ask in the general context.
-      const context: GuideContext = momentById(momentId).scene ?? 'home';
+      const context: GuideContext = momentId;
       void submit(pick(entry.q), { entryId: entry.id }, context, locale);
     },
     [submit, locale, momentId, pick, setGuideOpen],

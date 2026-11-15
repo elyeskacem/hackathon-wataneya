@@ -14,7 +14,7 @@ export function currentGuideContext(): GuideContext {
 
 function contextOf(route: ReturnType<typeof useApp.getState>['route']): GuideContext {
   if (route.name === 'custom') return 'custom';
-  if (route.name === 'moment' && (route.momentId === 'choufli-hal' || route.momentId === 'om-kalthoum')) return route.momentId;
+  if (route.name === 'moment') return route.momentId;
   return 'home';
 }
 

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useApp } from '../../app/appStore';
 import { changeScene, insertTape } from '../../app/transitions';
-import { channelLabel, displayYear, momentByChannel } from '../../data/moments';
+import { channelLabel, displayYear, momentByChannel, moments } from '../../data/moments';
 import { useT } from '../../i18n/useT';
 import { switchChannel } from './channelSwitch';
 import { ScenePrompt } from '../../ui/ScenePrompt';
@@ -40,7 +40,7 @@ export function CustomUI() {
       } else if (e.key === 'ArrowDown' || e.key === 'ArrowLeft') {
         e.preventDefault();
         switchChannel(app.channel - 1);
-      } else if (/^[1-9]$/.test(e.key)) {
+      } else if (/^[1-9]$/.test(e.key) && Number(e.key) <= moments.length) {
         switchChannel(Number(e.key));
       } else if (e.key === 'Enter' && e.target === document.body && !app.staticBurst) {
         void insertTape(momentByChannel(app.channel).id);
@@ -82,7 +82,7 @@ export function CustomUI() {
           </button>
         </div>
         <div className={styles.pad} dir="ltr">
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => (
+          {moments.map((m) => m.channel).map((n) => (
             <button
               key={n}
               type="button"

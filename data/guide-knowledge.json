@@ -28,6 +28,34 @@
         "kalthoum-front-row",
         "kalthoum-figure"
       ]
+    },
+    "news-studio": {
+      "chips": [
+        "how-tv-works",
+        "go-back",
+        "what-is-zawaya"
+      ]
+    },
+    "el-khottab": {
+      "chips": [
+        "how-tv-works",
+        "go-back",
+        "what-is-zawaya"
+      ]
+    },
+    "al-ahad-riyadhi": {
+      "chips": [
+        "al-ahad-what",
+        "show-tunisia-mexico",
+        "how-tv-works"
+      ]
+    },
+    "tunisia-mexico-1978": {
+      "chips": [
+        "tunisia-mexico-result",
+        "tunisia-mexico-where",
+        "how-tv-works"
+      ]
     }
   },
   "entries": [
@@ -52,10 +80,10 @@
         "体验"
       ],
       "a": {
-        "ar": "زوايا هي رحلة في الزمن عبر تسع لحظات من تاريخ الوطنية. تنجم تختار لحظة من التلفزة، ولا تبدا الرحلة من الأول.",
-        "fr": "Zawaya est un voyage dans le temps à travers neuf moments de l'histoire de la Wataniya. Tu peux choisir un moment à la télé, ou commencer le voyage depuis le début.",
-        "en": "Zawaya is a journey through time across nine moments of Wataniya history. You can pick a moment on the TV, or start the journey from the beginning.",
-        "zh": "Zawaya 是一场穿越时间的旅程，带你走过 Wataniya 历史上的九个时刻。你可以在电视上选一个时刻，也可以从头开始旅程。"
+        "ar": "زوايا هي رحلة في الزمن عبر ست لحظات من تاريخ الوطنية. تنجم تختار لحظة من التلفزة، ولا تبدا الرحلة من الأول.",
+        "fr": "Zawaya est un voyage dans le temps à travers six moments de l'histoire de la Wataniya. Tu peux choisir un moment à la télé, ou commencer le voyage depuis le début.",
+        "en": "Zawaya is a journey through time across six moments of Wataniya history. You can pick a moment on the TV, or start the journey from the beginning.",
+        "zh": "Zawaya 是一场穿越时间的旅程，带你走过 Wataniya 历史上的六个时刻。你可以在电视上选一个时刻，也可以从头开始旅程。"
       },
       "more": {
         "ar": "أنا دليل بالذكاء الاصطناعي، موش إنسان، ونجاوب كان من أرشيف الوطنية.",
@@ -273,10 +301,10 @@
         "电视"
       ],
       "a": {
-        "ar": "استعمل الريموت: CH ▲▼ ولا الأرقام من 1 لـ9. بالكلافيي زادة: الأسهم والأرقام، وEsc باش ترجع للصالون.",
-        "fr": "Utilise la télécommande : CH ▲▼ ou les touches 1 à 9. Au clavier aussi : les flèches et les chiffres, et Échap pour revenir au salon.",
-        "en": "Use the remote: CH ▲▼ or the numbers 1 to 9. With the keyboard, use the arrow keys and the number keys.",
-        "zh": "用遥控器：CH ▲▼ 或数字 1 到 9。用键盘的话，可以按方向键和数字键。"
+        "ar": "استعمل الريموت: CH ▲▼ ولا الأرقام من 1 لـ6. بالكلافيي زادة: الأسهم والأرقام، وEsc باش ترجع للصالون.",
+        "fr": "Utilise la télécommande : CH ▲▼ ou les touches 1 à 6. Au clavier aussi : les flèches et les chiffres, et Échap pour revenir au salon.",
+        "en": "Use the remote: CH ▲▼ or the numbers 1 to 6. With the keyboard, use the arrow keys and the number keys.",
+        "zh": "用遥控器：CH ▲▼ 或数字 1 到 6。用键盘的话，可以按方向键和数字键。"
       },
       "source": null,
       "year": null,
@@ -1051,6 +1079,315 @@
           "我想离开"
         ]
       }
+    },
+    {
+      "id": "show-al-ahad",
+      "status": "verified",
+      "q": {
+        "ar": "ورّيني الأحد الرياضي",
+        "fr": "Montre-moi Al Ahad Al Riyadhi",
+        "en": "Show me Al Ahad Al Riyadhi",
+        "zh": "带我看 Al Ahad Al Riyadhi"
+      },
+      "keywords": [
+        "الأحد الرياضي",
+        "الاحد الرياضي",
+        "ahad",
+        "riyadhi",
+        "ورّيني",
+        "sports",
+        "sport",
+        "体育",
+        "带我看"
+      ],
+      "a": {
+        "ar": "هاو الأحد الرياضي على القناة 05.",
+        "fr": "Voici Al Ahad Al Riyadhi, sur la chaîne 05.",
+        "en": "Here is Al Ahad Al Riyadhi, on channel 05.",
+        "zh": "这就是 Al Ahad Al Riyadhi，在 05 频道。"
+      },
+      "action": {
+        "type": "channel",
+        "channel": 5
+      },
+      "source": null,
+      "year": null,
+      "followUps": [
+        "al-ahad-what",
+        "show-tunisia-mexico"
+      ],
+      "examples": {
+        "ar": [
+          "ورّيني الأحد الرياضي",
+          "نحب نشوف الأحد الرياضي"
+        ],
+        "fr": [
+          "montre moi al ahad al riyadhi",
+          "je veux voir al ahad"
+        ],
+        "en": [
+          "show me al ahad al riyadhi",
+          "take me to the sports show"
+        ],
+        "zh": [
+          "带我看 Al Ahad Al Riyadhi",
+          "我想看体育节目"
+        ]
+      }
+    },
+    {
+      "id": "al-ahad-what",
+      "status": "verified",
+      "q": {
+        "ar": "شنوّة الأحد الرياضي؟",
+        "fr": "C'est quoi Al Ahad Al Riyadhi ?",
+        "en": "What is Al Ahad Al Riyadhi?",
+        "zh": "Al Ahad Al Riyadhi 是什么？"
+      },
+      "keywords": [
+        "شنوة",
+        "الأحد",
+        "الاحد",
+        "حصة",
+        "quoi",
+        "dimanche",
+        "émission",
+        "what is",
+        "sunday",
+        "show",
+        "周日",
+        "体育",
+        "节目",
+        "是什么"
+      ],
+      "a": {
+        "ar": "الأحد الرياضي هي حصة الرياضة ليوم الأحد. الصورة اللي تشوفها توّا مؤقتة، لين يوصل المشهد الحقيقي.",
+        "fr": "Al Ahad Al Riyadhi est l'émission sportive du dimanche. L'image que vous voyez est provisoire, en attendant la vraie scène.",
+        "en": "Al Ahad Al Riyadhi is the Sunday sports show. The picture you see now is a placeholder until the real scene arrives.",
+        "zh": "Al Ahad Al Riyadhi 是周日的体育节目。你现在看到的画面只是占位图，真正的场景完成后会替换。"
+      },
+      "source": null,
+      "year": null,
+      "followUps": [
+        "show-al-ahad",
+        "show-tunisia-mexico"
+      ],
+      "examples": {
+        "ar": [
+          "شنوة الأحد الرياضي",
+          "شنوة هي الحصة هذي"
+        ],
+        "fr": [
+          "c'est quoi al ahad al riyadhi",
+          "c'est quoi cette émission"
+        ],
+        "en": [
+          "what is al ahad al riyadhi",
+          "what is the sunday sports show"
+        ],
+        "zh": [
+          "Al Ahad Al Riyadhi 是什么",
+          "这个体育节目是什么"
+        ]
+      }
+    },
+    {
+      "id": "show-tunisia-mexico",
+      "status": "verified",
+      "q": {
+        "ar": "ورّيني تونس والمكسيك",
+        "fr": "Montre-moi Tunisie–Mexique",
+        "en": "Show me Tunisia vs Mexico",
+        "zh": "带我看突尼斯对墨西哥"
+      },
+      "keywords": [
+        "المكسيك",
+        "مكسيك",
+        "تونس",
+        "مقابلة",
+        "mexique",
+        "tunisie",
+        "match",
+        "mexico",
+        "tunisia",
+        "墨西哥",
+        "突尼斯",
+        "比赛",
+        "ورّيني"
+      ],
+      "a": {
+        "ar": "هاي مقابلة تونس والمكسيك على القناة 06.",
+        "fr": "Voici le match Tunisie–Mexique, sur la chaîne 06.",
+        "en": "Here is the Tunisia vs Mexico match, on channel 06.",
+        "zh": "这就是突尼斯对墨西哥的比赛，在 06 频道。"
+      },
+      "action": {
+        "type": "channel",
+        "channel": 6
+      },
+      "source": null,
+      "year": null,
+      "followUps": [
+        "tunisia-mexico-result",
+        "tunisia-mexico-where"
+      ],
+      "examples": {
+        "ar": [
+          "ورّيني تونس والمكسيك",
+          "نحب نشوف مقابلة تونس والمكسيك"
+        ],
+        "fr": [
+          "montre moi tunisie mexique",
+          "je veux voir le match tunisie mexique"
+        ],
+        "en": [
+          "show me tunisia vs mexico",
+          "take me to the tunisia mexico match"
+        ],
+        "zh": [
+          "带我看突尼斯对墨西哥",
+          "我想看突尼斯墨西哥的比赛"
+        ]
+      }
+    },
+    {
+      "id": "tunisia-mexico-result",
+      "status": "verified",
+      "q": {
+        "ar": "شنوّة صار في تونس والمكسيك؟",
+        "fr": "Que s'est-il passé lors de Tunisie–Mexique ?",
+        "en": "What happened in Tunisia vs Mexico?",
+        "zh": "突尼斯对墨西哥发生了什么？"
+      },
+      "keywords": [
+        "صار",
+        "ربحت",
+        "النتيجة",
+        "كأس العالم",
+        "passé",
+        "victoire",
+        "résultat",
+        "coupe du monde",
+        "happened",
+        "result",
+        "score",
+        "world cup",
+        "won",
+        "win",
+        "结果",
+        "世界杯",
+        "发生",
+        "胜利",
+        "gagné",
+        "gagne",
+        "gagner",
+        "battu",
+        "who won",
+        "beat",
+        "winner",
+        "赢",
+        "获胜"
+      ],
+      "a": {
+        "ar": "تونس ربحت المكسيك 3–1 في كأس العالم 1978 بالأرجنتين. كانت أول مرة يربح فيها منتخب إفريقي مقابلة في كأس العالم.",
+        "fr": "La Tunisie a battu le Mexique 3–1 lors de la Coupe du monde 1978, en Argentine. C'était la première victoire d'une équipe africaine en Coupe du monde.",
+        "en": "Tunisia beat Mexico 3–1 at the 1978 World Cup in Argentina. It was the first win by an African team at a World Cup.",
+        "zh": "突尼斯在 1978 年阿根廷世界杯上以 3–1 击败墨西哥。这是非洲球队在世界杯上的第一场胜利。"
+      },
+      "source": {
+        "ar": "أرشيف الوطنية / FIFA",
+        "fr": "Archives Wataniya / FIFA",
+        "en": "Wataniya archive / FIFA",
+        "zh": "Wataniya 档案 / FIFA"
+      },
+      "year": 1978,
+      "followUps": [
+        "tunisia-mexico-where",
+        "show-tunisia-mexico"
+      ],
+      "examples": {
+        "ar": [
+          "شنوة صار في تونس والمكسيك",
+          "شنية النتيجة"
+        ],
+        "fr": [
+          "que s'est il passé tunisie mexique",
+          "quel est le résultat"
+        ],
+        "en": [
+          "what happened in tunisia vs mexico",
+          "what was the score"
+        ],
+        "zh": [
+          "突尼斯对墨西哥发生了什么",
+          "比分是多少"
+        ]
+      }
+    },
+    {
+      "id": "tunisia-mexico-where",
+      "status": "verified",
+      "q": {
+        "ar": "وين لعبوا المقابلة وقتاش؟",
+        "fr": "Où et quand ce match a-t-il eu lieu ?",
+        "en": "Where and when was the match played?",
+        "zh": "比赛是在哪里、什么时候举行的？"
+      },
+      "keywords": [
+        "روساريو",
+        "الأرجنتين",
+        "جوان",
+        "وين لعبوا",
+        "rosario",
+        "argentine",
+        "juin",
+        "où a eu lieu",
+        "quand a eu lieu",
+        "argentina",
+        "june",
+        "where was",
+        "when was the match",
+        "罗萨里奥",
+        "阿根廷",
+        "六月",
+        "哪里",
+        "什么时候"
+      ],
+      "a": {
+        "ar": "لعبوها في روساريو بالأرجنتين، يوم 2 جوان 1978، في كأس العالم.",
+        "fr": "Il a été joué à Rosario, en Argentine, le 2 juin 1978, pendant la Coupe du monde.",
+        "en": "It was played in Rosario, Argentina, on 2 June 1978, during the World Cup.",
+        "zh": "比赛于 1978 年 6 月 2 日在阿根廷罗萨里奥举行，属于世界杯。"
+      },
+      "source": {
+        "ar": "أرشيف الوطنية / FIFA",
+        "fr": "Archives Wataniya / FIFA",
+        "en": "Wataniya archive / FIFA",
+        "zh": "Wataniya 档案 / FIFA"
+      },
+      "year": 1978,
+      "followUps": [
+        "tunisia-mexico-result",
+        "show-tunisia-mexico"
+      ],
+      "examples": {
+        "ar": [
+          "وين لعبوا المقابلة",
+          "وقتاش صارت مقابلة تونس والمكسيك"
+        ],
+        "fr": [
+          "où a eu lieu le match",
+          "quand a eu lieu tunisie mexique"
+        ],
+        "en": [
+          "where was the match played",
+          "when was tunisia vs mexico"
+        ],
+        "zh": [
+          "比赛在哪里举行",
+          "突尼斯对墨西哥是什么时候"
+        ]
+      }
     }
   ],
   "demo": [
@@ -1060,6 +1397,8 @@
     "choufli-doors",
     "show-om-kalthoum",
     "kalthoum-front-row",
+    "show-tunisia-mexico",
+    "tunisia-mexico-result",
     "who-are-you"
   ]
 }

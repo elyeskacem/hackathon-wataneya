@@ -17,7 +17,7 @@ If a moment has both, **Unity wins**, then GLB, then the 2.5D render.
 
 ## 1. Moment ids
 
-The file or folder name must be exactly one of these ids (`data/moments.json`):
+The file or folder name must be exactly one of these six ids (`data/moments.json`):
 
 | Channel | `<moment-id>` | Title |
 |---|---|---|
@@ -25,11 +25,8 @@ The file or folder name must be exactly one of these ids (`data/moments.json`):
 | 02 | `om-kalthoum` | Concert of Oum Kalthoum |
 | 03 | `news-studio` | The news studio |
 | 04 | `el-khottab` | El Khottab Al Bab |
-| 05 | `laroui` | Les histoires de Laroui |
-| 06 | `mnamet-aroussia` | Mnamet Aroussia |
-| 07 | `tv-launch` | The TV launch |
-| 08 | `independence` | Independence |
-| 09 | `dhi3et-mahrous` | Dhi3et Mahrous |
+| 05 | `al-ahad-riyadhi` | Al Ahad Al Riyadhi (the Sunday sports show) |
+| 06 | `tunisia-mexico-1978` | Tunisia 3–1 Mexico, 1978 World Cup |
 
 A wrong name loads nothing (the build prints a warning for GLBs).
 

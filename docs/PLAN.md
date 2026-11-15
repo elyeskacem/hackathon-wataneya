@@ -10,7 +10,7 @@ Status: P0 built on `feature/web-vr-experience` (see README). Notes added during
 | Source | Read | Notes |
 |---|---|---|
 | `docs/figma/1-entry.png` … `4-moment.png` | All 4 boards | Desktop and mobile frames, plus the "Motion + Sound" and "3D handoff" spec cards for each screen |
-| `docs/research/VR + Web.pdf` | All 7 pages | Concept, 9 moments, avatar states and copy, screen goals, principles, risks, user test |
+| `docs/research/VR + Web.pdf` | All 7 pages | Concept, moments (since cut to six), avatar states and copy, screen goals, principles, risks, user test |
 | Figma variables (`get_variable_defs`, node 56:13224) | Called once | Colours, glass, spacing, radii, sizes, 4 text styles. One extra call failed (a page node isn't accepted) |
 | `public/renders/` | 17 PNGs, 4 opened | Backdrops and character cut-outs (details in §5) |
 | `public/models/` | **Missing** | No GLB files. Every scene starts as 2.5D parallax |
@@ -70,7 +70,7 @@ src/
   i18n/           ar.json, fr.json, useT.ts
   styles/         tokens.css, global.css, fonts
 data/
-  moments.json            9 moments: id, channel, titles, year (null if unverified), scene config, assets
+  moments.json            6 moments: id, channel, titles, year (null if unverified), scene config, assets
   guide-knowledge.json    curated Q&A per moment + general; each answer has source + year or "TO VERIFY"
 tests/e2e/demo-path.spec.ts
 ```
@@ -88,14 +88,16 @@ tests/e2e/demo-path.spec.ts
 | `GuidePanel` | Lobby frame 2 card + mobile sheet: AI tag, «أهلا! أنا دليل زوايا بالذكاء الاصطناعي.», chips, input | Side panel on desktop, bottom sheet on mobile |
 | `LobbyActions` | Red «ابدا الرحلة» + glass «اختار لحظة» | Bottom centre |
 | `TvSet` + `ChannelStatic` | 3-custom: TV on a round table, picture as a texture, static frame | Canvas-noise texture, 0.5 s |
-| `Remote` | Glass remote: CH number, ▲▼, 1–9 grid (active key red), «رف الكاسيط» | On mobile it becomes a bottom bar with ▲ CH 02 ▼ + list icon |
+| `Remote` | Glass remote: CH number, ▲▼, 1–6 grid (active key red), «رف الكاسيط» | On mobile it becomes a bottom bar with ▲ CH 02 ▼ + list icon |
 | `LowerThird` | «حفلة أم كلثوم · CH 02 · 1968 · كونسار» | Anchored to the screen's bottom corner |
-| `TapeDrawer` + `VhsCard` | «رفّ الكاسيط», 9 VHS cards, selected = gold border + «في التلفزة» | Board note: "Dates to verify with the Wataniya archive before the demo" |
+| `TapeDrawer` + `VhsCard` | «رفّ الكاسيط», 6 VHS cards, selected = gold border + «في التلفزة» | Board note: "Dates to verify with the Wataniya archive before the demo" |
 | `TitleCard` | 4-moment: CH 01, «شوفلي حل», 2005, source line | Slides in, stays 4 s |
 | `CharacterCard` | «السبوعي» card: role, year, fact, «احكيلي على السبوعي» | The guide talks *about* the character |
 | `SubtitleBand` | Solid band: «صوت الأرشيف · [موسيقى] تسجيل الحفلة من أرشيف الوطنية.» | Never over scanlines |
 
 ## 5. Scenes → assets
+
+Moments cut from the first plan (independence signing, Laroui, Mnamet Aroussia, Dhi3et Mahrous, TV launch) are unregistered; their renders stay in `assets/renders/`.
 
 The research gives no verified years. The Figma cards show 2005 for Choufli Hal and 1968 for Om Kalthoum, and the board itself says "Dates to verify". I'll ship those two marked "TO VERIFY" and leave every other year blank.
 
@@ -105,11 +107,8 @@ The research gives no verified years. The Figma cards show 2005 for Choufli Hal 
 | 2 | Om Kalthoum concert (حفلة أم كلثوم) | 02 | `stage kalthom`, `om kalthom satge`, `om_kalthoum` cut-out | **P0 3D scene.** Hall backdrop, front-row viewpoint |
 | 3 | News studio (ستوديو الأخبار) | 03 | none | P1 placeholder |
 | 4 | El Khottab Al Bab (الخطاب على الباب) | 04 | none | P1 placeholder |
-| 5 | Abdelaziz Laroui (حكايات العروي) | 05 | none | P1 placeholder |
-| 6 | Mnamet Aroussia (منامة عروسية) | 06 | `mnamit 3rosiya` (patio), `chdli tamar` cut-out | Could be a third scene if time allows, otherwise a placeholder |
-| 7 | TV launch (انطلاق البث التلفزي) | 07 | none | P1 placeholder |
-| 8 | Bourguiba / independence (إمضاء الاستقلال) | 08 | none | Placeholder. No avatar likeness, archive frame only |
-| 9 | Dhi3et Mahrous (ضيعة محروس) | 09 | none | P1 placeholder |
+| 5 | Al Ahad Al Riyadhi (الأحد الرياضي) | 05 | none | Placeholder: labelled 70s sports-studio backdrop (`assets-src/renders/placeholder-sports-studio.svg`). No year on the tape (not verified) |
+| 6 | Tunisia 3–1 Mexico, 1978 (تونس 3–1 المكسيك) | 06 | none | Placeholder: labelled 70s stadium-at-night backdrop. Year 1978 shown; facts in `docs/TO-VERIFY.md` |
 | — | Entry / Custom TV | — | `old tv` cut-out | Entry DOM image plus a textured plane in Custom |
 | — | Lobby living room | — | **missing** | See §6 |
 | — | Unassigned | — | `fochika` (probably the Choufli Hal silhouette character from the board), `chof li hal 4`, `CHOF LI HAL7`, `CHOFLI HAL9` | I'll sort them by room while building step 4 |

@@ -1,14 +1,15 @@
 import { useApp } from '../../app/appStore';
+import { momentById } from '../../data/moments';
 import { useT } from '../../i18n/useT';
 import { endStory, goToStop, STORY } from './story';
 import styles from './StoryBar.module.css';
 
 /** Story mode: where you are in the visit, a hint to keep scrolling, and a way to explore alone. */
 export function StoryBar() {
-  const { t } = useT();
+  const { t, pick } = useT();
   const index = useApp((s) => s.storyIndex);
   const last = index === STORY.length - 1;
-  const stop = STORY[index]!;
+  const moment = momentById(STORY[index]!.momentId);
 
   return (
     <div className={`${styles.bar} glass chrome`} role="group" aria-label={t('story.label')} data-testid="story-bar">
@@ -17,7 +18,7 @@ export function StoryBar() {
       </button>
       <div className={styles.middle}>
         <p className={styles.stop} aria-live="polite">
-          {t(stop.label)}
+          <bdi dir="ltr">{moment.channel}/{STORY.length}</bdi> · {pick(moment.title)}
         </p>
         <div
           className={styles.track}

@@ -1,59 +1,50 @@
 import { useApp } from '../../app/appStore';
-import { changeScene, insertTape, leaveMoment } from '../../app/transitions';
+import { changeScene, insertTape } from '../../app/transitions';
+import { momentById, moments, type MomentId } from '../../data/moments';
 import { switchChannel } from '../custom/channelSwitch';
-import type { MomentId } from '../../data/moments';
-import type { MessageKey } from '../../i18n/useT';
 
-export type StoryStop =
-  | { kind: 'lobby'; label: MessageKey }
-  | { kind: 'tv'; channel: number; label: MessageKey }
-  | { kind: 'moment'; momentId: MomentId; roomId?: string; label: MessageKey };
-
-/** The guided visit: the living room, the TV, then a walk through two moments. */
-export const STORY: StoryStop[] = [
-  { kind: 'lobby', label: 'story.stop.lobby' },
-  { kind: 'tv', channel: 1, label: 'story.stop.tv' },
-  { kind: 'moment', momentId: 'choufli-hal', roomId: 'office', label: 'story.stop.office' },
-  { kind: 'moment', momentId: 'choufli-hal', roomId: 'corridor', label: 'story.stop.corridor' },
-  { kind: 'moment', momentId: 'choufli-hal', roomId: 'kitchen', label: 'story.stop.kitchen' },
-  { kind: 'tv', channel: 2, label: 'story.stop.tv2' },
-  { kind: 'moment', momentId: 'om-kalthoum', label: 'story.stop.kalthoum' },
-];
+/** One stop per moment, in channel order: the guided visit is a tour of the whole tape shelf. */
+export const STORY: { momentId: MomentId }[] = moments.map((m) => ({ momentId: m.id }));
 
 let busy = false;
 
-/** Travels to a stop with the same journeys the free mode uses (glide, push through the screen, fade). */
+/** Travels to a stop with the same journeys the free mode uses (glide to the TV, push through the screen, fade). */
+async function travelTo(i: number) {
+  const app = useApp.getState();
+  const { id, channel } = momentById(STORY[i]!.momentId);
+  app.setStoryIndex(i);
+  if (app.route.name === 'moment') {
+    // Already inside a moment: go straight to the next one, and leave the TV on its channel.
+    app.setChannel(channel);
+    await changeScene({ name: 'moment', momentId: id });
+    return;
+  }
+  if (app.route.name !== 'custom') app.go({ name: 'custom' });
+  if (useApp.getState().channel !== channel) switchChannel(channel);
+  await insertTape(id);
+}
+
 export async function goToStop(index: number) {
   const i = Math.max(0, Math.min(STORY.length - 1, index));
   const app = useApp.getState();
   if (busy || (i === app.storyIndex && app.story)) return;
-  const stop = STORY[i]!;
   busy = true;
   try {
-    app.setStoryIndex(i);
-    const route = app.route;
-    if (stop.kind === 'lobby') {
-      if (route.name === 'moment') await leaveMoment('lobby');
-      else app.go({ name: 'lobby' });
-    } else if (stop.kind === 'tv') {
-      if (route.name === 'moment') await leaveMoment('custom');
-      else if (route.name !== 'custom') app.go({ name: 'custom' });
-      window.setTimeout(() => switchChannel(stop.channel), route.name === 'custom' ? 0 : 700);
-    } else if (route.name === 'moment') {
-      await changeScene({ name: 'moment', momentId: stop.momentId, roomId: stop.roomId });
-    } else {
-      if (route.name !== 'custom') app.go({ name: 'custom' });
-      if (useApp.getState().channel !== (stop.momentId === 'choufli-hal' ? 1 : 2)) switchChannel(stop.momentId === 'choufli-hal' ? 1 : 2);
-      await insertTape(stop.momentId, stop.roomId);
-    }
+    await travelTo(i);
   } finally {
     busy = false;
   }
 }
 
-export function startStory() {
+export async function startStory() {
+  if (busy) return;
   useApp.getState().setStory(true, 0);
-  void goToStop(1);
+  busy = true;
+  try {
+    await travelTo(0);
+  } finally {
+    busy = false;
+  }
 }
 
 export function endStory() {

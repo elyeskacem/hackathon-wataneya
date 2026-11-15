@@ -15,11 +15,9 @@ const JOBS = [
   { src: 'CHOF LI HAL7 1.png', out: 'choufli-kitchen', width: 1920, crop: { right: 0.05, bottom: 0.015 } },
   { src: 'chofli hal 9.png', out: 'choufli-salon', width: 1920 },
   { src: 'stage kalthom 1.png', out: 'kalthoum-hall', width: 2048 },
-  { src: 'mnamit 3rosiya 1.png', out: 'mnamet-patio', width: 1920 },
   { src: 'sliman  _he is charecter from chofli hal_.png', out: 'char-sliman', height: 1200, trim: true },
   { src: 'sbou3i 1.png', out: 'char-sbou3i', height: 1000, trim: true },
   { src: 'om_kalthoum 1.png', out: 'char-om-kalthoum', height: 800, trim: true },
-  { src: 'chdli tamar _he is charecter from mnamit 3rosiya_.png', out: 'char-chdli-tamar', height: 1200, trim: true },
 ];
 
 async function cropped(file, crop = {}) {

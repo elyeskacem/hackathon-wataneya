@@ -9,9 +9,8 @@ below is held back until someone confirms it and updates the data files.
 |---|---|---|
 | Choufli Hal | 2005 | to verify |
 | Om Kalthoum concert | 1968 | to verify |
-| Official launch of TV broadcasting | 1966 | to verify |
-| Bourguiba signing the independence agreement | 1956 | to verify |
-| Other five moments | — | missing |
+| Tunisia 3–1 Mexico | 1978 | **shown** (`yearVerified: true`), stated by the team: double-check before the demo |
+| News studio, El Khottab Al Bab, Al Ahad Al Riyadhi | — | missing (no year on the tape) |
 
 To show a year: set `"yearVerified": true` for that moment. To preview all of them before
 verification (team rehearsal only): `VITE_SHOW_UNVERIFIED_YEARS=true`.
@@ -29,6 +28,16 @@ verification (team rehearsal only): `VITE_SHOW_UNVERIFIED_YEARS=true`.
 
 To publish an answer: replace the `TO VERIFY` text in `a`, keep `source` (and `year` if relevant),
 set `"status": "verified"`. Keep it to three sentences; extra detail goes in `more`.
+
+## Tunisia 3–1 Mexico (shown by the guide, source «أرشيف الوطنية / FIFA»)
+
+These were given by the team and are published as `verified` so the demo can use them. Please confirm each one:
+
+| Entry | Fact |
+|---|---|
+| `tunisia-mexico-result` | Tunisia beat Mexico 3–1 at the 1978 FIFA World Cup in Argentina; the first win by an African team at a World Cup |
+| `tunisia-mexico-where` | Played on 2 June 1978 in Rosario, Argentina |
+| `al-ahad-what` | Al Ahad Al Riyadhi is the Sunday sports show (nothing else is claimed) |
 
 ## Character cards
 

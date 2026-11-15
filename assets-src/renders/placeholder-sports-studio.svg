@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <!-- PLACEHOLDER backdrop: a 1970s TV sports studio. Replace with the real scene when it exists. -->
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b1a10"/>
+      <stop offset="1" stop-color="#6a3d1c"/>
+    </linearGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3b2a1d"/>
+      <stop offset="1" stop-color="#15100c"/>
+    </linearGradient>
+    <linearGradient id="desk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b8814a"/>
+      <stop offset="1" stop-color="#6e4524"/>
+    </linearGradient>
+    <radialGradient id="spot" cx="0.5" cy="0" r="1">
+      <stop offset="0" stop-color="#ffe2a8" stop-opacity="0.75"/>
+      <stop offset="1" stop-color="#ffe2a8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="screen" cx="0.5" cy="0.5" r="0.7">
+      <stop offset="0" stop-color="#5a7fa8"/>
+      <stop offset="1" stop-color="#1c2b3d"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#wall)"/>
+  <!-- wall stripes -->
+  <g opacity="0.55">
+    <rect x="0" y="0" width="1600" height="560" fill="none"/>
+    <rect x="120" y="0" width="70" height="560" fill="#c76a1c"/>
+    <rect x="260" y="0" width="40" height="560" fill="#e0a02c"/>
+    <rect x="1300" y="0" width="40" height="560" fill="#e0a02c"/>
+    <rect x="1410" y="0" width="70" height="560" fill="#c76a1c"/>
+  </g>
+  <!-- studio lights -->
+  <g>
+    <polygon points="360,0 520,0 640,520 240,520" fill="url(#spot)"/>
+    <polygon points="1080,0 1240,0 1360,520 960,520" fill="url(#spot)"/>
+    <rect x="300" y="0" width="280" height="26" fill="#1a1109"/>
+    <rect x="1020" y="0" width="280" height="26" fill="#1a1109"/>
+  </g>
+  <!-- big ball emblem -->
+  <g transform="translate(800 250)">
+    <circle r="150" fill="#f2e6cf" stroke="#2b1a10" stroke-width="10"/>
+    <polygon points="0,-62 59,-19 36,50 -36,50 -59,-19" fill="#2b1a10"/>
+    <g stroke="#2b1a10" stroke-width="8" fill="none">
+      <path d="M0 -62 L0 -148 M59 -19 L140 -48 M36 50 L88 118 M-36 50 L-88 118 M-59 -19 L-140 -48"/>
+    </g>
+  </g>
+  <!-- monitors -->
+  <g>
+    <rect x="130" y="300" width="250" height="190" rx="18" fill="#1c1109"/>
+    <rect x="150" y="318" width="210" height="150" rx="40" fill="url(#screen)"/>
+    <rect x="1220" y="300" width="250" height="190" rx="18" fill="#1c1109"/>
+    <rect x="1240" y="318" width="210" height="150" rx="40" fill="url(#screen)"/>
+  </g>
+  <!-- floor -->
+  <rect x="0" y="560" width="1600" height="340" fill="url(#floor)"/>
+  <!-- desk -->
+  <g>
+    <path d="M300 610 Q800 560 1300 610 L1360 690 Q800 650 240 690 Z" fill="url(#desk)"/>
+    <path d="M240 690 Q800 650 1360 690 L1340 820 Q800 790 260 820 Z" fill="#7a4a26"/>
+    <g opacity="0.7">
+      <rect x="330" y="700" width="120" height="100" fill="#3a2412"/>
+      <rect x="560" y="705" width="120" height="100" fill="#c76a1c"/>
+      <rect x="790" y="708" width="120" height="100" fill="#3a2412"/>
+      <rect x="1020" y="705" width="120" height="100" fill="#c76a1c"/>
+    </g>
+  </g>
+  <!-- placeholder label -->
+  <g>
+    <rect x="40" y="40" width="330" height="64" rx="12" fill="#e30613"/>
+    <text x="205" y="85" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" letter-spacing="4" fill="#ffffff">PLACEHOLDER</text>
+  </g>
+</svg>

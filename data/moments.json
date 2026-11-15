@@ -84,108 +84,45 @@
     "look": "warm70"
   },
   {
-    "id": "laroui",
+    "id": "al-ahad-riyadhi",
     "channel": 5,
     "title": {
-      "ar": "حكايات العروي",
-      "fr": "Les histoires de Laroui",
-      "en": "Laroui's stories",
-      "zh": "Laroui 的故事"
+      "ar": "الأحد الرياضي",
+      "fr": "Al Ahad Al Riyadhi",
+      "en": "Al Ahad Al Riyadhi",
+      "zh": "Al Ahad Al Riyadhi"
     },
     "kind": {
-      "ar": "حكايات",
-      "fr": "Documentaire",
-      "en": "Documentary",
-      "zh": "纪录片"
+      "ar": "حصة رياضية",
+      "fr": "Émission sportive",
+      "en": "Sports show",
+      "zh": "体育节目"
     },
     "year": null,
     "yearVerified": false,
     "scene": null,
-    "thumb": null,
+    "thumb": "renders/placeholder-sports-studio.webp",
     "look": "warm70"
   },
   {
-    "id": "mnamet-aroussia",
+    "id": "tunisia-mexico-1978",
     "channel": 6,
     "title": {
-      "ar": "منامة عروسية",
-      "fr": "Mnamet Aroussia",
-      "en": "Mnamet Aroussia",
-      "zh": "Mnamet Aroussia"
+      "ar": "تونس 3–1 المكسيك",
+      "fr": "Tunisie 3–1 Mexique",
+      "en": "Tunisia 3–1 Mexico",
+      "zh": "突尼斯 3–1 墨西哥"
     },
     "kind": {
-      "ar": "مسلسل",
-      "fr": "Série",
-      "en": "Series",
-      "zh": "电视剧"
+      "ar": "مقابلة",
+      "fr": "Match",
+      "en": "Match",
+      "zh": "比赛"
     },
-    "year": null,
-    "yearVerified": false,
+    "year": 1978,
+    "yearVerified": true,
     "scene": null,
-    "thumb": "renders/mnamet-patio.webp",
+    "thumb": "renders/placeholder-stadium-night.webp",
     "look": "warm70"
-  },
-  {
-    "id": "tv-launch",
-    "channel": 7,
-    "title": {
-      "ar": "انطلاق البث التلفزي",
-      "fr": "Lancement de la télévision",
-      "en": "The launch of television",
-      "zh": "电视开播"
-    },
-    "kind": {
-      "ar": "حدث",
-      "fr": "Événement",
-      "en": "Event",
-      "zh": "事件"
-    },
-    "year": 1966,
-    "yearVerified": false,
-    "scene": null,
-    "thumb": null,
-    "look": "bw60"
-  },
-  {
-    "id": "independence",
-    "channel": 8,
-    "title": {
-      "ar": "إمضاء الاستقلال",
-      "fr": "Signature de l'indépendance",
-      "en": "The signing of independence",
-      "zh": "独立文件的签署"
-    },
-    "kind": {
-      "ar": "حدث",
-      "fr": "Événement",
-      "en": "Event",
-      "zh": "事件"
-    },
-    "year": 1956,
-    "yearVerified": false,
-    "scene": null,
-    "thumb": null,
-    "look": "bw60"
-  },
-  {
-    "id": "dhi3et-mahrous",
-    "channel": 9,
-    "title": {
-      "ar": "ضيعة محروس",
-      "fr": "Dhi3et Mahrous",
-      "en": "Dhi3et Mahrous",
-      "zh": "Dhi3et Mahrous"
-    },
-    "kind": {
-      "ar": "مسلسل",
-      "fr": "Série",
-      "en": "Series",
-      "zh": "电视剧"
-    },
-    "year": null,
-    "yearVerified": false,
-    "scene": null,
-    "thumb": null,
-    "look": "vhs90"
   }
 ]

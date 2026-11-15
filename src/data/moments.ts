@@ -7,11 +7,8 @@ export type MomentId =
   | 'om-kalthoum'
   | 'news-studio'
   | 'el-khottab'
-  | 'laroui'
-  | 'mnamet-aroussia'
-  | 'tv-launch'
-  | 'independence'
-  | 'dhi3et-mahrous';
+  | 'al-ahad-riyadhi'
+  | 'tunisia-mexico-1978';
 
 export interface Moment {
   id: MomentId;

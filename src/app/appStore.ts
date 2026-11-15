@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { MomentId } from '../data/moments';
+import { moments, type MomentId } from '../data/moments';
 
 /** 'glow' = fade through warm CRT light (default journey), 'static' = bridge while an asset loads, 'fade' = plain. */
 export type Curtain = 'glow' | 'static' | 'fade' | null;
@@ -15,7 +15,7 @@ export type Route =
 
 interface AppState {
   route: Route;
-  /** Channel shown on the TV in Custom mode (1–9). */
+  /** Channel shown on the TV in Custom mode (1 to the number of moments). */
   channel: number;
   /** True for 0.5 s while the TV shows static between channels or scenes. */
   staticBurst: boolean;
@@ -75,7 +75,7 @@ export const useApp = create<AppState>()((set) => ({
   inserting: false,
   stageFailed: false,
   go: (route) => set({ route, drawerOpen: false, inserting: false }),
-  setChannel: (channel) => set({ channel: ((channel - 1 + 9) % 9) + 1 }),
+  setChannel: (channel) => set({ channel: ((channel - 1 + moments.length) % moments.length) + 1 }),
   setStaticBurst: (staticBurst) => set({ staticBurst }),
   setGuideOpen: (guideOpen) => set({ guideOpen }),
   setDrawerOpen: (drawerOpen) => set({ drawerOpen }),

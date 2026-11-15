@@ -5,7 +5,7 @@ import { useT } from '../../i18n/useT';
 import { switchChannel } from './channelSwitch';
 import styles from './TapeDrawer.module.css';
 
-/** «رفّ الكاسيط»: the 9 moments as VHS tapes; picking one puts it in the TV. */
+/** «رفّ الكاسيط»: every moment as a VHS tape; picking one puts it in the TV. */
 export function TapeDrawer({ onClose }: { onClose: () => void }) {
   const { t, pick } = useT();
   const channel = useApp((s) => s.channel);
@@ -31,7 +31,7 @@ export function TapeDrawer({ onClose }: { onClose: () => void }) {
             <h2 id="drawer-title" className={styles.title}>
               {t('custom.drawerTitle')}
             </h2>
-            <p className={styles.sub}>{t('custom.drawerSub')}</p>
+            <p className={styles.sub}>{t('custom.drawerSub', { n: moments.length })}</p>
           </div>
           <button type="button" className={styles.close} onClick={onClose} aria-label={t('common.close')}>
             <svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">

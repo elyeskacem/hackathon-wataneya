@@ -1,7 +1,9 @@
 import type { Locale } from '../../app/settingsStore';
+import type { MomentId } from '../../data/moments';
 import type { Localized } from '../../i18n/useT';
 
-export type GuideContext = 'home' | 'custom' | 'choufli-hal' | 'om-kalthoum';
+/** Where the visitor is: a screen, or one of the moments (each has its own suggested questions). */
+export type GuideContext = 'home' | 'custom' | MomentId;
 
 export type GuideAction = { type: 'channel'; channel: number };
 
